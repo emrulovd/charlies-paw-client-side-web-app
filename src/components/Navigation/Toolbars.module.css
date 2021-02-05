@@ -1,0 +1,20 @@
+.Toolbar{
+    height: 64px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+    z-index: 90;
+    color: #000000;
+}
+
+.Toolbar nav{
+    height: 100%;
+
+}   

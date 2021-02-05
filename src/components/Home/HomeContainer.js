@@ -1,12 +1,12 @@
 import React from 'react';
 
-import SlideShow from './SlideShow/SlideShow';
+import Banner from './Banner/Banner';
 
 
 const homeContainer = () => {
     return(
         <div>
-            <SlideShow/>
+            <Banner/>
         </div>
     )
 }
