@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: red;
+    background-color: #fefefe;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,5 +16,4 @@
 
 .Toolbar nav{
     height: 100%;
-
 }   

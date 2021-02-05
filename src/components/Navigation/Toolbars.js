@@ -2,6 +2,7 @@ import React from 'react';
 
 import NavGroupMainItems from './NavGroupMainItems/NavGroupMainItems';
 import NavGroupDynamicItems from './NavGroupDynamicItems/NavGroupDynamicItems';
+import Logo from '../Logo/Logo';
 import classes from './Toolbars.module.css'
 
 const toolbar = () => {
@@ -10,7 +11,7 @@ const toolbar = () => {
             <nav>
                 <NavGroupMainItems/>
             </nav>
-            <div>LOGO</div>
+            <Logo/>
             <nav>
                 <NavGroupDynamicItems/>
             </nav>
