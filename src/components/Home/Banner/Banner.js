@@ -3,14 +3,10 @@ import React from 'react';
 import classes from './Banner.module.css'
 
 
-const slideShow = () => {
+const banner = () => {
     return(
-        <div className={classes.BannerSize}>
-            <div className={classes.SlideShow}>
-
-            </div>
-        </div>
+        <div className={classes.Banner}></div>
     )
 }
 
-export default slideShow;
+export default banner;
