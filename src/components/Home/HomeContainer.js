@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Banner from './Banner/Banner';
-import MainDetails from './AppDetails/MainDetails'
+import MainDetails from './AppDetails/MainDetails/MainDetails'
 
 
 const homeContainer = () => {
