@@ -20,7 +20,7 @@ const Toolbar = () => {
     window.addEventListener('scroll', changeBackground);
 
     return(
-        <header style = {{transition: "500ms"}}className={navbar ? classes.Active : classes.Toolbar}>
+        <header className={navbar ? classes.Active : classes.Toolbar}>
             <nav>
                 <NavGroupMainItems/>
             </nav>

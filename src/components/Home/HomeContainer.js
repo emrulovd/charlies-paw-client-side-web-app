@@ -1,14 +1,14 @@
 import React from 'react';
 
 import Banner from './Banner/Banner';
-import MainDetails from './AppDetails/MainDetails/MainDetails'
+import AppDetails from './AppDetails/AppDetails'
 
 
 const homeContainer = () => {
     return(
         <div>
             <Banner/>
-            <MainDetails/>
+            <AppDetails/>
         </div>
     )
 }

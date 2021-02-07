@@ -10,7 +10,7 @@
     width: 50%;
 }
 
-.Container .Logo{
+.Container .Icon{
     margin-top: 20%;
     height: 25vh; 
     margin-left: auto;
@@ -25,7 +25,7 @@
 }
 
 .Container p{
-    padding-top: 50px;
+    padding: 50px 50px 50px;
     color: #787878;
     font-size: 18px;
 }
