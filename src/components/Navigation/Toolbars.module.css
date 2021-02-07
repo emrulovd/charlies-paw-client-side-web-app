@@ -1,10 +1,10 @@
 .Toolbar{
-    height: 64px;
+    height: 66px;
     width: 100%;
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #fefefe;
+    background: transparent;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,6 +14,24 @@
     color: #000000;
 }
 
+.Active{
+    background: linear-gradient(#10C9C3, #fefefefe);
+    height: 66px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+    z-index: 90;
+    color: #000000;
+}
+
+
 .Toolbar nav{
     height: 100%;
-}   
+}
+

@@ -1,13 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import NavGroupMainItems from './NavGroupMainItems/NavGroupMainItems';
 import NavGroupDynamicItems from './NavGroupDynamicItems/NavGroupDynamicItems';
 import Logo from '../Logo/Logo';
 import classes from './Toolbars.module.css'
 
-const toolbar = () => {
+const Toolbar = () => {
+    const [navbar, setNavbar] = useState(false);
+
+
+    const changeBackground = () => {
+        console.log(window.scrollY);
+        if(window.scrollY >= 500){
+            setNavbar(true);
+        }else{
+            setNavbar(false);
+        }
+    }
+
+    window.addEventListener('scroll', changeBackground);
+
     return(
-        <header className={classes.Toolbar}>
+        <header style = {{transition: "500ms"}}className={navbar ? classes.Active : classes.Toolbar}>
             <nav>
                 <NavGroupMainItems/>
             </nav>
@@ -19,4 +33,4 @@ const toolbar = () => {
     )
 }
 
-export default toolbar;
+export default Toolbar;
