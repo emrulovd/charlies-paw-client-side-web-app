@@ -13,8 +13,7 @@ const footer = () => {
             <Container fluid>
                 <Row>
                     <Col>
-                    <p>Copyright&copy; 2021 {name}<br/>
-                    Designed by Ralitsa Stefanova, former designer of {name}
+                    
                     </p>
                     </Col>
                     <Col></Col>

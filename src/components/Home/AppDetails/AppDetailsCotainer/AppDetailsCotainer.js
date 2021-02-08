@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import {Parallax} from 'react-parallax';
 import classes from './AppDetailsCotainer.module.css';
 
 
@@ -11,8 +12,9 @@ const appDetailsConatainer = (props) =>{
         return(
             <div className={classes.Container}>
             <Container fluid>
-                    <Row>
-                            <img className={classes.Pic} src={props.pic} alt="shelter dog"/>
+                    <Row>   
+                            {/* <img className={classes.Pic} src={props.pic} alt="shelter dog"/> */}
+                            <Parallax bgImage={props.pic} className={classes.Pic} strength={200}/>
                             <Col>
                                 <img src={props.icon} className={classes.Icon} alt="icon"/>
                                 <h1>{props.title}</h1>
@@ -32,7 +34,8 @@ const appDetailsConatainer = (props) =>{
                         <h1>{props.title}</h1>
                         <p>{props.children}</p>
                     </Col>  
-                    <img className={classes.Pic} src={props.pic} alt="shelter dog"/>
+                    {/* <img className={classes.Pic} src={props.pic} alt="shelter dog"/> */}
+                    <Parallax bgImage={props.pic} className={classes.Pic} strength={300}/>
                 </Row>
            </Container>
         </div>
