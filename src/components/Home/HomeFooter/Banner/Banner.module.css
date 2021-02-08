@@ -1,0 +1,39 @@
+.Banner{
+    height: 50vh;
+    width: 100%;
+    background-image: url("../../../../assets/home-footer.png");
+    align-items: justify;
+}
+
+
+.Border{
+    border: 2px solid transparent;
+    /* padding-top: 10%; */
+}
+
+
+.Inner{
+    border: 2px solid transparent;
+    margin-top: 5%;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #fefefe;
+    padding: 40px 40px 40px;
+    opacity: 0.7;
+}
+
+.Inner p{
+    text-align: center;
+    font-size: 48px;
+}
+
+.Inner Button{
+    margin-top: 2px;
+    margin-left: 40%;
+    margin-right: auto;
+    background-color:#10C9C3;
+    border: #10C9C3;
+    text-transform: uppercase;
+    padding: 5px 20px 5px;
+}

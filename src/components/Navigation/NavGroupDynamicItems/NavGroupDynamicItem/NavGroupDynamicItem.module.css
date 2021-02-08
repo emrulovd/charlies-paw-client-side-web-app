@@ -1,0 +1,33 @@
+.NavigationItem{
+    margin: 0;
+    box-sizing: border-box;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    list-style: none;
+}
+
+.NavigationItem a{
+    color: #353535;
+    text-transform: uppercase;
+    text-decoration: none;
+    height: 100%;
+    padding: 16px 10px;
+    border-bottom: 4px solid transparent;
+    box-sizing: border-box;
+    display: block;
+    font-weight: bold;
+}
+
+.NavigationItem a:hover,
+.NavigationItem a:active,
+.NavigationItem a.active{
+    transition: 500ms;
+    /* background-color: #8F5C; */
+    border-radius: 32px;
+    /* border-top: 4px solid #8F5C; */
+    border-bottom: 4px solid #10C9C3;
+    color: #10C9C3;
+    
+
+}
