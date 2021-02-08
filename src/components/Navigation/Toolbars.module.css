@@ -15,7 +15,9 @@
 }
 
 .Active{
-    background: linear-gradient(#10C9C3, #fefefefe);
+    /* background: linear-gradient(#10C9C3, #fefefefe); */
+    /* background: linear-gradient(#10C9C3, #fefefefe); */
+    background-color: #fefefe;
     height: 66px;
     width: 100%;
     position: fixed;

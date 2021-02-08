@@ -1,5 +1,13 @@
 .Footer{
-    height: 40vh;
+    height: 30vh;
     width: 100%;
-    background: linear-gradient(#10C9C3, #fefefefe);
+    /* background: linear-gradient( #fefefefe, #B7C785); */
+    background: #959595;
+}
+
+
+.Footer p{
+    margin-left: 10%;
+    font-size: 12px;
+    font-weight: bold;
 }
