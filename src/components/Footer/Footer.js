@@ -3,6 +3,9 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Row';
 
+import Reserved from './Resreved/Rserved'
+import Contacts from './Contacts/Contacts'
+import FooterNavigation from './FooterNavigation/FooterNavigation'; 
 import classes from './Footer.module.css';
 
 
@@ -13,12 +16,14 @@ const footer = () => {
             <Container fluid>
                 <Row>
                     <Col>
-                    <p>Copyright&copy; 2021 {name}<br/>
-                    Designed by Ralitsa Stefanova, former designer of {name}
-                    </p>
+                        <Reserved name={name}/>
                     </Col>
-                    <Col></Col>
-                    <Col></Col>
+                    <Col>
+                        <FooterNavigation/>
+                    </Col>
+                    <Col>
+                        <Contacts/>
+                    </Col>
                 </Row>
             </Container>
         </div>

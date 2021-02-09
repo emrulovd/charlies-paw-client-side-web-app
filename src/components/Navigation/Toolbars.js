@@ -10,7 +10,7 @@ const Toolbar = () => {
 
 
     const changeBackground = () => {
-        if(window.scrollY >= 500){
+        if(window.scrollY >= 80){
             setNavbar(true);
         }else{
             setNavbar(false);
