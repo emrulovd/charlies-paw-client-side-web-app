@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { NavLink } from 'react-router-dom';
 
 import classes from './NavGroupMainItem.module.css';
 
@@ -7,7 +8,7 @@ const NavGroupMainItem = (props) => {
     const [navItems, setNavItems] = useState(false);
 
     const changeItemsColor = () => {
-        if(window.scrollY >=650){
+        if(window.scrollY >=80){
             setNavItems(true);
         }else{
             setNavItems(false);
@@ -18,9 +19,12 @@ const NavGroupMainItem = (props) => {
 
     return(
         <li className={navItems ? classes.ActiveNavigationItem : classes.NavigationItem}>
-            <a
-             href = {props.link}
-             className={props.active ? classes.active : null}> {props.children} </a>
+            <NavLink 
+            to = {props.link}
+            exact={props.exact}
+            activeClassName={classes.active }> 
+            {props.children}
+             </NavLink>
         </li>
     )
 }

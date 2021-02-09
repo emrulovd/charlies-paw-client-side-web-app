@@ -7,6 +7,7 @@
 }
 
 .NavigationItem a{
+    transition: all 1s;
     color: #fefefe;
     text-decoration: none;
     height: 100%;
@@ -42,6 +43,7 @@
 }
 
 .ActiveNavigationItem a{
+    transition: all 1s;
     color: #353535;
     text-transform: uppercase;
     text-decoration: none;

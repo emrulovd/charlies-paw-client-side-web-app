@@ -6,7 +6,7 @@ const NavGroupDynamicItem = (props) => {
     const [navItems, setNavItems] = useState(false);
 
     const changeItemsColor = () => {
-        if(window.scrollY >=650){
+        if(window.scrollY >=80){
             setNavItems(true);
         }else{
             setNavItems(false);
