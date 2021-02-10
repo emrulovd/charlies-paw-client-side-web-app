@@ -3,15 +3,18 @@ import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import classes from './DogsPanelControl.module.css'
 
+import DogsList from './Dogs-list/Dogs-List';
+import Filter from './Filter/Filter';
+
 const dogsPanel = (props) => {
     return(
         <Container fluid className={classes.DogsPanelControl}>
             <Row>
                 <Col sm={2}>
-                    <h1>Filter</h1>
+                    <Filter/>
                 </Col>
                 <Col>
-                    <h1>Dogs-list</h1>
+                    <DogsList/>
                 </Col>
             </Row>
         </Container>
