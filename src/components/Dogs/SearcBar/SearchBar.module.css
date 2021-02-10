@@ -1,0 +1,23 @@
+.SearchBar{
+    width: 100%;
+    height: 30vh;
+}   
+
+.SearchBar input{
+    border: none;
+    border-style: none;
+    width: 500px;
+    height: 25px;
+    padding: 5px 10px 5px;
+    outline: none;
+}
+
+.SearchBar .Wrapper{
+    border: 1px solid black;
+    width: fit-content;
+    padding: 10px 10px 10px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;    
+    border-radius: 24px;
+}

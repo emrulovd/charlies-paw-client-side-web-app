@@ -1,12 +1,13 @@
 import React from 'react';
 
 import {Container, Row, Col} from 'react-bootstrap';
+import classes from './DogsPanelControl.module.css'
 
 const dogsPanel = (props) => {
     return(
-        <Container fluid>
+        <Container fluid className={classes.DogsPanelControl}>
             <Row>
-                <Col>
+                <Col sm={2}>
                     <h1>Filter</h1>
                 </Col>
                 <Col>
