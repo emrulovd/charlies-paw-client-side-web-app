@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+
 import Layout from './components/Layout/Layout';
 import HomeContainer from './components/Home/HomeContainer';
 import DogsPanel from './containers/DogsPanel/DogsPanel';

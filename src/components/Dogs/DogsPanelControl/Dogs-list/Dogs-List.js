@@ -5,7 +5,7 @@ import DogsListItem from './Dogs-List-Item/Dogs-List-Item';
 import ListGroup from 'react-bootstrap/ListGroup'
 import classes from './Dogs-List.module.css';
 
-const dogsList = () =>{
+const dogsList = (props) =>{
     return(
         <div className={classes.Container}>
             <ListGroup variant="flush">
@@ -29,6 +29,19 @@ const dogsList = () =>{
                 location=" Birmingham, West Midlands"
                 image="https://www.peta.org/wp-content/uploads/2017/05/iStock_11799314_Story_Stock.jpg"
                 content="We have only 1 puppy left out of our litter of 6. The photos have been updated to only show the one remaining puppy. Only 2 female puppies left. One grey with white markings and lovely blue eyes, the other is black with white markings and dark brown eyes. Update 02/02/20"/>
+                {
+                    props.dogs.map((dog, index) =>{
+                        return(
+                            <DogsListItem
+                             key={index}
+                             title={dog.dogName}
+                             location={dog.location}
+                             image={dog.image}
+                             content={dog.discription}
+                             />
+                        )
+                    })
+                }
             </ListGroup>
         </div>
     )
