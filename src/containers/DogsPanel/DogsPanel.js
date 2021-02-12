@@ -14,6 +14,11 @@ class DogsPanel extends Component {
         super(props);
         this.state = {
           dogs: [],
+          searchedDogs: [],
+          search: {
+              valid: false,
+              value: '',
+          }
         }
     }
 
@@ -30,6 +35,33 @@ class DogsPanel extends Component {
             });
     }
 
+    newSearchDogHandler = (event) =>{
+        const newDogs = [];
+        for( let dog in this.state.dogs){
+            if(this.state.dogs[dog].breed === this.state.search.value){
+                newDogs.push(this.state.dogs[dog]);
+            }
+        }
+        let updatedDogs = {
+            ...this.state.dogs
+        }
+        updatedDogs = newDogs;
+        this.setState({searchedDogs: updatedDogs})
+        console.log(this.state.dogs[0]);
+    }
+
+    searchDogHandler = (event) => {
+        const updatedSearch = {
+            ...this.state.search
+        }
+        const updatedSearchValue = event.target.value;
+        updatedSearch.value = updatedSearchValue;
+        this.setState({search: {
+            valid: true,
+            value: updatedSearch.value
+        }})
+    }
+
     render() {
         return(
             <div>
@@ -38,9 +70,9 @@ class DogsPanel extends Component {
                         <DogsBanner/>
                     </Row>
                 </Container>
-                <SearchBar/>
+                <SearchBar searchValue = {this.searchDogHandler} search = {this.newSearchDogHandler}/>
                 {/* { this.state.dogs.map((dog, index) => ( <p key={index}>{dog.dogName}</p>))} */}
-                <DogsPanelControl dogs = {this.state.dogs}/>
+                <DogsPanelControl dogs = { this.state.searchedDogs.length === 0? this.state.dogs : this.state.searchedDogs}/>
             </div>
 
         )

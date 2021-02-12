@@ -12,6 +12,11 @@
     outline: none;
 }
 
+.SearchBar button{
+    border: none;
+    background-color: white;
+}
+
 .SearchBar .Wrapper{
     border: 2px solid black;
     width: fit-content;
