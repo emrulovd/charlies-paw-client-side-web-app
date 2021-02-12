@@ -67,8 +67,16 @@ class DogsEdit extends Component{
         }
     }
 
-    inputChangeHandler = (event) => {
-        console.log(event.target.value);
+    inputChangeHandler = (event, inputIndentifier) => {
+        const updatedDogForm = {
+            ...this.state.dogForm
+        }
+        const updatedFormElement = { 
+            ...updatedDogForm[inputIndentifier]
+        };
+        updatedFormElement.value = event.target.value;
+        updatedDogForm[inputIndentifier] = updatedFormElement;
+        this.setState({dogForm: updatedDogForm});
     }
 
     render(){
@@ -81,7 +89,7 @@ class DogsEdit extends Component{
         }
         return(
             <div>
-                <Form>
+                <Form onSubmit={this.newDogHandler}>
                     {formElementsArray.map((formElement) => (
                         <Form.Group key = {formElement.id}>
                             <Form.Label>{formElement.config.elementConfig.placeholder}</Form.Label>
@@ -89,7 +97,7 @@ class DogsEdit extends Component{
                                 elementype={formElement.config.elementType}
                                 elementconfig={formElement.config.elementConfig}
                                 value = {formElement.value}
-                                onChange={this.inputChangeHandler} />
+                                onChange={(event) => this.inputChangeHandler(event, formElement.id)} />
                         </Form.Group>
                     ))}
                     <Button variant="primary" type="submit">
