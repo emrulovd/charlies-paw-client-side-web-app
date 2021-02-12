@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 import { Form, Button } from 'react-bootstrap';
 
@@ -7,7 +8,7 @@ class DogsEdit extends Component{
         super(props);
         this.state = {
             dogForm: {
-                dog_name:{
+                dogName:{
                     elementType: 'input',
                     elementConfig: {
                         type: 'text',
@@ -31,7 +32,7 @@ class DogsEdit extends Component{
                     },
                     value: ''
                 },
-                breed_size:{
+                breedSize:{
                     elementType: 'input',
                     elementConfig: {
                         type: 'text',
@@ -63,10 +64,27 @@ class DogsEdit extends Component{
                     },
                     value: ''
                 },
-            }
+            },
+            loading: false,
         }
     }
 
+    async PostData (formData){
+        axios.post('http://localhost:8080/dogs/create', formData)
+            .then( result => {
+                console.log(result);
+            });
+    }
+    newDogHandler = ( event ) => {
+        event.preventDefault();
+        this.setState({loading: true});
+        const formData = {};
+        for( let formElementIndentifier in this.state.dogForm){
+            formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
+        }
+        this.PostData(formData);
+        this.props.history.push('/dogs-list');
+    }
     inputChangeHandler = (event, inputIndentifier) => {
         const updatedDogForm = {
             ...this.state.dogForm
