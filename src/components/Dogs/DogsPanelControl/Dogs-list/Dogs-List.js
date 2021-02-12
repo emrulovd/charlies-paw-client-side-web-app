@@ -1,50 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {Route, withRouter} from 'react-router-dom';
 
 import DogsListItem from './Dogs-List-Item/Dogs-List-Item';
+import DogsEdit from '../../../../containers/DogsPanel/Dogs-edit/Dogs-Edit';
 
-import ListGroup from 'react-bootstrap/ListGroup'
+import { ListGroup, Button } from 'react-bootstrap'
 import classes from './Dogs-List.module.css';
 
-const dogsList = (props) =>{
+const DogsList = (props) =>{
+    const [changeRoute, routeCondition] = useState(false);
+
+    const addHandler = () => {
+        props.history.replace('/dogs-list/edit-dog');
+        routeCondition(true);
+    }
+
+    const goBackHandler = () => {
+        props.history.replace('/dogs-list');
+        routeCondition(false);
+    }
     return(
         <div className={classes.Container}>
-            <ListGroup variant="flush">
-                <DogsListItem
-                title="1 Puppy Left! Pure Siberian Husky"
-                location=" Birmingham, West Midlands"
-                image="https://i.guim.co.uk/img/media/a4840fd090eca923e37526863e3cc586bebff97d/830_508_5593_3356/master/5593.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=335d45c40fa3f7c7564030ebdfc1c7c1"
-                content="We have only 1 puppy left out of our litter of 6. The photos have been updated to only show the one remaining puppy. Only 2 female puppies left. One grey with white markings and lovely blue eyes, the other is black with white markings and dark brown eyes. Update 02/02/20"/>
+            {   changeRoute ?<Button primary="true" onClick={goBackHandler}>Dog List</Button>
+                : <Button primary="true" onClick={addHandler}>Add new dog</Button>
+                 
+            }
+
+               { changeRoute ? <Route path='/dogs-list/edit-dog' exact component={DogsEdit}/>
+                 :
+                <ListGroup variant="flush">
+                    {
+                        props.dogs.map((dog, index) =>{
+                            return(
                                 <DogsListItem
-                title="1 Puppy Left! Pure Siberian Husky"
-                location=" Birmingham, West Midlands"
-                image="https://www.thesprucepets.com/thmb/HzjkDNlThXjKwP1dcNPL6R-WI8c=/1137x853/smart/filters:no_upscale()/shelter-training-115895910-resized-56a26a8d3df78cf772755f29.jpg"
-                content="We have only 1 puppy left out of our litter of 6. The photos have been updated to only show the one remaining puppy. Only 2 female puppies left. One grey with white markings and lovely blue eyes, the other is black with white markings and dark brown eyes. Update 02/02/20" />
-                                <DogsListItem
-                title="1 Puppy Left! Pure Siberian Husky"
-                location=" Birmingham, West Midlands"
-                image="https://s3fs.bestfriends.org/s3fs-public/Shelter-dog-Polly-Shelter-11080614_10152907279224234_7833408634371172676_o.jpg"
-                content="We have only 1 puppy left out of our litter of 6. The photos have been updated to only show the one remaining puppy. Only 2 female puppies left. One grey with white markings and lovely blue eyes, the other is black with white markings and dark brown eyes. Update 02/02/20"/>
-                                <DogsListItem
-                title="1 Puppy Left! Pure Siberian Husky"
-                location=" Birmingham, West Midlands"
-                image="https://www.peta.org/wp-content/uploads/2017/05/iStock_11799314_Story_Stock.jpg"
-                content="We have only 1 puppy left out of our litter of 6. The photos have been updated to only show the one remaining puppy. Only 2 female puppies left. One grey with white markings and lovely blue eyes, the other is black with white markings and dark brown eyes. Update 02/02/20"/>
-                {
-                    props.dogs.map((dog, index) =>{
-                        return(
-                            <DogsListItem
-                             key={index}
-                             title={dog.dogName}
-                             location={dog.location}
-                             image={dog.image}
-                             content={dog.discription}
-                             />
-                        )
-                    })
+                                key={index}
+                                title={dog.dogName}
+                                location={dog.location}
+                                image={dog.image}
+                                content={dog.discription}
+                                />
+                            )
+                        })
+                    }
+                </ListGroup>
                 }
-            </ListGroup>
         </div>
     )
 }
 
-export default dogsList;
+export default withRouter(DogsList);
