@@ -9,9 +9,9 @@ import { ListGroup, Button } from 'react-bootstrap'
 import classes from './Dogs-List.module.css';
 
 const DogsList = (props) =>{
-    const [changeRoute, routeCondition] = useState(false);
+    const [changeRoute, routeCondition] = useState(false); // Temporary use 
 
-    const addHandler = () => {
+    const addDogHandler = () => {
         props.history.replace('/dogs-list/edit-dog');
         routeCondition(true);
     }
@@ -21,12 +21,14 @@ const DogsList = (props) =>{
         routeCondition(false);
     }
 
-
+    const detailDogPageHandler = (id) => {
+        props.history.push(`/dogs-list/dog-details?q=${id}`)
+    }
 
     return(
         <div className={classes.Container}>
             {   changeRoute ?<Button primary="true" onClick={goBackHandler}>Dog List</Button>
-                : <Button primary="true" onClick={addHandler}>Add new dog</Button>
+                : <Button primary="true" onClick={addDogHandler}>Add new dog</Button>
                  
             }
 
@@ -43,7 +45,7 @@ const DogsList = (props) =>{
                                 image={dog.image}
                                 content={dog.discription}
                                 index={index}
-                                click = {props.click}
+                                click = {detailDogPageHandler}
                                 />
                             )
                         })

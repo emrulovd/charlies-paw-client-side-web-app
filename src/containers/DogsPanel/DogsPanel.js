@@ -17,6 +17,7 @@ class DogsPanel extends Component {
           dogs: [],
           searchedDogs: [],
           search: {
+              valid: false,
               value: '',
           }
         }
@@ -47,7 +48,11 @@ class DogsPanel extends Component {
             ...this.state.dogs
         }
         updatedDogs = newDogs;
-        this.setState({searchedDogs: updatedDogs})
+        this.setState({
+            searchedDogs: updatedDogs,
+            search:{
+                valid: true
+        }})
     }
 
     searchDogHandler = (event) => {
@@ -61,25 +66,31 @@ class DogsPanel extends Component {
             }})
     }
 
-
-    // searchDogHandler = (event) => {
-    //     if(event.target.value === undefined){
-    //         console.log('Two way');
-    //     }else{
-    //         console.log('One way')
-    //     }
-    // }
-
-    detailPageHandler = () => {
-        this.props.history.push('/dogs-list/details')
-        console.log(this.props)
+    dogsDetailHandlerData = (params_id) => {
+        if(this.state.search.valid){
+            for(let index in this.state.searchedDogs){
+                if(index === params_id){
+                    console.log('searched')
+                    return this.state.searchedDogs[index];
+                }
+            }
+        }else{
+            for(let index in this.state.dogs){
+                if(index === params_id){
+                    console.log('!searched')
+                    return this.state.dogs[index];
+                }
+            }
+        }
     }
 
     render() {  
         return(
             <div>
                 <Switch>
-                    <Route path="/dogs-list/details" exact component={DogsDetail}/>
+                    <Route path="/dogs-list/dog-details" exact >
+                        <DogsDetail details = {this.dogsDetailHandlerData}/>
+                    </Route>
                     <Route path='/' >
                         <Container fluid>
                             <Row>
@@ -89,7 +100,7 @@ class DogsPanel extends Component {
                         {/* <SearchBar search = {this.searchDogHandler}/> */}
                         <SearchBar searchValue = {this.searchDogHandler} search = {this.newSearchDogHandler}/>
                         {/* { this.state.dogs.map((dog, index) => ( <p key={index}>{dog.dogName}</p>))} */}
-                        <DogsPanelControl dogs = { this.state.searchedDogs.length === 0? this.state.dogs : this.state.searchedDogs} click={this.detailPageHandler}/>
+                        <DogsPanelControl dogs = { this.state.searchedDogs.length === 0? this.state.dogs : this.state.searchedDogs} />
                     </Route>
                 </Switch>
             </div>

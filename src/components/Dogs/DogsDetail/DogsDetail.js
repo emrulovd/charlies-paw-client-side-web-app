@@ -1,12 +1,30 @@
 import React from 'react';
+import {withRouter} from 'react-router-dom';
 
+import {Container, Row, Col} from 'react-bootstrap';
+import classes from './DogsDetail.module.css';
 
-const dogDetail = () =>{
+import DogsBanner from '../DogsBanner/DogsBanner';
+
+const DogDetail = (props) =>{ 
+    const params_id = props.location.search.split('?q=').join('')
+    const dog = props.details(params_id);;
     return(
         <div>
-            <h1>Dog Details Page</h1>
+            <DogsBanner/>
+            <Container fluid className={classes.Container}>
+                    <Row>
+                        <Col>
+                            <img src={dog.image} alt='dog'/>
+                        </Col>
+                        <Col>
+                            <h1>{dog.dogName}</h1>
+                            <p>{dog.discription}</p>
+                        </Col>
+                    </Row>
+            </Container>
         </div>
     )
 }
 
-export default dogDetail;
+export default withRouter(DogDetail);
