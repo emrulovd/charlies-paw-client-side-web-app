@@ -12,6 +12,7 @@ const searchBar = (props) =>{
                 <Col>
                     <div className={classes.Wrapper}>
                         <input type="text" placeholder="Search...." onChange = {(event) => props.searchValue(event)}/>
+                        {/* <input type="text" placeholder="Search...." onChange = {(event) => props.search(event)}/> */}
                         <button onClick = {props.search.bind()}><FontAwesomeIcon icon={faSearch}/></button>
                     </div>
                 </Col>

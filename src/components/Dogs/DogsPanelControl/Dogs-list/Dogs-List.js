@@ -4,6 +4,7 @@ import {Route, withRouter} from 'react-router-dom';
 import DogsListItem from './Dogs-List-Item/Dogs-List-Item';
 import DogsEdit from '../../../../containers/DogsPanel/Dogs-edit/Dogs-Edit';
 
+
 import { ListGroup, Button } from 'react-bootstrap'
 import classes from './Dogs-List.module.css';
 
@@ -19,6 +20,9 @@ const DogsList = (props) =>{
         props.history.replace('/dogs-list');
         routeCondition(false);
     }
+
+
+
     return(
         <div className={classes.Container}>
             {   changeRoute ?<Button primary="true" onClick={goBackHandler}>Dog List</Button>
@@ -38,6 +42,8 @@ const DogsList = (props) =>{
                                 location={dog.location}
                                 image={dog.image}
                                 content={dog.discription}
+                                index={index}
+                                click = {props.click}
                                 />
                             )
                         })

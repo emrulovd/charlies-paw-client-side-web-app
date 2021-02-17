@@ -1,4 +1,5 @@
 import React from 'react';
+ 
 
 import {ListGroup, Container, Row, Col} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,9 +7,14 @@ import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons'
 import classes from './Dogs-List-Item.module.css';
 
 
+
+
+
 const dogsListItem = (props) => {
+
+
     return(
-        <a className={classes.Content} href={props.history}>
+        <section className={classes.Content}>
             <ListGroup.Item>
                  <Container fluid>
                      <Row>
@@ -18,10 +24,11 @@ const dogsListItem = (props) => {
                             <p><FontAwesomeIcon icon={faMapMarkedAlt}/> Location: {props.location}</p>
                             <p>{props.content}</p>
                         </Col>
+                        <button onClick={props.click}>see more details</button>
                     </Row>
                  </Container>
             </ListGroup.Item>
-        </a>
+        </section>
     )
 }
 
