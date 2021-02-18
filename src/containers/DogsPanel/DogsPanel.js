@@ -19,7 +19,8 @@ class DogsPanel extends Component {
           search: {
               valid: false,
               value: '',
-          }
+          },
+          sDogsValue: '',
         }
     }
 
@@ -84,7 +85,31 @@ class DogsPanel extends Component {
         }
     }
 
+    handleFilterInput = (event) => {
+        console.log(event.target.value);
+        let newDogs = []
+        if(event.target.value !== null){
+            for(let index in this.state.dogs){
+                if(this.state.dogs[index].location === event.target.value || this.state.dogs[index].breed === event.target.value){
+                    newDogs.push(this.state.dogs[index])
+                }
+            }
+            this.setState({searchedDogs: newDogs});
+        }
+    }
+
+    // searchDogHandler = (e) => {
+    //     this.setState({
+    //         sDogsValue: e.target.value
+    //     })
+    // }
+
     render() {  
+        /* WOrks         
+        // const filterd  = this.state.dogs.filter(dog => {
+        //     return dog.breed.toLowerCase().includes(this.state.sDogsValue.toLowerCase())
+        // }) */
+    
         return(
             <div>
                 <Switch>
@@ -100,7 +125,11 @@ class DogsPanel extends Component {
                         {/* <SearchBar search = {this.searchDogHandler}/> */}
                         <SearchBar searchValue = {this.searchDogHandler} search = {this.newSearchDogHandler}/>
                         {/* { this.state.dogs.map((dog, index) => ( <p key={index}>{dog.dogName}</p>))} */}
-                        <DogsPanelControl dogs = { this.state.searchedDogs.length === 0? this.state.dogs : this.state.searchedDogs} />
+                        <DogsPanelControl
+                         dogsMain ={this.state.dogs}   
+                         dogs = {this.state.searchedDogs.length === 0? this.state.dogs : this.state.searchedDogs }
+                         filterInputHandler={this.handleFilterInput}
+                         />
                     </Route>
                 </Switch>
             </div>

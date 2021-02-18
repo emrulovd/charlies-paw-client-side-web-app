@@ -9,7 +9,7 @@ const filter = (props) => {
         <div className={classes.Container}>
             <h1>Filter</h1>
             <hr/>
-            <FilterList dogs={props.dogs}/>
+            <FilterList dogs={props.dogs} filterInputHandler = {props.filterInputHandler}/>
         </div>
     ) 
 }

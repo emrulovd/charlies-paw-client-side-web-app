@@ -11,7 +11,7 @@ const dogsPanel = (props) => {
         <Container fluid className={classes.DogsPanelControl}>
             <Row>
                 <Col sm={2}>
-                    <Filter dogs={props.dogs}/>
+                    <Filter dogs={props.dogsMain} filterInputHandler={props.filterInputHandler}/>
                 </Col>
                 <Col>
                     <DogsList dogs={props.dogs}/>
