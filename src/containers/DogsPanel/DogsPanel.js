@@ -14,6 +14,7 @@ class DogsPanel extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          dogsLenght: null,
           dogs: [],
           searchedDogs: [],
           filteredDogs: [],
@@ -28,16 +29,22 @@ class DogsPanel extends Component {
         this.fetchData();
     }
 
-    // componentDidUpdate(){
-    //     this.fetchData();
-    // }
+    componentDidUpdate(){
+        if(this.state.dogs.length !== this.state.dogsLenght){
+            this.fetchData();
+            this.setState({dogsLenght: this.state.dogs.length})
+        }
+    }
     
     async fetchData() {
         axios.get('http://localhost:8080/dogs')
             .then(res => {
                 const data = res.data
                 console.log(data.message);
-                this.setState({dogs: data.dogs});
+                this.setState({
+                    dogsLenght: data.dogs.length,
+                    dogs: data.dogs
+                });
             });
     }
 
@@ -86,12 +93,16 @@ class DogsPanel extends Component {
 
     deleteDogHandler = (params_id) => {
         let id = ''; 
+        let newDogs = [];
         for(let index in this.state.dogs){
             if(index === params_id){
                 id = this.state.dogs[index]._id;
+                newDogs = this.state.dogs.slice(0, index);
                 break; 
             }
         }
+        console.log(newDogs);
+        this.setState({dogs: newDogs});
         axios.delete('http://localhost:8080/dogs/' + id )
             .then(res => {
                 console.log(res.data.message);
