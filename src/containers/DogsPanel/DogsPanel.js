@@ -16,11 +16,11 @@ class DogsPanel extends Component {
         this.state = {
           dogs: [],
           searchedDogs: [],
+          filteredDogs: [],
           search: {
               valid: false,
               value: '',
           },
-          sDogsValue: '',
         }
     }
 
@@ -35,36 +35,6 @@ class DogsPanel extends Component {
                 console.log(data.message);
                 this.setState({dogs: data.dogs});
             });
-    }
-
-    newSearchDogHandler = (event) =>{
-        const newDogs = [];
-        for( let index in this.state.dogs){
-            console.log(index);
-            if(this.state.dogs[index].breed === this.state.search.value){
-                newDogs.push(this.state.dogs[index]);
-            }
-        }
-        let updatedDogs = {
-            ...this.state.dogs
-        }
-        updatedDogs = newDogs;
-        this.setState({
-            searchedDogs: updatedDogs,
-            search:{
-                valid: true
-        }})
-    }
-
-    searchDogHandler = (event) => {
-            const updatedSearch = {
-                ...this.state.search
-            }
-            const updatedSearchValue = event.target.value;
-            updatedSearch.value = updatedSearchValue;
-            this.setState({search: {
-                value: updatedSearch.value
-            }})
     }
 
     dogsDetailHandlerData = (params_id) => {
@@ -94,21 +64,38 @@ class DogsPanel extends Component {
                     newDogs.push(this.state.dogs[index])
                 }
             }
-            this.setState({searchedDogs: newDogs});
+            this.setState({filteredDogs: newDogs});
+            console.log(this.state.filteredDogs)
         }
     }
 
-    // searchDogHandler = (e) => {
-    //     this.setState({
-    //         sDogsValue: e.target.value
-    //     })
-    // }
+    searchDogHandler = (event) => {
+      this.setState({
+            searchedDogs: this.state.dogs.filter(dog => {
+                return dog.breed.toLowerCase().includes(event.target.value.toLowerCase())
+            }), 
+            search:{
+            valid: true
+            }
+          })  
+    }
 
-    render() {  
-        /* WOrks         
-        // const filterd  = this.state.dogs.filter(dog => {
-        //     return dog.breed.toLowerCase().includes(this.state.sDogsValue.toLowerCase())
-        // }) */
+    render() {           
+        const dogsList = () =>{
+            if(this.state.searchedDogs.length === 0){
+                console.log('first')
+                if(this.state.filteredDogs.length !== 0){
+                    console.log('second')
+                    return this.state.filteredDogs;
+                }else{
+                    console.log('done')
+                    return this.state.dogs
+                }
+            }
+            else{
+                return this.state.searchedDogs;
+            }
+        }
     
         return(
             <div>
@@ -122,12 +109,10 @@ class DogsPanel extends Component {
                                 <DogsBanner/>
                             </Row>
                         </Container>
-                        {/* <SearchBar search = {this.searchDogHandler}/> */}
-                        <SearchBar searchValue = {this.searchDogHandler} search = {this.newSearchDogHandler}/>
-                        {/* { this.state.dogs.map((dog, index) => ( <p key={index}>{dog.dogName}</p>))} */}
+                        <SearchBar searchValue = {this.searchDogHandler}/>
                         <DogsPanelControl
                          dogsMain ={this.state.dogs}   
-                         dogs = {this.state.searchedDogs.length === 0? this.state.dogs : this.state.searchedDogs }
+                         dogs = {dogsList()}
                          filterInputHandler={this.handleFilterInput}
                          />
                     </Route>
