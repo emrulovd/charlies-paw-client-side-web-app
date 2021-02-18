@@ -1,5 +1,5 @@
 .Banner{
-    height: 50vh;
+    height: 60vh;
     width: 100%;
     background-image: url("../../../../assets/home-footer.png");
     align-items: justify;
@@ -14,7 +14,7 @@
 
 .Inner{
     border: 2px solid transparent;
-    margin-top: 5%;
+    margin-top: 8%;
     width: 50%;
     margin-right: auto;
     margin-left: auto;
