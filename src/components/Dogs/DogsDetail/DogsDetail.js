@@ -1,7 +1,7 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
 
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Button} from 'react-bootstrap';
 import classes from './DogsDetail.module.css';
 
 import DogsBanner from '../DogsBanner/DogsBanner';
@@ -20,6 +20,8 @@ const DogDetail = (props) =>{
                         <Col>
                             <h1>{dog.dogName}</h1>
                             <p>{dog.discription}</p>
+                            <Button variant="success">Update</Button>
+                            <Button variant="danger" onClick={() => props.deleteHandler(params_id)}>Delete</Button>
                         </Col>
                     </Row>
             </Container>

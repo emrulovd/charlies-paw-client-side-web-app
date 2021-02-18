@@ -27,6 +27,10 @@ class DogsPanel extends Component {
     componentDidMount(){
         this.fetchData();
     }
+
+    // componentDidUpdate(){
+    //     this.fetchData();
+    // }
     
     async fetchData() {
         axios.get('http://localhost:8080/dogs')
@@ -37,18 +41,17 @@ class DogsPanel extends Component {
             });
     }
 
+
     dogsDetailHandlerData = (params_id) => {
         if(this.state.search.valid){
             for(let index in this.state.searchedDogs){
                 if(index === params_id){
-                    console.log('searched')
                     return this.state.searchedDogs[index];
                 }
             }
         }else{
             for(let index in this.state.dogs){
                 if(index === params_id){
-                    console.log('!searched')
                     return this.state.dogs[index];
                 }
             }
@@ -80,15 +83,28 @@ class DogsPanel extends Component {
           })  
     }
 
+
+    deleteDogHandler = (params_id) => {
+        let id = ''; 
+        for(let index in this.state.dogs){
+            if(index === params_id){
+                id = this.state.dogs[index]._id;
+                break; 
+            }
+        }
+        axios.delete('http://localhost:8080/dogs/' + id )
+            .then(res => {
+                console.log(res.data.message);
+            })
+        this.props.history.push('/dogs-list');
+    }
+
     render() {           
         const dogsList = () =>{
             if(this.state.searchedDogs.length === 0){
-                console.log('first')
                 if(this.state.filteredDogs.length !== 0){
-                    console.log('second')
                     return this.state.filteredDogs;
                 }else{
-                    console.log('done')
                     return this.state.dogs
                 }
             }
@@ -101,7 +117,7 @@ class DogsPanel extends Component {
             <div>
                 <Switch>
                     <Route path="/dogs-list/dog-details" exact >
-                        <DogsDetail details = {this.dogsDetailHandlerData}/>
+                        <DogsDetail details = {this.dogsDetailHandlerData} deleteHandler = {this.deleteDogHandler}/>
                     </Route>
                     <Route path='/' >
                         <Container fluid>
