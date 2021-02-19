@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import { Form, Button } from 'react-bootstrap';
+import classes from './Dogs-Edit.module.css';
+import { Form, Button, Container } from 'react-bootstrap';
 
 class DogsEdit extends Component{
     constructor(props){
@@ -82,8 +83,8 @@ class DogsEdit extends Component{
         for( let formElementIndentifier in this.state.dogForm){
             formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
         }
+        this.props.newDogHandler(true);
         this.PostData(formData);
-        this.props.history.push('/dogs-list');
     }
     inputChangeHandler = (event, inputIndentifier) => {
         const updatedDogForm = {
@@ -107,21 +108,23 @@ class DogsEdit extends Component{
         }
         return(
             <div>
-                <Form onSubmit={this.newDogHandler}>
-                    {formElementsArray.map((formElement) => (
-                        <Form.Group key = {formElement.id}>
-                            <Form.Label>{formElement.config.elementConfig.placeholder}</Form.Label>
-                            <Form.Control 
-                                elementype={formElement.config.elementType}
-                                elementconfig={formElement.config.elementConfig}
-                                value = {formElement.value}
-                                onChange={(event) => this.inputChangeHandler(event, formElement.id)} />
-                        </Form.Group>
-                    ))}
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
-                </Form>
+                <Container className={classes.temp}>
+                    <Form onSubmit={this.newDogHandler}>
+                        {formElementsArray.map((formElement) => (
+                            <Form.Group key = {formElement.id}>
+                                <Form.Label>{formElement.config.elementConfig.placeholder}</Form.Label>
+                                <Form.Control 
+                                    elementype={formElement.config.elementType}
+                                    elementconfig={formElement.config.elementConfig}
+                                    value = {formElement.value}
+                                    onChange={(event) => this.inputChangeHandler(event, formElement.id)} />
+                            </Form.Group>
+                        ))}
+                        <Button variant="primary" type="submit">
+                            Submit
+                        </Button>
+                    </Form>
+                </Container>
             </div>
         )
     }

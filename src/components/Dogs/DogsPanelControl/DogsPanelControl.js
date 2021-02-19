@@ -14,7 +14,7 @@ const dogsPanel = (props) => {
                     <Filter dogs={props.dogsMain} filterInputHandler={props.filterInputHandler}/>
                 </Col>
                 <Col>
-                    <DogsList dogs={props.dogs}/>
+                    <DogsList dogs={props.dogs} newDogHandler = {props.newDogHandler}/>
                 </Col>
             </Row>
         </Container>

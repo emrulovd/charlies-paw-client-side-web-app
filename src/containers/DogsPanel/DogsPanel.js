@@ -9,6 +9,7 @@ import DogsBanner from '../../components/Dogs/DogsBanner/DogsBanner';
 import SearchBar from '../../components/Dogs/SearcBar/SearchBar';
 import DogsPanelControl from '../../components/Dogs/DogsPanelControl/DogsPanelControl';
 import DogsDetail from '../../components/Dogs/DogsDetail/DogsDetail';
+import DogsEdit from './Dogs-edit/Dogs-Edit';
 
 class DogsPanel extends Component {
     constructor(props) {
@@ -18,6 +19,8 @@ class DogsPanel extends Component {
           dogs: [],
           searchedDogs: [],
           filteredDogs: [],
+          newDog: false,
+          modified: false,
           search: {
               valid: false,
               value: '',
@@ -34,6 +37,10 @@ class DogsPanel extends Component {
             this.fetchData();
             this.setState({dogsLenght: this.state.dogs.length})
         }
+        if(this.state.modified){
+            this.fetchData();
+            this.setState({modified: false});
+        }
     }
     
     async fetchData() {
@@ -46,6 +53,11 @@ class DogsPanel extends Component {
                     dogs: data.dogs
                 });
             });
+    }
+
+    newDogHandler = (modified) => {
+        this.setState({modified: modified})
+        this.props.history.push('/dogs-list');
     }
 
 
@@ -127,6 +139,7 @@ class DogsPanel extends Component {
         return(
             <div>
                 <Switch>
+                    <Route path='/dogs-list/edit-dog' exact component={() => <DogsEdit newDogHandler ={this.newDogHandler}/>}></Route>
                     <Route path="/dogs-list/dog-details" exact >
                         <DogsDetail details = {this.dogsDetailHandlerData} deleteHandler = {this.deleteDogHandler}/>
                     </Route>
@@ -141,6 +154,7 @@ class DogsPanel extends Component {
                          dogsMain ={this.state.dogs}   
                          dogs = {dogsList()}
                          filterInputHandler={this.handleFilterInput}
+                         newDogHandler = {this.newDogHandler}
                          />
                     </Route>
                 </Switch>

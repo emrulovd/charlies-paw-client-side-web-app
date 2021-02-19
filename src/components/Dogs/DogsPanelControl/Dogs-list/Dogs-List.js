@@ -27,13 +27,7 @@ const DogsList = (props) =>{
 
     return(
         <div className={classes.Container}>
-            {   changeRoute ?<Button primary="true" onClick={goBackHandler}>Dog List</Button>
-                : <Button primary="true" onClick={addDogHandler}>Add new dog</Button>
-                 
-            }
-
-               { changeRoute ? <Route path='/dogs-list/edit-dog' exact component={DogsEdit}/>
-                 :
+                <Button primary="true" onClick={addDogHandler}>Add new dog</Button>
                 <ListGroup variant="flush">
                     {
                         props.dogs.map((dog, index) =>{
@@ -51,7 +45,6 @@ const DogsList = (props) =>{
                         })
                     }
                 </ListGroup>
-                }
         </div>
     )
 }
