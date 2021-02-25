@@ -7,8 +7,11 @@ import classes from './DogsDetail.module.css';
 import DogsBanner from '../DogsBanner/DogsBanner';
 
 const DogDetail = (props) =>{ 
-    const params_id = props.location.search.split('?q=').join('')
-    const dog = props.details(params_id);;
+    const params_id = props.location.search.split('?q=').join('');
+    const dog = props.details(params_id);
+    const updateDogHandler = () => {
+        props.history.push(`/dogs-list/edit-dog?q=${params_id}`);
+    }
     return(
         <div>
             <DogsBanner/>
@@ -20,7 +23,7 @@ const DogDetail = (props) =>{
                         <Col>
                             <h1>{dog.dogName}</h1>
                             <p>{dog.discription}</p>
-                            <Button variant="success">Update</Button>
+                            <Button variant="success" onClick = {updateDogHandler}>Update</Button>
                             <Button variant="danger" onClick={() => props.deleteHandler(params_id)}>Delete</Button>
                         </Col>
                     </Row>

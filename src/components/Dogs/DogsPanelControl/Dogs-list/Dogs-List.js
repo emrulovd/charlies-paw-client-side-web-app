@@ -1,24 +1,16 @@
-import React, { useState } from 'react';
-import {Route, withRouter} from 'react-router-dom';
+import React from 'react';
+import { withRouter} from 'react-router-dom';
 
 import DogsListItem from './Dogs-List-Item/Dogs-List-Item';
-import DogsEdit from '../../../../containers/DogsPanel/Dogs-edit/Dogs-Edit';
 
 
 import { ListGroup, Button } from 'react-bootstrap'
 import classes from './Dogs-List.module.css';
 
 const DogsList = (props) =>{
-    const [changeRoute, routeCondition] = useState(false); // Temporary use 
 
     const addDogHandler = () => {
         props.history.replace('/dogs-list/edit-dog');
-        routeCondition(true);
-    }
-
-    const goBackHandler = () => {
-        props.history.replace('/dogs-list');
-        routeCondition(false);
     }
 
     const detailDogPageHandler = (id) => {

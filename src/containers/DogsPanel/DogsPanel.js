@@ -47,6 +47,7 @@ class DogsPanel extends Component {
         axios.get('http://localhost:8080/dogs')
             .then(res => {
                 const data = res.data
+                console.log(data.dogs[0]._id);
                 console.log(data.message);
                 this.setState({
                     dogsLenght: data.dogs.length,
@@ -113,7 +114,6 @@ class DogsPanel extends Component {
                 break; 
             }
         }
-        console.log(newDogs);
         this.setState({dogs: newDogs});
         axios.delete('http://localhost:8080/dogs/' + id )
             .then(res => {
@@ -121,6 +121,7 @@ class DogsPanel extends Component {
             })
         this.props.history.push('/dogs-list');
     }
+
 
     render() {           
         const dogsList = () =>{
@@ -135,11 +136,16 @@ class DogsPanel extends Component {
                 return this.state.searchedDogs;
             }
         }
-    
+
         return(
             <div>
                 <Switch>
-                    <Route path='/dogs-list/edit-dog' exact component={() => <DogsEdit newDogHandler ={this.newDogHandler}/>}></Route>
+                    <Route path='/dogs-list/edit-dog' 
+                    exact component={() => <DogsEdit
+                    dogs = {this.state.dogs}
+                    newDogHandler ={this.newDogHandler}
+                    createDog = {this.CreateDog}
+                    params_id = {this.props.location.search.split('?q=').join('')}/>}></Route>
                     <Route path="/dogs-list/dog-details" exact >
                         <DogsDetail details = {this.dogsDetailHandlerData} deleteHandler = {this.deleteDogHandler}/>
                     </Route>
