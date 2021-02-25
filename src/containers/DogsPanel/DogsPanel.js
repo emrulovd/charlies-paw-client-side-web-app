@@ -17,7 +17,6 @@ class DogsPanel extends Component {
         this.state = {
           dogs: [],
           searchedDogs: [],
-          filteredDogs: [],
           modified: false,
           search: {
               valid: false,
@@ -59,20 +58,30 @@ class DogsPanel extends Component {
 
 
     handleFilterInput = (event) => {
-        console.log(event.target.value);
         let newDogs = []
-        if(event.target.value !== null){
-            for(let index in this.state.dogs){
-                if(this.state.dogs[index].location === event.target.value || this.state.dogs[index].breed === event.target.value){
-                    newDogs.push(this.state.dogs[index])
+        if(event.target.checked !== false || event.target.value === ''){
+            if(this.state.searchedDogs.length === 0){
+                for(let index in this.state.dogs){
+                    if(this.state.dogs[index].location === event.target.value || this.state.dogs[index].breed === event.target.value){
+                        newDogs.push(this.state.dogs[index])
+                    }
                 }
+                this.setState({searchedDogs: newDogs});
+            }else{
+                for(let index in this.state.searchedDogs){
+                    if(this.state.searchedDogs[index].location === event.target.value || this.state.searchedDogs[index].breed === event.target.value){
+                        newDogs.push(this.state.searchedDogs[index])
+                    }
+                }
+                this.setState({searchedDogs: newDogs});
             }
-            this.setState({filteredDogs: newDogs});
-            console.log(this.state.filteredDogs)
+        }else{
+            this.setState({searchedDogs: []});
         }
     }
 
     searchDogHandler = (event) => {
+      
       this.setState({
             searchedDogs: this.state.dogs.filter(dog => {
                 return dog.breed.toLowerCase().includes(event.target.value.toLowerCase())
@@ -86,13 +95,8 @@ class DogsPanel extends Component {
     render() {           
         const dogsList = () =>{
             if(this.state.searchedDogs.length === 0){
-                if(this.state.filteredDogs.length !== 0){
-                    return this.state.filteredDogs;
-                }else{
-                    return this.state.dogs
-                }
-            }
-            else{
+                return this.state.dogs;
+            }else{
                 return this.state.searchedDogs;
             }
         }

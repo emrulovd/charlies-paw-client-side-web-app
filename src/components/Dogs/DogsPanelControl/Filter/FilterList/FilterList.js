@@ -13,7 +13,7 @@ const filterList = (props) => {
            <ListGroup>
               <label><h6>Select location</h6></label>
                   <ListGroupItem>
-                        {
+                        {/* {
                           props.dogs.map((dog, index) => {
                           return( 
                               <FilterListItemCheckbox
@@ -22,13 +22,15 @@ const filterList = (props) => {
                               filterInputHandler = {props.filterInputHandler}/>
                           )
                           })
-                        }
+                        } */}
+                        <FilterListItemCheckbox filterInputHandler = {props.filterInputHandler}/>
                   </ListGroupItem>
           </ListGroup>
               <ListGroup>
-              <label><h6>Select Breed</h6></label>
+              {/* <label><h6>Select Breed</h6></label>
                   <ListGroupItem>
                     <select onChange={(event) => props.filterInputHandler(event)}>
+                        <option value={null}>{null}</option>
                         {
                           props.dogs.map((dog, index) => {
                           return( 
@@ -39,7 +41,7 @@ const filterList = (props) => {
                           })
                         }
                    </select>
-                  </ListGroupItem>
+                  </ListGroupItem> */}
           </ListGroup>
      </Aux>
     )
