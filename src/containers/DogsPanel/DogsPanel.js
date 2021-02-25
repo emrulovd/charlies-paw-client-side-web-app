@@ -15,11 +15,9 @@ class DogsPanel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          dogsLenght: null,
           dogs: [],
           searchedDogs: [],
           filteredDogs: [],
-          newDog: false,
           modified: false,
           search: {
               valid: false,
@@ -33,13 +31,11 @@ class DogsPanel extends Component {
     }
 
     componentDidUpdate(){
-        if(this.state.dogs.length !== this.state.dogsLenght){ // fetches the data after a dog was deleted 
-            this.fetchData();
-            this.setState({dogsLenght: this.state.dogs.length})
-        }
         if(this.state.modified){ // fetches the data after a dog is added or updated 
-            this.fetchData();
-            this.setState({modified: false});
+           this.setState({modified: !this.state.modified});
+           setTimeout(() => { // Delay the fetch to prevent from racing
+                this.fetchData();
+           }, 100) 
         }
     }
     
@@ -55,29 +51,12 @@ class DogsPanel extends Component {
             });
     }
 
-    newDogHandler = (modified) => {
-        this.setState({modified: modified})
+    updateDogHandler = () => {
+        this.setState({modified: true})
         this.props.history.push('/dogs-list');
     }
 
 
-    dogsDetailHandlerData = (params_id) => {
-        if(this.state.search.valid){
-            for(let index in this.state.searchedDogs){
-                if(this.state.searchedDogs[index].id === parseInt(params_id)){
-                    return this.state.searchedDogs[index];
-                }
-            }
-        }else{
-            for(let index in this.state.dogs){
-                if(this.state.dogs[index].id === parseInt(params_id)){
-                    return this.state.dogs[index];
-                }else{
-                    console.log('Error');
-                }
-            }
-        }
-    }
 
     handleFilterInput = (event) => {
         console.log(event.target.value);
@@ -104,26 +83,6 @@ class DogsPanel extends Component {
           })  
     }
 
-
-    deleteDogHandler = (params_id) => {
-        let id = ''; 
-        let newDogs = [];
-        for(let index in this.state.dogs){
-            if(this.state.dogs[index].id === parseInt(params_id)){
-                id = this.state.dogs[index]._id;
-                newDogs = this.state.dogs.slice(0, index);
-                break; 
-            }
-        }
-        this.setState({dogs: newDogs});
-        axios.delete('http://localhost:8080/dogs/' + id )
-            .then(res => {
-                console.log(res.data.message);
-            })
-        this.props.history.push('/dogs-list');
-    }
-
-
     render() {           
         const dogsList = () =>{
             if(this.state.searchedDogs.length === 0){
@@ -144,15 +103,13 @@ class DogsPanel extends Component {
                     <Route path='/dogs-list/edit-dog' 
                     exact component={() => <DogsEdit
                     dogs = {this.state.dogs}
-                    newDogHandler ={this.newDogHandler}
-                    createDog = {this.CreateDog}
+                    updateDogHandler ={this.updateDogHandler}
                     params_id = {this.props.location.search.split('?q=').join('')}/>}></Route>
                     <Route path="/dogs-list/dog-details" exact >
                         <DogsDetail 
-                        dogsDetailHandlerData = {this.dogsDetailHandlerData} 
-                        deleteHandler = {this.deleteDogHandler}
-                        params_id = {this.props.location.search.split('?q=').join('')}
-                        history = {this.props.history}/>
+                        updateDogHandler = {this.updateDogHandler}
+                        history = {this.props.history}
+                        location = {this.props.location}/>
                     </Route>
                     <Route path='/' >
                         <Container fluid>

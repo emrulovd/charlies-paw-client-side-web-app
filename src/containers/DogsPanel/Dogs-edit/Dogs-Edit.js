@@ -79,7 +79,7 @@ class DogsEdit extends Component{
     async CreateDog (formData){  // The post request function will be moved to DogsPanel container
         axios.post('http://localhost:8080/dogs/create', formData)
             .then( result => {
-                console.log(result.data.postId)
+                console.log(result.data.message);
             });
     }
 
@@ -102,7 +102,6 @@ class DogsEdit extends Component{
                     }
                     updatedFormValue.value = this.props.dogs[this.props.params_id][index];
                     updatedForm[index] = updatedFormValue;
-                    console.log(updatedForm[index].placeholder);
                     this.setState({dogForm: updatedForm});
             }
         }
@@ -117,7 +116,7 @@ class DogsEdit extends Component{
         }
         formData['id'] = this.props.params_id;
         this.UpdateDog(this.props.params_id, formData);
-        this.props.newDogHandler(true);
+        this.props.updateDogHandler();
     }
 
     newDogHandler = ( event ) => {
@@ -128,7 +127,7 @@ class DogsEdit extends Component{
             formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
         }
         formData['id'] = this.props.dogs.length; // Adding temporary id to the post
-        this.props.newDogHandler(true);
+        this.props.updateDogHandler();
         this.CreateDog(formData);
     }
     inputChangeHandler = (event, inputIndentifier) => {
