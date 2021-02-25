@@ -30,8 +30,8 @@ const DogsList = (props) =>{
                                 location={dog.location}
                                 image={dog.image}
                                 content={dog.discription}
-                                index={index}
-                                click = {detailDogPageHandler}
+                                id={dog.id}
+                                detailDogPageHandler = {detailDogPageHandler}
                                 />
                             )
                         })

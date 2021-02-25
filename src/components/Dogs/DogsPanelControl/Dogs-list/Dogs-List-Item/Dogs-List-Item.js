@@ -24,7 +24,7 @@ const dogsListItem = (props) => {
                             <p><FontAwesomeIcon icon={faMapMarkedAlt}/> Location: {props.location}</p>
                             <p>{props.content}</p>
                         </Col>
-                        <button onClick={() => (props.click(props.index))}>see more details</button>
+                        <button onClick={() => (props.detailDogPageHandler(props.id))}>see more details</button>
                     </Row>
                  </Container>
             </ListGroup.Item>
