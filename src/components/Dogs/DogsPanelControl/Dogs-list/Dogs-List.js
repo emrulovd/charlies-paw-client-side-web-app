@@ -19,32 +19,13 @@ const DogsList = (props) =>{
 
     return(
         <div className={classes.Container}>
-                <Button primary="true" onClick={addDogHandler}>Add new dog</Button>
-                {/* <ListGroup variant="flush" horizontal>
-                    <Container fluid>
-                        {
-                            props.dogs.map((dog, index) =>{
-                                return(
-                                    <DogsListItem
-                                    key={index}
-                                    title={dog.dogName}
-                                    location={dog.location}
-                                    image={dog.image}
-                                    content={dog.discription}
-                                    id={dog.id}
-                                    detailDogPageHandler = {detailDogPageHandler}
-                                    />
-                                )
-                            })
-                        }
-                    </Container>
-                </ListGroup> */}
+                <Button primary="true" onClick={addDogHandler} >Add new dog</Button>
                 <div>
                 <Container fluid >
-                    <Row>
+                    <Row >
                        { props.dogs.map((dog, index) =>{
                                 return(
-                                    <Col sm={6} key={index}>
+                                    <Col xs lg={6} key={index} >
                                         <DogsListItem
                                         title={dog.dogName}
                                         location={dog.location}

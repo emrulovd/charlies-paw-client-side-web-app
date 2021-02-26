@@ -7,7 +7,7 @@ import classes from './SearchBar.module.css';
 
 const searchBar = (props) =>{
     return(
-        <Container className={classes.SearchBar}>
+        <Container className={classes.SearchBar} fluid>
             <Row>
                 <Col>
                     <div className={classes.Wrapper}>

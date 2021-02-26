@@ -5,6 +5,7 @@ import classes from './DogsPanelControl.module.css'
 
 import DogsList from './Dogs-list/Dogs-List';
 import Filter from './Filter/Filter';
+import SearchBar from '../SearcBar/SearchBar';
 
 const dogsPanel = (props) => {
     return(
@@ -14,6 +15,9 @@ const dogsPanel = (props) => {
                     <Filter dogs={props.dogsMain} filterInputHandler={props.filterInputHandler}/>
                 </Col>
                 <Col>
+                    <Row>
+                    <SearchBar searchValue = {props.searchDogHandler}/>
+                    </Row>
                     <DogsList dogs={props.dogs} newDogHandler = {props.newDogHandler}/>
                 </Col>
             </Row>

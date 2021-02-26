@@ -6,7 +6,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 import DogsBanner from '../../components/Dogs/DogsBanner/DogsBanner';
-import SearchBar from '../../components/Dogs/SearcBar/SearchBar';
 import DogsPanelControl from '../../components/Dogs/DogsPanelControl/DogsPanelControl';
 import DogsDetail from './DogsDetail/DogsDetail';
 import DogsEdit from './Dogs-edit/Dogs-Edit';
@@ -121,8 +120,8 @@ class DogsPanel extends Component {
                                 <DogsBanner/>
                             </Row>
                         </Container>
-                        <SearchBar searchValue = {this.searchDogHandler}/>
                         <DogsPanelControl
+                         searchDogHandler = {this.searchDogHandler}
                          dogsMain ={this.state.dogs}   
                          dogs = {dogsList()}
                          filterInputHandler={this.handleFilterInput}
