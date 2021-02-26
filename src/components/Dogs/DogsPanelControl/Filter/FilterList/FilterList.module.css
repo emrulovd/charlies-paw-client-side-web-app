@@ -1,0 +1,14 @@
+.Container {
+    background-color: #10C9C3;
+}
+
+.Container h6{
+    color: #fff;
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+.ListItem{
+    background-color: #10C9C3;
+    color: #fff;
+}
