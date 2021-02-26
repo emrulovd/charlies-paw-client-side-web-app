@@ -1,9 +1,9 @@
 import React from 'react';
  
 
-import {ListGroup, Container, Row, Col} from 'react-bootstrap'
+import {Button, Row, Col} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons'
+import { faMapMarkedAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import classes from './Dogs-List-Item.module.css';
 
 
@@ -11,24 +11,34 @@ import classes from './Dogs-List-Item.module.css';
 
 
 const dogsListItem = (props) => {
-
-
+    
+    const MAX_LENGTH = 150;
     return(
-        <section className={classes.Content}>
-            <ListGroup.Item>
-                 <Container fluid>
-                     <Row>
-                        <img src={props.image} alt=""/>
-                         <Col>
-                            <h4>{props.title}</h4>
-                            <p><FontAwesomeIcon icon={faMapMarkedAlt}/> Location: {props.location}</p>
-                            <p>{props.content}</p>
-                        </Col>
-                        <button onClick={() => (props.detailDogPageHandler(props.id))}>see more details</button>
-                    </Row>
-                 </Container>
-            </ListGroup.Item>
-        </section>
+        <div className={classes.Container}>
+            <Row>
+                {/* <Col className={classes.Image} noGutters={false}> */}
+                    <img src={props.image} alt=""/>
+                {/* </Col> */}
+                <Col className={classes.Info}>
+                    <h3>{props.title}</h3>
+                    <p><FontAwesomeIcon icon={faCalendarAlt}/> Age: <h5>{props.age}</h5></p>
+                    <p><FontAwesomeIcon icon={faMapMarkedAlt}/> Location: <h5>{props.location}</h5></p>
+                </Col>
+            </Row>
+            <Row className={classes.Discription} bsPrefix>
+                    {
+                        props.content.length > MAX_LENGTH ?
+                        (
+                            <div>
+                            {`${props.content.substring(0, MAX_LENGTH)}...`}
+                            </div>
+                        ) :
+                        <p>{props.content}</p>
+                              
+                    }
+                    <Button onClick={() => (props.detailDogPageHandler(props.id))}>see more details</Button>
+            </Row>
+        </div>
     )
 }
 

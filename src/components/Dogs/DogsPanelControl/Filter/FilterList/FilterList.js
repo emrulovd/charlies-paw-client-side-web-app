@@ -27,21 +27,7 @@ const filterList = (props) => {
                   </ListGroupItem>
           </ListGroup>
               <ListGroup>
-              {/* <label><h6>Select Breed</h6></label>
-                  <ListGroupItem>
-                    <select onChange={(event) => props.filterInputHandler(event)}>
-                        <option value={null}>{null}</option>
-                        {
-                          props.dogs.map((dog, index) => {
-                          return( 
-                              <FilterListItemSelect
-                              key={index}
-                              data = {dog.breed}/>
-                          )
-                          })
-                        }
-                   </select>
-                  </ListGroupItem> */}
+              
           </ListGroup>
      </Aux>
     )
