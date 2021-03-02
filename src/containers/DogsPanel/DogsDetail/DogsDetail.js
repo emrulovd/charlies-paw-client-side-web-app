@@ -5,6 +5,7 @@ import {Container, Row, Col, Button} from 'react-bootstrap';
 import classes from './DogsDetail.module.css';
 
 import DogsBanner from '../../../components/Dogs/DogsBanner/DogsBanner';
+import DogsContainerInfo from './DogsContainerInfo/DogsContainerInfo';
 
 
 class DogDetail extends Component {
@@ -48,7 +49,7 @@ class DogDetail extends Component {
                 <DogsBanner/>
                 <Container fluid className={classes.Container}>
                         <Row>
-                            <Col>
+                            {/* <Col>
                                 <img src={this.state.dog.image} alt='dog'/>
                             </Col>
                             <Col>
@@ -56,7 +57,15 @@ class DogDetail extends Component {
                                 <p>{this.state.dog.discription}</p>
                                 <Button variant="success" onClick = {this.updateDogHandler}>Update</Button>
                                 <Button variant="danger" onClick={this.delteDogHandler}>Delete</Button>
-                            </Col>
+                            </Col> */}
+                            <DogsContainerInfo
+                             image = {this.state.dog.image}
+                             dogName = {this.state.dog.dogName}
+                             age = {this.state.dog.age}
+                             location = {this.state.dog.location}
+                             size = {this.state.dog.breedSize}
+                             breed = {this.state.dog.breed}
+                            />
                         </Row>
                 </Container>
             </div>
