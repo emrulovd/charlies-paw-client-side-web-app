@@ -30,7 +30,7 @@ class DogDetail extends Component {
             })
     }
 
-    delteDogHandler = () => {
+    deleteDogHandler = () => {
       axios.delete('http://localhost:8080/dogs/' + this.state.params_id )
             .then(res => {
                 console.log(res.data.message);
@@ -56,7 +56,7 @@ class DogDetail extends Component {
                                 <h1>{this.state.dog.dogName}</h1>
                                 <p>{this.state.dog.discription}</p>
                                 <Button variant="success" onClick = {this.updateDogHandler}>Update</Button>
-                                <Button variant="danger" onClick={this.delteDogHandler}>Delete</Button>
+                                <Button variant="danger" onClick={this.deleteDogHandler}>Delete</Button>
                             </Col> */}
                             <DogsContainerInfo
                              image = {this.state.dog.image}
@@ -65,6 +65,9 @@ class DogDetail extends Component {
                              location = {this.state.dog.location}
                              size = {this.state.dog.breedSize}
                              breed = {this.state.dog.breed}
+                             discription = {this.state.dog.discription}
+                             updateDogHandler = {this.updateDogHandler}
+                             deleteDogHandler ={this.deleteDogHandler}
                             />
                         </Row>
                 </Container>

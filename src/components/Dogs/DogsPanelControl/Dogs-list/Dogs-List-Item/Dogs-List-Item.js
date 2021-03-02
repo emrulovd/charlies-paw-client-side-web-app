@@ -16,9 +16,7 @@ const dogsListItem = (props) => {
     return(
         <div className={classes.Container}>
             <Row>
-                {/* <Col className={classes.Image} noGutters={false}> */}
-                    <img src={props.image} alt=""/>
-                {/* </Col> */}
+                <img src={props.image} alt=""/>
                 <Col className={classes.Info}>
                     <h3>{props.title}</h3>
                     <section><FontAwesomeIcon icon={faCalendarAlt}/> Age: <h5>{props.age}</h5></section>

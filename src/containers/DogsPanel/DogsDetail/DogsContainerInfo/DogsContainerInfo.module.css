@@ -7,3 +7,17 @@
     height: 100%;
     width: 50%;
 }
+
+.ButtonContainer{
+    float: right;
+    margin-right: 20%;
+    margin-top: 5%;
+}
+
+
+.ButtonContainer button{
+    background-color:#10C9C3;
+    border: #10C9C3;
+    text-transform: uppercase;
+    padding: 5px 20px 5px;
+}
