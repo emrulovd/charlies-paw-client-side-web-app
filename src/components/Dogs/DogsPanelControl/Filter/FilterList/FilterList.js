@@ -3,7 +3,7 @@ import React from 'react';
 import {ListGroup, ListGroupItem} from 'react-bootstrap';
 
 import FilterListItemCheckbox from './FilterListItemCheckbox/FilterListItemCheckbox';
-// import FilterListItemSelect from './FilterListItemSelect/FilterListItemSelect';
+import FilterListItemRange from './FilterListItemRange/FilterListItemRange';
 
 import classes from './FilterList.module.css';
 
@@ -17,22 +17,32 @@ const filterList = (props) => {
         {size:{
             title: 'Size',
             values: ['Small', 'Average', 'Big']
+        }},
+        {age:{
+            title: 'Age'
         }}
     ]
     
     return(
       <div className={classes.Container}>
            <ListGroup>
-                    <label><h6>{filters[0].location.title}</h6></label>
-                    <ListGroupItem className={classes.ListItem} bsPrefix>
-                            <FilterListItemCheckbox 
-                            value={filters[0].location.values}
-                            filterInputHandler = {props.filterInputHandler}/>
-                    </ListGroupItem>
                     <label><h6>{filters[1].size.title}</h6></label>
                     <ListGroupItem className={classes.ListItem} bsPrefix>
                             <FilterListItemCheckbox 
                             value={filters[1].size.values}
+                            filterInputHandler = {props.filterInputHandler}/>
+                    </ListGroupItem>
+                    <label><h6>{filters[2].age.title}</h6></label>
+                    <ListGroupItem className={classes.ListItem} bsPrefix>
+                            <FilterListItemRange
+                            filterInputHandler = {props.filterInputHandler}
+                            rangeValue = {props.rangeValue}
+                            />
+                    </ListGroupItem>
+                    <label><h6>{filters[0].location.title}</h6></label>
+                    <ListGroupItem className={classes.ListItem} bsPrefix>
+                            <FilterListItemCheckbox 
+                            value={filters[0].location.values}
                             filterInputHandler = {props.filterInputHandler}/>
                     </ListGroupItem>
           </ListGroup>

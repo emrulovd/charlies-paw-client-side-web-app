@@ -1,0 +1,16 @@
+.Container{
+    /* width: 50%; */
+    height: 100%;
+    padding-left: 15%;
+}
+
+.Container input{
+    color: #fff;
+    width: 60%;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+
+.Container h6{
+    padding-left: 30%;
+}

@@ -17,6 +17,8 @@ class DogsPanel extends Component {
           dogs: [],
           searchedDogs: [],
           modified: false,
+          rangeNotValid: true,
+          rangeValue: '0',
           search: {
               valid: false,
               value: '',
@@ -54,28 +56,52 @@ class DogsPanel extends Component {
         this.props.history.push('/dogs-list');
     }
 
-
+    rangeInputHandler = (event) => {
+        if(!isNaN(event)){
+            for(let i in this.state.dogs){
+                if(parseInt(this.state.dogs[i].age.split('years').join('')) === parseInt(event)){
+                    break;
+                }
+            }
+            this.setState({
+                rangeNotValid: false,
+                rangeValue: event,
+            });
+        }
+    }
 
     handleFilterInput = (event) => {
         let newDogs = []
-        if(event.target.checked !== false || event.target.value === ''){
+        this.rangeInputHandler(event.target.value)
+        if(event.target.checked !== false || this.state.rangeNotValid === false){
             if(this.state.searchedDogs.length === 0){
                 for(let index in this.state.dogs){
-                    if(this.state.dogs[index].location === event.target.value || this.state.dogs[index].breed === event.target.value){
+                    if(this.state.dogs[index].location === event.target.value
+                       || this.state.dogs[index].breed === event.target.value
+                       || parseInt(this.state.dogs[index].age.split('years').join('')) === parseInt(event.target.value)){
                         newDogs.push(this.state.dogs[index])
                     }
                 }
-                this.setState({searchedDogs: newDogs});
+                this.setState({
+                    searchedDogs: newDogs
+                });
             }else{
                 for(let index in this.state.searchedDogs){
-                    if(this.state.searchedDogs[index].location === event.target.value || this.state.searchedDogs[index].breed === event.target.value){
+                    if(this.state.searchedDogs[index].location === event.target.value 
+                        || this.state.searchedDogs[index].breed === event.target.value
+                        || parseInt(this.state.dogs[index].age.split('years').join('')) === parseInt(event.target.value)){
                         newDogs.push(this.state.searchedDogs[index])
                     }
                 }
-                this.setState({searchedDogs: newDogs});
+                this.setState({
+                    searchedDogs: newDogs
+                });
             }
         }else{
             this.setState({searchedDogs: []});
+        }
+        if(newDogs.length !== 0){
+            this.setState({rangeNotValid: true});
         }
     }
 
@@ -126,6 +152,7 @@ class DogsPanel extends Component {
                          dogs = {dogsList()}
                          filterInputHandler={this.handleFilterInput}
                          newDogHandler = {this.newDogHandler}
+                         rangeValue={this.state.rangeValue}
                          />
                     </Route>
                 </Switch>
