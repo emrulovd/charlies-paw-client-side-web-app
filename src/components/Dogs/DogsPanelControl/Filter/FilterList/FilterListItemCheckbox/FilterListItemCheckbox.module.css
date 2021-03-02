@@ -1,0 +1,13 @@
+.Container label{
+    padding-left: 5%;
+}
+
+.Container ul{
+    list-style: none;
+    padding-left: 15px;
+}
+
+
+.Container input{
+    cursor: pointer;
+}

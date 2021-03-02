@@ -1,28 +1,22 @@
 import React from 'react';
 
-
+import classes from './FilterListItemCheckbox.module.css'
 
 const filterListItemCheckbox = (props) => {
     return(
-        <div>
-            {/* <label>{props.data}</label>
-            <input type="checkbox" value={props.data} onChange={(event) => props.filterInputHandler(event)}/> */}
+        <div className={classes.Container}>
             <ul>
                 <li>
-                    <label>Coventry</label>
-                    <input type="checkbox" value="Coventry" onClick={(event) => props.filterInputHandler(event)}/>
-                </li>
-                <li>
-                    <label>Liverpool</label>
-                    <input type="checkbox" value="Liverpool" onClick={(event) => props.filterInputHandler(event)}/>
-                </li>
-                <li>
-                    <label>London</label>
-                    <input type="checkbox" value="London" onClick={(event) => props.filterInputHandler(event)}/>
-                </li>
-                <li>
-                    <label>York</label>
-                    <input type="checkbox" value="York" onClick={(event) => props.filterInputHandler(event)}/>
+                    {
+                        props.value.map((v, _) => {
+                            return(
+                                <div key={v}>
+                                    <input  type="checkbox" value={v} onChange={(event) => props.filterInputHandler(event)}/>
+                                    <label>{v}</label>
+                                </div>
+                            )
+                        })
+                    }
                 </li>
             </ul>
         </div>

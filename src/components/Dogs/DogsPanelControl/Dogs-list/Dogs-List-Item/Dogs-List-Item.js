@@ -21,8 +21,8 @@ const dogsListItem = (props) => {
                 {/* </Col> */}
                 <Col className={classes.Info}>
                     <h3>{props.title}</h3>
-                    <p><FontAwesomeIcon icon={faCalendarAlt}/> Age: <h5>{props.age}</h5></p>
-                    <p><FontAwesomeIcon icon={faMapMarkedAlt}/> Location: <h5>{props.location}</h5></p>
+                    <section><FontAwesomeIcon icon={faCalendarAlt}/> Age: <h5>{props.age}</h5></section>
+                    <section><FontAwesomeIcon icon={faMapMarkedAlt}/> Location: <h5>{props.location}</h5></section>
                 </Col>
             </Row>
             <Row className={classes.Discription} bsPrefix>
