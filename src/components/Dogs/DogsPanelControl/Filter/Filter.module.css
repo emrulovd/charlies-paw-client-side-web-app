@@ -1,3 +1,15 @@
 .Container{
     background-color: #10C9C3;
+    width:70%;
+    float:right;
 }
+
+
+.Container h3{
+    text-transform: uppercase;
+    padding-bottom: 10%;
+    margin-left: 10%;
+    margin-top: 5%;
+    color: #fff;
+}
+

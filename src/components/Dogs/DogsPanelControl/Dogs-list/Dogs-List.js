@@ -1,24 +1,16 @@
-import React, { useState } from 'react';
-import {Route, withRouter} from 'react-router-dom';
+import React from 'react';
+import { withRouter} from 'react-router-dom';
 
 import DogsListItem from './Dogs-List-Item/Dogs-List-Item';
-import DogsEdit from '../../../../containers/DogsPanel/Dogs-edit/Dogs-Edit';
 
 
-import { ListGroup, Button } from 'react-bootstrap'
+import { Button, Container, Row, Col } from 'react-bootstrap'
 import classes from './Dogs-List.module.css';
 
 const DogsList = (props) =>{
-    const [changeRoute, routeCondition] = useState(false); // Temporary use 
 
     const addDogHandler = () => {
         props.history.replace('/dogs-list/edit-dog');
-        routeCondition(true);
-    }
-
-    const goBackHandler = () => {
-        props.history.replace('/dogs-list');
-        routeCondition(false);
     }
 
     const detailDogPageHandler = (id) => {
@@ -27,31 +19,28 @@ const DogsList = (props) =>{
 
     return(
         <div className={classes.Container}>
-            {   changeRoute ?<Button primary="true" onClick={goBackHandler}>Dog List</Button>
-                : <Button primary="true" onClick={addDogHandler}>Add new dog</Button>
-                 
-            }
-
-               { changeRoute ? <Route path='/dogs-list/edit-dog' exact component={DogsEdit}/>
-                 :
-                <ListGroup variant="flush">
-                    {
-                        props.dogs.map((dog, index) =>{
-                            return(
-                                <DogsListItem
-                                key={index}
-                                title={dog.dogName}
-                                location={dog.location}
-                                image={dog.image}
-                                content={dog.discription}
-                                index={index}
-                                click = {detailDogPageHandler}
-                                />
-                            )
-                        })
-                    }
-                </ListGroup>
-                }
+                <Button primary="true" onClick={addDogHandler} >Add new dog</Button>
+                <div>
+                <Container fluid >
+                    <Row >
+                       { props.dogs.map((dog, index) =>{
+                                return(
+                                    <Col xs lg={6} key={index} >
+                                        <DogsListItem
+                                        title={dog.dogName}
+                                        location={dog.location}
+                                        image={dog.image}
+                                        age={dog.age}
+                                        content={dog.discription}
+                                        id={dog.id}
+                                        detailDogPageHandler = {detailDogPageHandler}
+                                        />
+                                    </Col>
+                                )
+                            })}
+                    </Row>
+                </Container>
+                </div>
         </div>
     )
 }

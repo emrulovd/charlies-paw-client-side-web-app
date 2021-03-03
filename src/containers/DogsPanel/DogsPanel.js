@@ -6,9 +6,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 import DogsBanner from '../../components/Dogs/DogsBanner/DogsBanner';
-import SearchBar from '../../components/Dogs/SearcBar/SearchBar';
 import DogsPanelControl from '../../components/Dogs/DogsPanelControl/DogsPanelControl';
-import DogsDetail from '../../components/Dogs/DogsDetail/DogsDetail';
+import DogsDetail from './DogsDetail/DogsDetail';
+import DogsEdit from './Dogs-edit/Dogs-Edit';
 
 class DogsPanel extends Component {
     constructor(props) {
@@ -16,80 +16,130 @@ class DogsPanel extends Component {
         this.state = {
           dogs: [],
           searchedDogs: [],
+          modified: false,
+          rangeNotValid: true,
+          rangeValue: '0',
           search: {
               valid: false,
               value: '',
-          }
+          },
         }
     }
 
     componentDidMount(){
         this.fetchData();
     }
+
+    componentDidUpdate(){
+        if(this.state.modified){ // fetches the data after a dog is added or updated 
+           this.setState({modified: !this.state.modified});
+           setTimeout(() => { // Delay the fetch to prevent from racing
+                this.fetchData();
+           }, 100) 
+        }
+    }
     
-    async fetchData() {
+    async fetchData() { // fetch dogs data
         axios.get('http://localhost:8080/dogs')
             .then(res => {
                 const data = res.data
                 console.log(data.message);
-                this.setState({dogs: data.dogs});
+                this.setState({
+                    dogsLenght: data.dogs.length,
+                    dogs: data.dogs
+                });
             });
     }
 
-    newSearchDogHandler = (event) =>{
-        const newDogs = [];
-        for( let index in this.state.dogs){
-            console.log(index);
-            if(this.state.dogs[index].breed === this.state.search.value){
-                newDogs.push(this.state.dogs[index]);
+    updateDogHandler = () => {
+        this.setState({modified: true})
+        this.props.history.push('/dogs-list');
+    }
+
+    rangeInputHandler = (event) => {
+        if(!isNaN(event)){
+            for(let i in this.state.dogs){
+                if(parseInt(this.state.dogs[i].age.split('years').join('')) === parseInt(event)){
+                    break;
+                }
             }
+            this.setState({
+                rangeNotValid: false,
+                rangeValue: event,
+            });
         }
-        let updatedDogs = {
-            ...this.state.dogs
+    }
+
+    handleFilterInput = (event) => {
+        let newDogs = []
+        this.rangeInputHandler(event.target.value)
+        if(event.target.checked !== false || this.state.rangeNotValid === false){
+            if(this.state.searchedDogs.length === 0){
+                for(let index in this.state.dogs){
+                    if(this.state.dogs[index].location === event.target.value
+                       || this.state.dogs[index].breed === event.target.value
+                       || parseInt(this.state.dogs[index].age.split('years').join('')) === parseInt(event.target.value)){
+                        newDogs.push(this.state.dogs[index])
+                    }
+                }
+                this.setState({
+                    searchedDogs: newDogs
+                });
+            }else{
+                for(let index in this.state.searchedDogs){
+                    if(this.state.searchedDogs[index].location === event.target.value 
+                        || this.state.searchedDogs[index].breed === event.target.value
+                        || parseInt(this.state.dogs[index].age.split('years').join('')) === parseInt(event.target.value)){
+                        newDogs.push(this.state.searchedDogs[index])
+                    }
+                }
+                this.setState({
+                    searchedDogs: newDogs
+                });
+            }
+        }else{
+            this.setState({searchedDogs: []});
         }
-        updatedDogs = newDogs;
-        this.setState({
-            searchedDogs: updatedDogs,
-            search:{
-                valid: true
-        }})
+        if(newDogs.length !== 0){
+            this.setState({rangeNotValid: true});
+        }
     }
 
     searchDogHandler = (event) => {
-            const updatedSearch = {
-                ...this.state.search
+      
+      this.setState({
+            searchedDogs: this.state.dogs.filter(dog => {
+                return dog.breed.toLowerCase().includes(event.target.value.toLowerCase())
+            }), 
+            search:{
+            valid: true
             }
-            const updatedSearchValue = event.target.value;
-            updatedSearch.value = updatedSearchValue;
-            this.setState({search: {
-                value: updatedSearch.value
-            }})
+          })  
     }
 
-    dogsDetailHandlerData = (params_id) => {
-        if(this.state.search.valid){
-            for(let index in this.state.searchedDogs){
-                if(index === params_id){
-                    console.log('searched')
-                    return this.state.searchedDogs[index];
-                }
-            }
-        }else{
-            for(let index in this.state.dogs){
-                if(index === params_id){
-                    console.log('!searched')
-                    return this.state.dogs[index];
-                }
+    render() {           
+        const dogsList = () =>{
+            if(this.state.searchedDogs.length === 0){
+                return this.state.dogs;
+            }else{
+                return this.state.searchedDogs;
             }
         }
-    }
 
-    render() {  
         return(
             <div>
                 <Switch>
+                    <Route path='/dogs-list/edit-dog' 
+                    exact component={() => <DogsEdit
+                    dogs = {this.state.dogs}
+                    updateDogHandler ={this.updateDogHandler}
+                    params_id = {this.props.location.search.split('?q=').join('')}/>}></Route>
                     <Route path="/dogs-list/dog-details" exact >
-                        <DogsDetail details = {this.dogsDetailHandlerData}/>
+                        <DogsDetail 
+                        dogs = {this.state.dogs}
+                        updateDogHandler = {this.updateDogHandler}
+                        history = {this.props.history}
+                        location = {this.props.location}/>
                     </Route>
                     <Route path='/' >
                         <Container fluid>
@@ -97,10 +147,14 @@ class DogsPanel extends Component {
                                 <DogsBanner/>
                             </Row>
                         </Container>
-                        {/* <SearchBar search = {this.searchDogHandler}/> */}
-                        <SearchBar searchValue = {this.searchDogHandler} search = {this.newSearchDogHandler}/>
-                        {/* { this.state.dogs.map((dog, index) => ( <p key={index}>{dog.dogName}</p>))} */}
-                        <DogsPanelControl dogs = { this.state.searchedDogs.length === 0? this.state.dogs : this.state.searchedDogs} />
+                        <DogsPanelControl
+                         searchDogHandler = {this.searchDogHandler}
+                         dogsMain ={this.state.dogs}   
+                         dogs = {dogsList()}
+                         filterInputHandler={this.handleFilterInput}
+                         newDogHandler = {this.newDogHandler}
+                         rangeValue={this.state.rangeValue}
+                         />
                     </Route>
                 </Switch>
             </div>

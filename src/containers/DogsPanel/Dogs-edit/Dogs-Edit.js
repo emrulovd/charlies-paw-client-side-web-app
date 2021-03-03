@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import { Form, Button } from 'react-bootstrap';
+import classes from './Dogs-Edit.module.css';
+import { Form, Button, Container } from 'react-bootstrap';
+
 
 class DogsEdit extends Component{
     constructor(props){
@@ -12,56 +14,56 @@ class DogsEdit extends Component{
                     elementType: 'input',
                     elementConfig: {
                         type: 'text',
-                        placeholder: "Dog's name"
                     },
+                    placeholder: 'Dog name',
                     value: ''
                 },
                 age:{
                     elementType: 'input',
                     elementConfig: {
-                        type: 'text',
-                        placeholder: "Dog's age"
+                        type: 'text'
                     },
+                    placeholder: 'Dog age',
                     value: ''
                 },
                 breed:{
                     elementType: 'input',
                     elementConfig: {
                         type: 'text',
-                        placeholder: "Dog's breed"
                     },
+                    placeholder: 'Dog breed',
                     value: ''
                 },
                 breedSize:{
                     elementType: 'input',
                     elementConfig: {
                         type: 'text',
-                        placeholder: "Breed's size"
                     },
+                    placeholder: 'Breed size',
                     value: ''
                 },
                 location:{
                     elementType: 'input',
                     elementConfig: {
                         type: 'text',
-                        placeholder: "Dog's location"
                     },
+                    placeholder: 'Dogs location',
                     value: ''
                 },
                 image:{
                     elementType: 'input',
                     elementConfig: {
                         type: 'text',
-                        placeholder: "Dog's image"
                     },
+                    placeholder: 'Dog image',
                     value: ''
                 },
                 discription:{
                     elementType: 'input',
                     elementConfig: {
                         type: 'textarea',
-                        placeholder: "Short discription about the dog"
                     },
+                    placeholder: 'Short discription about the dog',
                     value: ''
                 },
             },
@@ -69,12 +71,54 @@ class DogsEdit extends Component{
         }
     }
 
-    async PostData (formData){
+    componentDidMount(){
+        this.inputDogPopulateHandler();
+    }
+
+
+    async CreateDog (formData){  // The post request function will be moved to DogsPanel container
         axios.post('http://localhost:8080/dogs/create', formData)
             .then( result => {
-                console.log(result);
+                console.log(result.data.message);
             });
     }
+
+    async UpdateDog(id , formData){ //Update specific dog 
+        axios.put('http://localhost:8080/dogs/update/' + id, formData)
+            .then( result =>{
+                console.log(result.data.message);
+            })
+    }
+
+    inputDogPopulateHandler = () => {
+        if(this.props.params_id){
+            const updatedForm = {
+                ...this.state.dogForm
+            }
+            let updatedFormValue;
+            for(let index in this.props.dogs[this.props.params_id]){
+                    updatedFormValue = {
+                        ...updatedForm[index]
+                    }
+                    updatedFormValue.value = this.props.dogs[this.props.params_id][index];
+                    updatedForm[index] = updatedFormValue;
+                    this.setState({dogForm: updatedForm});
+            }
+        }
+    }
+
+    updateDogHandler = (event) => {
+        event.preventDefault();
+        this.setState({loading: true});
+        const formData = {};
+        for( let formElementIndentifier in this.state.dogForm){
+            formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
+        }
+        formData['id'] = this.props.params_id;
+        this.UpdateDog(this.props.params_id, formData);
+        this.props.updateDogHandler();
+    }
+
     newDogHandler = ( event ) => {
         event.preventDefault();
         this.setState({loading: true});
@@ -82,8 +126,9 @@ class DogsEdit extends Component{
         for( let formElementIndentifier in this.state.dogForm){
             formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
         }
-        this.PostData(formData);
-        this.props.history.push('/dogs-list');
+        formData['id'] = this.props.dogs.length; // Adding temporary id to the post
+        this.props.updateDogHandler();
+        this.CreateDog(formData);
     }
     inputChangeHandler = (event, inputIndentifier) => {
         const updatedDogForm = {
@@ -97,9 +142,12 @@ class DogsEdit extends Component{
         this.setState({dogForm: updatedDogForm});
     }
 
-    render(){
+    render(){   
         const formElementsArray = [];
         for(let key in this.state.dogForm){
+            if(key === '_id'){
+                break;
+            }
             formElementsArray.push({
                 id: key,
                 config: this.state.dogForm[key]
@@ -107,21 +155,23 @@ class DogsEdit extends Component{
         }
         return(
             <div>
-                <Form onSubmit={this.newDogHandler}>
-                    {formElementsArray.map((formElement) => (
-                        <Form.Group key = {formElement.id}>
-                            <Form.Label>{formElement.config.elementConfig.placeholder}</Form.Label>
-                            <Form.Control 
-                                elementype={formElement.config.elementType}
-                                elementconfig={formElement.config.elementConfig}
-                                value = {formElement.value}
-                                onChange={(event) => this.inputChangeHandler(event, formElement.id)} />
-                        </Form.Group>
-                    ))}
-                    <Button variant="primary" type="submit">
-                        Submit
-                    </Button>
-                </Form>
+                <Container className={classes.temp}>
+                    <Form onSubmit={this.props.params_id ? this.updateDogHandler : this.newDogHandler}>
+                        {formElementsArray.map((formElement) => (
+                            <Form.Group key = {formElement.id}>
+                                <Form.Label>{formElement.config.placeholder}</Form.Label>
+                                <Form.Control 
+                                    elementype={formElement.config.elementType}
+                                    elementconfig={formElement.config.elementConfig}
+                                    value = {formElement.config.value}
+                                    onChange={(event) => this.inputChangeHandler(event, formElement.id)} />
+                            </Form.Group>
+                        ))}
+                        <Button variant="primary" type="submit">
+                            Submit
+                        </Button>
+                    </Form>
+                </Container>
             </div>
         )
     }

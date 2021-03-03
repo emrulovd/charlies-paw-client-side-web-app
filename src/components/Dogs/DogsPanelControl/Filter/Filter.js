@@ -7,9 +7,8 @@ import FilterList from './FilterList/FilterList';
 const filter = (props) => {
     return(
         <div className={classes.Container}>
-            <h1>Filter</h1>
-            <hr/>
-            <FilterList dogs={props.dogs}/>
+            <h3>Filter</h3>
+            <FilterList dogs={props.dogs} filterInputHandler = {props.filterInputHandler} rangeValue = {props.rangeValue}/>
         </div>
     ) 
 }
