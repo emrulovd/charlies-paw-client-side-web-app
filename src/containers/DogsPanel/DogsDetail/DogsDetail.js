@@ -15,12 +15,13 @@ class DogDetail extends Component {
         super(props)
         this.state = {
             dog: [],
-            params_id: this.props.location.search.split('?q=').join('')
+            params_id: this.props.location.search.split('?q=').join(''),
         }
     }
     componentDidMount(){
         this.fetchDog();
     }
+
 
     async fetchDog(){
         axios.get('http://localhost:8080/dogs/' + this.state.params_id)
@@ -29,6 +30,12 @@ class DogDetail extends Component {
                 this.setState({dog: dog})
                 console.log(result.data.message);
             })
+    }
+    updateDetailDogHandler = (id) => {
+        this.setState({params_id: id})
+        setTimeout(() => {
+            this.fetchDog();
+        }, 200)
     }
 
     deleteDogHandler = () => {
@@ -63,7 +70,11 @@ class DogDetail extends Component {
                             />
                         </Row>
                         <Row>
-                            <DogsDetailAdds location = {this.state.dog.location}/>
+                            <DogsDetailAdds 
+                            location = {this.state.dog.location}
+                            dogs = {this.props.dogs}
+                            history = {this.props.history}
+                            updateDetailDogHandler = {this.updateDetailDogHandler}/>
                         </Row>
                 </Container>
             </div>

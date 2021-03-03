@@ -136,6 +136,7 @@ class DogsPanel extends Component {
                     params_id = {this.props.location.search.split('?q=').join('')}/>}></Route>
                     <Route path="/dogs-list/dog-details" exact >
                         <DogsDetail 
+                        dogs = {this.state.dogs}
                         updateDogHandler = {this.updateDogHandler}
                         history = {this.props.history}
                         location = {this.props.location}/>

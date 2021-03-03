@@ -1,0 +1,40 @@
+.Container img{
+    max-height: 30vh;
+    max-width: 100%;
+}
+
+/* 
+.Container .OverMouse {
+    max-height: 200px;
+    max-width: 200px;
+}
+
+ */
+
+.Container div{
+    height: 30vh;
+    width: 300px;
+    background-size: cover; 
+    transform: scale(1.05); 
+    transition: 0.5s;
+    color: white;
+}
+
+
+.Container section{
+    background-color: white;
+    opacity: 0.8;
+    height: 100%;
+    width: 100%;
+    padding-top: 40%;
+}
+
+.Container button{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color:#10C9C3;
+    border: #10C9C3;
+    text-transform: uppercase;
+    padding: 5px 20px 5px;
+}
