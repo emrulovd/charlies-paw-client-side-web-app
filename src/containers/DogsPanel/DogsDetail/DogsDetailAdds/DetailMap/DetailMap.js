@@ -10,11 +10,27 @@ class DetailMap extends Component {
             showingInfoWindow: false,  // Hides or shows the InfoWindow
             activeMarker: {},          // Shows the active marker upon click
             selectedPlace: {},          // Shows the InfoWindow to the selected place upon a marker
-            locations : {              // Hard coding the locations of the city in terms of lattitude and longtitude
+            location : {              // Hard coding the locations of the city in terms of lattitude and longtitude
                 Coventry:{
-                    lat: 52.4068,
-                    lon: 1.5197
+                    city:'Coventry',
+                    lat: 52.406800,
+                    lon: -1.519700
                 },
+                London: {
+                    city:'London',
+                    lat: 51.5074,
+                    lon: 0.1278
+                },
+                Liverpool:{
+                    city:'Liverpool',
+                    lat: 53.4084,
+                    lon: -2.9916
+                },
+                York:{
+                    city:'York',
+                    lat: 53.9600,
+                    lon: -1.0873
+                }
             }
           };
     }
@@ -36,33 +52,42 @@ class DetailMap extends Component {
   };
 
 
+  mapGenerator = () => {
+      for(let index in this.state.location){
+          if(this.state.location[index].city === this.props.location){
+                return(
+                    <Map className={classes.Map}
+                    google={this.props.google}
+                    zoom={15}
+                    initialCenter={
+                    {
+                        lat: this.state.location[index].lat,
+                        lng: this.state.location[index].lon
+                    }
+                    }>
+                    <Marker
+                    onClick={this.onMarkerClick}
+                    name={"Charlie's Paw Sheltter"}
+                    />
+                    <InfoWindow
+                    marker={this.state.activeMarker}
+                    visible={this.state.showingInfoWindow}
+                    onClose={this.onClose}
+                    >
+                    <div>
+                        <h4>{this.state.selectedPlace.name}</h4>
+                    </div>
+                    </InfoWindow>
+                </Map>
+            )
+          }
+      }
+  }
+
     render() {
         return(
             <div className={classes.Container}>
-                    <Map className={classes.Map}
-                        google={this.props.google}
-                        zoom={15}
-                        initialCenter={
-                        {
-                            lat: 42.1354,
-                            lng: 24.7453
-                        }
-                        }
-                    >
-                        <Marker
-                        onClick={this.onMarkerClick}
-                        name={"Charlie's Paw Sheltter"}
-                        />
-                        <InfoWindow
-                        marker={this.state.activeMarker}
-                        visible={this.state.showingInfoWindow}
-                        onClose={this.onClose}
-                        >
-                        <div>
-                            <h4>{this.state.selectedPlace.name}</h4>
-                        </div>
-                        </InfoWindow>
-                    </Map>
+                    {this.mapGenerator()}
             </div>
         )
     }
@@ -70,5 +95,5 @@ class DetailMap extends Component {
 
 export default GoogleApiWrapper(
     (props) => ({
-        apiKey: props.apiKey
+        apiKey: 'AIzaSyBmjA2bQNvU-v4tvW0N56Jw_C9gK8qRT-0',
 }))(DetailMap);

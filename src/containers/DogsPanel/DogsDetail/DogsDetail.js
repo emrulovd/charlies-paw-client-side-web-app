@@ -63,7 +63,7 @@ class DogDetail extends Component {
                             />
                         </Row>
                         <Row>
-                            <DogsDetailAdds google = {this.props.google}/>
+                            <DogsDetailAdds location = {this.state.dog.location}/>
                         </Row>
                 </Container>
             </div>

@@ -10,7 +10,7 @@ const dogsDetailAdds = (props) => {
         <div className={classes.Container}>
             <Container fluid>
                 <Row>
-                    <DetailMap google = {props.google}/>
+                    <DetailMap location = {props.location}/>
                 </Row>
                 <Row>
 

@@ -8,12 +8,10 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const app = (
-  <React.StrictMode>
+const app = ( // Check react doc for React.StrictMode
       <BrowserRouter>
             <App/>
       </BrowserRouter>
-  </React.StrictMode>
 );
 
 ReactDOM.render(app, document.getElementById('root'));
