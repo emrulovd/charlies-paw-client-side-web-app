@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
-import {Container, Row, Col, Button} from 'react-bootstrap';
+import {Container, Row} from 'react-bootstrap';
 import classes from './DogsDetail.module.css';
 
 import DogsBanner from '../../../components/Dogs/DogsBanner/DogsBanner';
 import DogsContainerInfo from './DogsContainerInfo/DogsContainerInfo';
+import DogsDetailAdds from './DogsDetailAdds/DogsDetailAdds';
 
 
 class DogDetail extends Component {
@@ -49,15 +50,6 @@ class DogDetail extends Component {
                 <DogsBanner/>
                 <Container fluid className={classes.Container}>
                         <Row>
-                            {/* <Col>
-                                <img src={this.state.dog.image} alt='dog'/>
-                            </Col>
-                            <Col>
-                                <h1>{this.state.dog.dogName}</h1>
-                                <p>{this.state.dog.discription}</p>
-                                <Button variant="success" onClick = {this.updateDogHandler}>Update</Button>
-                                <Button variant="danger" onClick={this.deleteDogHandler}>Delete</Button>
-                            </Col> */}
                             <DogsContainerInfo
                              image = {this.state.dog.image}
                              dogName = {this.state.dog.dogName}
@@ -69,6 +61,9 @@ class DogDetail extends Component {
                              updateDogHandler = {this.updateDogHandler}
                              deleteDogHandler ={this.deleteDogHandler}
                             />
+                        </Row>
+                        <Row>
+                            <DogsDetailAdds google = {this.props.google}/>
                         </Row>
                 </Container>
             </div>
