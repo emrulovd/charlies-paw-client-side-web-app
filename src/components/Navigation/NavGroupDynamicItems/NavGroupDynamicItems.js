@@ -6,7 +6,7 @@ import classes from './NavGroupDynamicItems.module.css';
 const navGroupDynamicItems = () => {
     return(
         <ul className={classes.NavigationItems}>
-            <NavGroupDynamicItem link="/login" active={true}>Login</NavGroupDynamicItem>
+            <NavGroupDynamicItem link="/auth" active={true}>Login</NavGroupDynamicItem>
             <NavGroupDynamicItem link="/singup">Signup</NavGroupDynamicItem>
         </ul>
     )

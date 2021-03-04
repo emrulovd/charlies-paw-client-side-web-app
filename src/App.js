@@ -5,6 +5,7 @@ import Layout from './components/Layout/Layout';
 import HomeContainer from './components/Home/HomeContainer';
 import DogsPanel from './containers/DogsPanel/DogsPanel';
 import About from './components/About/About';
+import Auth from './containers/Authentication/Authentication';
 
 
 
@@ -15,6 +16,7 @@ class App extends Component {
       <div>
           <Layout>
               <Switch >
+                  <Route path="/auth" component={Auth} />
                   <Route path="/dogs-list" component={DogsPanel} />
                   <Route path="/about" component={About} />
                   <Route path="/" exact component={HomeContainer} />
