@@ -11,7 +11,7 @@ const dogsDetailAdds = (props) => {
         <div className={classes.Container}>
             <Container fluid>
                 <Row>
-                    <DetailMap location = {props.location}/>
+                    <DetailMap dog = {props.dog}/>
                 </Row>
                 <Row>
                     <DetailDogshRelevantList

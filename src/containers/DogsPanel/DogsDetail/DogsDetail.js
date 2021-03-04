@@ -71,7 +71,7 @@ class DogDetail extends Component {
                         </Row>
                         <Row>
                             <DogsDetailAdds 
-                            location = {this.state.dog.location}
+                            dog = {this.state.dog}
                             dogs = {this.props.dogs}
                             history = {this.props.history}
                             updateDetailDogHandler = {this.updateDetailDogHandler}/>
