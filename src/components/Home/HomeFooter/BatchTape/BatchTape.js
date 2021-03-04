@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import classes from './BatchTape.module.css';
 
+
 import batch from '../../../../assets/batches.png';
 
 const batchTape = () => {

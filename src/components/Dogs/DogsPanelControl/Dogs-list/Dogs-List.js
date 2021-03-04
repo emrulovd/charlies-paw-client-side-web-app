@@ -4,7 +4,8 @@ import { withRouter} from 'react-router-dom';
 import DogsListItem from './Dogs-List-Item/Dogs-List-Item';
 
 
-import { Button, Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap';
+import Button from '../../../UI/Button/Button';
 import classes from './Dogs-List.module.css';
 
 const DogsList = (props) =>{
@@ -19,7 +20,7 @@ const DogsList = (props) =>{
 
     return(
         <div className={classes.Container}>
-                <Button primary="true" onClick={addDogHandler} >Add new dog</Button>
+                <Button click={addDogHandler} >Add new dog</Button>
                 <div>
                 <Container fluid >
                     <Row >
