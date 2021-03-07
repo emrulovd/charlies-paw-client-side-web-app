@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
+import {Route, Switch} from 'react-router-dom'
 
+import SignUp from '../../components/Auth/Singup/Signup'
 
-import Input from '../../components/UI/Input/Input';
-import Button from '../../components/UI/Button/Button';
 import classes from './Authentication.module.css'
 
 class Authentication extends Component {
@@ -14,7 +14,7 @@ class Authentication extends Component {
                     elementType: 'input',
                     elementConfig: {
                         type: 'email',
-                        placholder: 'Mail Address'
+                        placeholder: 'Mail Address'
                     },
                     value: '',
                     validation:{
@@ -28,7 +28,7 @@ class Authentication extends Component {
                     elementType: 'input',
                     elementConfig: {
                         type: 'password',
-                        placholder: 'Password'
+                        placeholder: 'Password'
                     },
                     value: '',
                     validation:{
@@ -38,8 +38,48 @@ class Authentication extends Component {
                     valid: false,
                     touched: false
                 }
-            }
+            },
+            controlIsValid: false
         }
+    }
+
+
+    checkValidity(value, rules) {
+        let isValid = true;
+        
+        if (rules.required) {
+            isValid = value.trim() !== '' && isValid;
+        }
+
+        if (rules.minLength) {
+            isValid = value.length >= rules.minLength && isValid
+        }
+
+        if (rules.maxLength) {
+            isValid = value.length <= rules.maxLength && isValid
+        }
+
+        return isValid;
+    }
+
+    inputChangedHandler = (event, inputIdentifier) => {
+        console.log(inputIdentifier)
+        const updatedAuthForm = {
+            ...this.state.controls
+        };
+        const updatedFormElement = { 
+            ...updatedAuthForm[inputIdentifier]
+        };
+        updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.touched = true;
+        updatedAuthForm[inputIdentifier] = updatedFormElement;
+        
+        let formIsValid = true;
+        for (let inputIdentifier in updatedAuthForm) {
+            formIsValid = updatedAuthForm[inputIdentifier].valid && formIsValid;
+        }
+        this.setState({controls: updatedAuthForm, controlIsValid: formIsValid});
     }
 
     render(){
@@ -51,25 +91,15 @@ class Authentication extends Component {
             })
         }
 
-        const form = formElementsArray.map(formElement => (
-            <Input
-                key={formElement.id}
-                elementConfig = {formElement.config.elementConfig}
-                value = {formElement.config.value}
-                placeholder = {formElement.config.elementConfig.placeholder}
-                invalid = {!formElement.config.valid}
-                shouldValidate = {formElement.config.validation}
-                touched = {formElement.config.touched}
-                changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
-            />
-        ));
 
         return(
             <div className={classes.Auth}> 
-                <form>
-                    {form}
-                    <Button>Signin</Button>
-                </form>
+            <Switch>
+                    <Route path="/auth/signup" component={() => <SignUp
+                     formElementsArray = {formElementsArray}
+                     inputChangedHandler = {this.inputChangedHandler}
+                     />} />
+            </Switch>
             </div>
         );
     };
