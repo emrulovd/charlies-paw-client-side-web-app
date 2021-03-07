@@ -40,7 +40,7 @@ class AuthSignup extends Component {
                     touched: false
                 }
             },
-            controlIsValid: false,
+            formIsValid: false,
             loading: false
         }
     }
@@ -81,6 +81,16 @@ class AuthSignup extends Component {
         if (rules.maxLength) {
             isValid = value.length <= rules.maxLength && isValid
         }
+        
+        if (rules.isEmail) {
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            isValid = pattern.test(value) && isValid
+        }
+
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/;
+            isValid = pattern.test(value) && isValid
+        }
 
         return isValid;
     }
@@ -102,7 +112,8 @@ class AuthSignup extends Component {
         for (let inputIdentifier in updatedAuthForm) {
             formIsValid = updatedAuthForm[inputIdentifier].valid && formIsValid;
         }
-        this.setState({authForm: updatedAuthForm});
+        console.log(updatedAuthForm)
+        this.setState({authForm: updatedAuthForm, formIsValid: formIsValid});
     }
 
     render(){
@@ -114,7 +125,7 @@ class AuthSignup extends Component {
             })
         }
 
-        const form = formElementsArray.map(formElement => (
+        let form = formElementsArray.map(formElement => (
             <Input
                 key={formElement.id}
                 elementType = {formElement.config.elementType}
@@ -125,13 +136,15 @@ class AuthSignup extends Component {
                 touched = {formElement.config.touched}
                 changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
             />))
-
+        if( this.state.loading ){
+            form = <p>Spinner</p>;
+        }
         return(
             <div className={classes.Auth}> 
                 <form onSubmit={this.signUpHandler}>
                     <h4>Create a profile</h4>
                         {form}
-                    <Button>SIGNIN</Button>
+                    <Button disabled={!this.state.formIsValid}>SIGNIN</Button>
                 </form>
             </div>
         );
