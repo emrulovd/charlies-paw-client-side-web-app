@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import {Route, Switch} from 'react-router-dom'
 
-import SignUp from '../../components/Auth/Singup/Signup'
+import Input from '../../../components/UI/Input/Input';
+import Button from '../../../components/UI/Button/Button';
 
-import classes from './Authentication.module.css'
+import classes from './AuthSignup.module.css'
 
-class Authentication extends Component {
+class AuthSignup extends Component {
     constructor(props){
         super(props);
         this.state = {
-            controls:{
+            authForm:{
                 email:{
                     elementType: 'input',
                     elementConfig: {
@@ -63,47 +63,57 @@ class Authentication extends Component {
     }
 
     inputChangedHandler = (event, inputIdentifier) => {
-        console.log(inputIdentifier)
         const updatedAuthForm = {
-            ...this.state.controls
-        };
-        const updatedFormElement = { 
+            ...this.state.authForm
+        }
+
+        const updatedAuthElement = {
             ...updatedAuthForm[inputIdentifier]
-        };
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedAuthForm[inputIdentifier] = updatedFormElement;
+        }
+        updatedAuthElement.value = event.target.value;
+        updatedAuthElement.valid = this.checkValidity(updatedAuthElement.value, updatedAuthElement.validation);
+        updatedAuthElement.touched = true;
+        updatedAuthForm[inputIdentifier] = updatedAuthElement;
         
         let formIsValid = true;
         for (let inputIdentifier in updatedAuthForm) {
             formIsValid = updatedAuthForm[inputIdentifier].valid && formIsValid;
         }
-        this.setState({controls: updatedAuthForm, controlIsValid: formIsValid});
+        this.setState({authForm: updatedAuthForm});
     }
 
     render(){
         const formElementsArray = [];
-        for(let key in this.state.controls){
+        for(let key in this.state.authForm){
             formElementsArray.push({
                 id: key,
-                config: this.state.controls[key]
+                config: this.state.authForm[key]
             })
         }
 
+        const form = formElementsArray.map(formElement => (
+            <Input
+                key={formElement.id}
+                elementType = {formElement.config.elementType}
+                elementConfig = {formElement.config.elementConfig}
+                value = {formElement.config.value}
+                invalid = {!formElement.config.valid}
+                shouldValidate = {formElement.config.validation}
+                touched = {formElement.config.touched}
+                changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
+            />))
 
         return(
             <div className={classes.Auth}> 
-            <Switch>
-                    <Route path="/auth/signup" component={() => <SignUp
-                     formElementsArray = {formElementsArray}
-                     inputChangedHandler = {this.inputChangedHandler}
-                     />} />
-            </Switch>
+                <form>
+                    <h4>Create a profile</h4>
+                        {form}
+                    <Button>SIGNIN</Button>
+                </form>
             </div>
         );
     };
 }
 
 
-export default Authentication;
+export default AuthSignup;

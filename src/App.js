@@ -5,7 +5,7 @@ import Layout from './components/Layout/Layout';
 import HomeContainer from './components/Home/HomeContainer';
 import DogsPanel from './containers/DogsPanel/DogsPanel';
 import About from './components/About/About';
-import Auth from './containers/Authentication/Authentication';
+import Auth from './components/Auth/Authentication';
 
 
 
