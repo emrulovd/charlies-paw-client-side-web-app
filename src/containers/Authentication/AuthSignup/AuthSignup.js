@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
@@ -39,10 +40,32 @@ class AuthSignup extends Component {
                     touched: false
                 }
             },
-            controlIsValid: false
+            controlIsValid: false,
+            loading: false
         }
     }
 
+
+    signUpHandler = (event) => {
+        event.preventDefault();
+        this.setState({loading: true});
+        let formData = {};
+        for(let formElementIndentifier in this.state.authForm){
+            formData[formElementIndentifier] = this.state.authForm[formElementIndentifier].value;
+        }
+        const authData = {
+            data: formData
+        }
+        axios.post('localhost:8080/auth/signup', authData)
+            .then(response => {
+                this.setState({loading: false});
+                console.log(response.data.message);
+            })
+            .catch(error => {
+                this.setState({loading: false});
+                console.log(error);
+            })
+    }
 
     checkValidity(value, rules) {
         let isValid = true;
@@ -105,7 +128,7 @@ class AuthSignup extends Component {
 
         return(
             <div className={classes.Auth}> 
-                <form>
+                <form onSubmit={this.signUpHandler}>
                     <h4>Create a profile</h4>
                         {form}
                     <Button>SIGNIN</Button>
