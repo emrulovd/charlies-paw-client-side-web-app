@@ -1,52 +1,47 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 
+import classes from './AuthLogin.module.css';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 
-import classes from './AuthSignup.module.css'
-
-class AuthSignup extends Component {
+class AuthLogin extends Component {
     constructor(props){
         super(props);
         this.state = {
             authForm:{
-                email:{
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'email',
-                        placeholder: 'Mail Address'
+                    email:{
+                        elementType: 'input',
+                        elementConfig: {
+                            type: 'email',
+                            placeholder: 'Mail Address'
+                        },
+                        value: '',
+                        validation:{
+                            required: true,
+                            isEmail: true
+                        },
+                        valid: false,
+                        touched: false
                     },
-                    value: '',
-                    validation:{
-                        required: true,
-                        isEmail: true
-                    },
-                    valid: false,
-                    touched: false
-                },
-                password:{
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'password',
-                        placeholder: 'Password'
-                    },
-                    value: '',
-                    validation:{
-                        required: true,
-                        minLength: 6
-                    },
-                    valid: false,
-                    touched: false
-                }
-            },
-            formIsValid: false,
-            loading: false
+                    password:{
+                        elementType: 'input',
+                        elementConfig: {
+                            type: 'password',
+                            placeholder: 'Password'
+                        },
+                        value: '',
+                        validation:{
+                            required: true,
+                        },
+                        valid: false,
+                        touched: false
+                    }
+            }
         }
     }
 
-
-    signUpHandler = (event) => {
+    signInHandler = (event) => {
         event.preventDefault();
         this.setState({loading: true});
         let formData = {};
@@ -57,14 +52,10 @@ class AuthSignup extends Component {
             email: formData.email,
             password: formData.password
         }
-        axios.post('localhost:8080/auth/signup', authData)
+        axios.post('http://localhost:8080/auth/login', authData)
             .then(response => {
-                this.setState({loading: false});
-                console.log(response.data.message);
-            })
-            .catch(error => {
-                this.setState({loading: false});
-                console.log(error);
+                console.log(response.message);
+                console.log(response.data)
             })
     }
 
@@ -75,21 +66,8 @@ class AuthSignup extends Component {
             isValid = value.trim() !== '' && isValid;
         }
 
-        if (rules.minLength) {
-            isValid = value.length >= rules.minLength && isValid
-        }
-
-        if (rules.maxLength) {
-            isValid = value.length <= rules.maxLength && isValid
-        }
-
         if (rules.isEmail) {
             const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
             isValid = pattern.test(value) && isValid
         }
 
@@ -100,7 +78,6 @@ class AuthSignup extends Component {
         const updatedAuthForm = {
             ...this.state.authForm
         }
-
         const updatedAuthElement = {
             ...updatedAuthForm[inputIdentifier]
         }
@@ -108,16 +85,10 @@ class AuthSignup extends Component {
         updatedAuthElement.valid = this.checkValidity(updatedAuthElement.value, updatedAuthElement.validation);
         updatedAuthElement.touched = true;
         updatedAuthForm[inputIdentifier] = updatedAuthElement;
-        
-        let formIsValid = true;
-        for (let inputIdentifier in updatedAuthForm) {
-            formIsValid = updatedAuthForm[inputIdentifier].valid && formIsValid;
-        }
-        console.log(updatedAuthForm)
-        this.setState({authForm: updatedAuthForm, formIsValid: formIsValid});
+        this.setState({authForm: updatedAuthForm});
     }
-
-    render(){
+    
+    render() {
         const formElementsArray = [];
         for(let key in this.state.authForm){
             formElementsArray.push({
@@ -125,7 +96,6 @@ class AuthSignup extends Component {
                 config: this.state.authForm[key]
             })
         }
-
         let form = formElementsArray.map(formElement => (
             <Input
                 key={formElement.id}
@@ -137,20 +107,16 @@ class AuthSignup extends Component {
                 touched = {formElement.config.touched}
                 changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
             />))
-        if( this.state.loading ){
-            form = <p>Spinner</p>;
-        }
         return(
-            <div className={classes.Auth}> 
-                <form onSubmit={this.signUpHandler}>
+            <div className={classes.Container}>
+                <form onSubmit={this.signInHandler}>
                     <h4>Create a profile</h4>
-                        {form}
-                    <Button disabled={!this.state.formIsValid}>SIGNIN</Button>
+                            {form}
+                    <Button>Login</Button>
                 </form>
             </div>
-        );
-    };
+        )
+    }
 }
 
-
-export default AuthSignup;
+export default AuthLogin;
