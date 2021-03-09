@@ -8,10 +8,11 @@ const intialState = {
 }
 
 const reducer = (state = intialState, action) => {
-    switch (action.type){
-        case actionTypes.AUTH_START:
+    // switch (action.type){
+    //     case actionTypes.AUTH_START:
             
-    }
+    // }
+    return state;
 }
 
 
