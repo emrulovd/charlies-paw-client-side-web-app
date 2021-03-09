@@ -8,7 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import reducer from './store/reducer';
+import reducer from './store/reducers/auth';
 
 const store = createStore(reducer,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
