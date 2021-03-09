@@ -57,10 +57,11 @@ class AuthSignup extends Component {
             email: formData.email,
             password: formData.password
         }
-        axios.post('localhost:8080/auth/signup', authData)
+        axios.post('http://localhost:8080/auth/signup', authData)
             .then(response => {
                 this.setState({loading: false});
-                console.log(response.data.message);
+                console.log(response.message);
+                console.log(response.data);
             })
             .catch(error => {
                 this.setState({loading: false});
@@ -113,7 +114,6 @@ class AuthSignup extends Component {
         for (let inputIdentifier in updatedAuthForm) {
             formIsValid = updatedAuthForm[inputIdentifier].valid && formIsValid;
         }
-        console.log(updatedAuthForm)
         this.setState({authForm: updatedAuthForm, formIsValid: formIsValid});
     }
 
@@ -145,7 +145,7 @@ class AuthSignup extends Component {
                 <form onSubmit={this.signUpHandler}>
                     <h4>Create a profile</h4>
                         {form}
-                    <Button disabled={!this.state.formIsValid}>SIGNIN</Button>
+                    <Button disabled={!this.state.formIsValid}>SIGNUP</Button>
                 </form>
             </div>
         );

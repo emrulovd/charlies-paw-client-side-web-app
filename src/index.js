@@ -5,13 +5,19 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import reducer from './store/reducer';
 
+const store = createStore(reducer,  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const app = ( // Check react doc for React.StrictMode
-      <BrowserRouter>
-            <App/>
-      </BrowserRouter>
+      <Provider store={store}>
+            <BrowserRouter>
+                  <App/>
+            </BrowserRouter>
+      </Provider>
 );
 
 ReactDOM.render(app, document.getElementById('root'));

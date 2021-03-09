@@ -54,8 +54,7 @@ class AuthLogin extends Component {
         }
         axios.post('http://localhost:8080/auth/login', authData)
             .then(response => {
-                console.log(response.message);
-                console.log(response.data)
+                console.log(response);
             })
     }
 
@@ -108,9 +107,9 @@ class AuthLogin extends Component {
                 changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
             />))
         return(
-            <div className={classes.Container}>
+            <div className={classes.Auth}>
                 <form onSubmit={this.signInHandler}>
-                    <h4>Create a profile</h4>
+                    <h4>Login to your profile</h4>
                             {form}
                     <Button>Login</Button>
                 </form>
