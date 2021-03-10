@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 import classes from './Dogs-Edit.module.css';
 import { Form, Button, Container } from 'react-bootstrap';
+import * as actions from '../../../store/actions/index';
 
 
 class DogsEdit extends Component{
@@ -84,7 +86,12 @@ class DogsEdit extends Component{
     }
 
     async UpdateDog(id , formData){ //Update specific dog 
-        axios.put('http://localhost:8080/dogs/update/' + id, formData)
+        const headers = {
+            "Authorization": this.props.token
+        }
+        axios.put('http://localhost:8080/dogs/update/' + id, formData, {
+            headers: headers
+        })
             .then( result =>{
                 console.log(result.data.message);
             })
@@ -177,4 +184,10 @@ class DogsEdit extends Component{
     }
 }
 
-export default DogsEdit;
+const mapStateToProps = state => {
+    return{
+        token: state.auth.token
+    }
+}
+
+export default connect(mapStateToProps)(DogsEdit);

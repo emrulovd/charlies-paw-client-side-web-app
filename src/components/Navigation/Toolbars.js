@@ -5,7 +5,7 @@ import NavGroupDynamicItems from './NavGroupDynamicItems/NavGroupDynamicItems';
 import Logo from '../Logo/Logo';
 import classes from './Toolbars.module.css'
 
-const Toolbar = () => {
+const Toolbar = (props) => {
     const [navbar, setNavbar] = useState(false);
 
 
@@ -26,7 +26,7 @@ const Toolbar = () => {
             </nav>
             <Logo/>
             <nav>
-                <NavGroupDynamicItems/>
+                <NavGroupDynamicItems isAuth={props.isAuth}/>
             </nav>
         </header>
     )
