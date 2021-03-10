@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route} from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 import Container from 'react-bootstrap/Container';
@@ -129,11 +130,15 @@ class DogsPanel extends Component {
         return(
             <div>
                 <Switch>
-                    <Route path='/dogs-list/edit-dog' 
-                    exact component={() => <DogsEdit
-                    dogs = {this.state.dogs}
-                    updateDogHandler ={this.updateDogHandler}
-                    params_id = {this.props.location.search.split('?q=').join('')}/>}></Route>
+                    { this.props.isAuth ?
+                        <Route path='/dogs-list/edit-dog' 
+                        exact component={() => <DogsEdit
+                        dogs = {this.state.dogs}
+                        updateDogHandler ={this.updateDogHandler}
+                        params_id = {this.props.location.search.split('?q=').join('')}/>}></Route>
+                        :
+                        null
+                    }
                     <Route path="/dogs-list/dog-details" exact >
                         <DogsDetail 
                         dogs = {this.state.dogs}
@@ -163,4 +168,11 @@ class DogsPanel extends Component {
     }   
 }
 
-export default DogsPanel;
+
+const mapStateToProps = state => {
+    return{
+        isAuth: state.auth.token !== null
+    }
+}
+
+export default connect(mapStateToProps)(DogsPanel);
