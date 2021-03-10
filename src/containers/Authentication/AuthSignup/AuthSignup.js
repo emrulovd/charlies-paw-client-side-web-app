@@ -123,11 +123,22 @@ class AuthSignup extends Component {
                 touched = {formElement.config.touched}
                 changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
             />))
-        if( this.state.loading ){
-            form = <p>Spinner</p>;
+        if( this.props.loading ){
+            form = <Spinner/>;
+        }
+        let errorMessage = null;
+        if(this.props.error){
+            console.log(this.props.error.data)
+            errorMessage = (
+                <div>
+                    <p>{this.props.error.status} {this.props.error.statusText}</p>
+                    <p>Email already exists</p>
+                </div>
+            )
         }
         return(
             <div className={classes.Auth}> 
+                {errorMessage}
                 <form onSubmit={this.signUpHandler}>
                     <h4>Create a profile</h4>
                         {form}
@@ -138,6 +149,12 @@ class AuthSignup extends Component {
     };
 }
 
+const mapStateToProps = state => {
+    return{
+        loading: state.auth.loading,
+        error: state.auth.error
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -145,4 +162,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect( null, mapDispatchToProps )( AuthSignup );
+export default connect( mapStateToProps, mapDispatchToProps )( AuthSignup );
