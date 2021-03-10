@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 import {Container, Row} from 'react-bootstrap';
@@ -39,7 +40,12 @@ class DogDetail extends Component {
     }
 
     deleteDogHandler = () => {
-      axios.delete('http://localhost:8080/dogs/' + this.state.params_id )
+      const headers = {
+        "Authorization": this.props.token
+      }
+      axios.delete('http://localhost:8080/dogs/' + this.state.params_id, {
+          headers: headers
+      })
             .then(res => {
                 console.log(res.data.message);
             })
@@ -71,7 +77,7 @@ class DogDetail extends Component {
                         </Row>
                         <Row>
                             <DogsDetailAdds 
-                            location = {this.state.dog.location}
+                            dog = {this.state.dog}
                             dogs = {this.props.dogs}
                             history = {this.props.history}
                             updateDetailDogHandler = {this.updateDetailDogHandler}/>
@@ -82,5 +88,10 @@ class DogDetail extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return{
+        token: state.auth.token
+    }
+}
 
-export default DogDetail;
+export default connect(mapStateToProps)(DogDetail);

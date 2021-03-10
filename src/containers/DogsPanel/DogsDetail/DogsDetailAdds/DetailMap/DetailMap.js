@@ -53,8 +53,9 @@ class DetailMap extends Component {
 
 
   mapGenerator = () => {
+      console.log(this.props.dog.location)
       for(let index in this.state.location){
-          if(this.state.location[index].city === this.props.location){
+          if(this.state.location[index].city === this.props.dog.location){
                 return(
                     <Map className={classes.Map}
                     google={this.props.google}

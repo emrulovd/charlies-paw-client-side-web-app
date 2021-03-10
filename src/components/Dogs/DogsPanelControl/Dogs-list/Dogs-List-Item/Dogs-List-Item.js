@@ -1,13 +1,11 @@
 import React from 'react';
  
 
-import {Button, Row, Col} from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapMarkedAlt, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import classes from './Dogs-List-Item.module.css';
-
-
-
+import Button from '../../../../UI/Button/Button';
 
 
 const dogsListItem = (props) => {
@@ -34,7 +32,7 @@ const dogsListItem = (props) => {
                         <p>{props.content}</p>
                               
                     }
-                    <Button onClick={() => (props.detailDogPageHandler(props.id))}>see more details</Button>
+                    <Button click={() => (props.detailDogPageHandler(props.id))}>see more details</Button>
             </Row>
         </div>
     )

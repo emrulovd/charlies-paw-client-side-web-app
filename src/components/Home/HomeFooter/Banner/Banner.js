@@ -1,7 +1,8 @@
 import React from 'react';
 
 import classes from './Banner.module.css'
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
+import Button from '../../../UI/Button/Button'
 
 const banner = () => {
     return(

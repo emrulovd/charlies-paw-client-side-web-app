@@ -3,12 +3,18 @@ import React from 'react';
 import NavGroupDynamicItem from './NavGroupDynamicItem/NavGroupDynamicItem';
 import classes from './NavGroupDynamicItems.module.css';
 
-const navGroupDynamicItems = () => {
+const navGroupDynamicItems = (props) => {
     return(
-        <ul className={classes.NavigationItems}>
-            <NavGroupDynamicItem link="/login" active={true}>Login</NavGroupDynamicItem>
-            <NavGroupDynamicItem link="/singup">Signup</NavGroupDynamicItem>
-        </ul>
+        <div>
+            { props.isAuth ? 
+                <NavGroupDynamicItem link="/logout">Logout</NavGroupDynamicItem>
+                :
+            <ul className={classes.NavigationItems}>
+                <NavGroupDynamicItem link="/auth/login" active={true}>Login</NavGroupDynamicItem>
+                <NavGroupDynamicItem link="/auth/signup">Signup</NavGroupDynamicItem>
+            </ul>
+             }
+       </div>
     )
 }
 
