@@ -79,7 +79,12 @@ class DogsEdit extends Component{
 
 
     async CreateDog (formData){  // The post request function will be moved to DogsPanel container
-        axios.post('http://localhost:8080/dogs/create', formData)
+        const headers = {
+            "Authorization": this.props.token
+        }
+        axios.post('http://localhost:8080/dogs/create', formData, {
+            headers: headers
+        })
             .then( result => {
                 console.log(result.data.message);
             });
