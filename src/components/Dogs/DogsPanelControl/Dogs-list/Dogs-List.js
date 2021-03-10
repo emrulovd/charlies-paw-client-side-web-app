@@ -1,9 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter} from 'react-router-dom';
 
+
 import DogsListItem from './Dogs-List-Item/Dogs-List-Item';
-
-
 import { Container, Row, Col } from 'react-bootstrap';
 import Button from '../../../UI/Button/Button';
 import classes from './Dogs-List.module.css';
@@ -20,7 +20,7 @@ const DogsList = (props) =>{
 
     return(
         <div className={classes.Container}>
-                <Button click={addDogHandler} >Add new dog</Button>
+                { props.isAuth ? <Button click={addDogHandler} >Add new dog</Button> : null}
                 <div>
                 <Container fluid >
                     <Row >
@@ -46,4 +46,10 @@ const DogsList = (props) =>{
     )
 }
 
-export default withRouter(DogsList);
+const mapStateToProps = state => {
+    return{
+        isAuth: state.auth.token !== null
+    }
+}
+
+export default connect(mapStateToProps)(withRouter(DogsList));

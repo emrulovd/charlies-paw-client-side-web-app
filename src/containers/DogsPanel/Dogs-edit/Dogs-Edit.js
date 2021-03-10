@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import classes from './Dogs-Edit.module.css';
 import { Form, Button, Container } from 'react-bootstrap';
-import * as actions from '../../../store/actions/index';
+
 
 
 class DogsEdit extends Component{

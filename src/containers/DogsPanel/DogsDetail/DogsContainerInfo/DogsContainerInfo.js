@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux'; 
 
 import { Col, Row, Container, Button } from 'react-bootstrap';
 
@@ -20,10 +21,13 @@ const dogsContainerInfo = (props) => {
                         breed = {props.breed}
                         discription = {props.discription}
                         />
-                        <div className={classes.ButtonContainer}>
-                            <Button variant="success" onClick = {props.updateDogHandler}>Update</Button>
-                            <Button variant="danger" onClick={props.deleteDogHandler}>Delete</Button>
-                        </div>
+                       { props.isAuth?  
+                            <div className={classes.ButtonContainer}>
+                                <Button variant="success" onClick = {props.updateDogHandler}>Update</Button>
+                                <Button variant="danger" onClick={props.deleteDogHandler}>Delete</Button>
+                            </div>
+                            : null
+                        }
                     </Col>
                 </Row>
             </Container>
@@ -31,4 +35,10 @@ const dogsContainerInfo = (props) => {
     )
 }
 
-export default dogsContainerInfo;
+const mapStateToProps = state => {
+    return{
+        isAuth: state.auth.token
+    }
+}
+
+export default connect(mapStateToProps)(dogsContainerInfo);
