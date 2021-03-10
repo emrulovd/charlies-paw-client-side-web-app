@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 import * as actions from '../../../store/actions/index';
 
 import classes from './AuthSignup.module.css'
@@ -43,33 +44,15 @@ class AuthSignup extends Component {
                 }
             },
             formIsValid: false,
-            loading: false
+            loading: false,
+            isSignup: true
         }
     }
 
 
     signUpHandler = (event) => {
         event.preventDefault();
-        this.props.onAuth(this.state.authForm.email.value, this.state.authForm.password.value);
-        // this.setState({loading: true});
-        // let formData = {};
-        // for(let formElementIndentifier in this.state.authForm){
-        //     formData[formElementIndentifier] = this.state.authForm[formElementIndentifier].value;
-        // }
-        // const authData = {
-        //     email: formData.email,
-        //     password: formData.password
-        // }
-        // axios.post('http://localhost:8080/auth/signup', authData)
-        //     .then(response => {
-        //         this.setState({loading: false});
-        //         console.log(response.message);
-        //         console.log(response.data);
-        //     })
-        //     .catch(error => {
-        //         this.setState({loading: false});
-        //         console.log(error);
-        //     })
+        this.props.onAuth(this.state.authForm.email.value, this.state.authForm.password.value, this.state.isSignup);
     }
 
     checkValidity(value, rules) {
@@ -158,7 +141,7 @@ class AuthSignup extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: ( email, password ) => dispatch( actions.auth( email, password) )
+        onAuth: ( email, password, isSignup ) => dispatch( actions.auth( email, password, isSignup) )
     };
 };
 

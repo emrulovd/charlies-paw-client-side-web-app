@@ -5,17 +5,22 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import reducer from './store/reducers/auth';
+import authReducer from './store/reducers/auth';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(reducer, composeEnhancers(
+const rootReducer = combineReducers({
+      auth: authReducer
+})
+
+const store = createStore(rootReducer, composeEnhancers(
       applyMiddleware(thunk)
 ));
+
   
 const app = ( // Check react doc for React.StrictMode
       <Provider store={store}>

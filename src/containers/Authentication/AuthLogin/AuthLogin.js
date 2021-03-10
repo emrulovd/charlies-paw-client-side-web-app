@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
 
 import classes from './AuthLogin.module.css';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
+import Spinner from '../../../components/UI/Spinner/Spinner';
+import * as actions from '../../../store/actions/index';
 
 
 class AuthLogin extends Component {
@@ -38,25 +40,14 @@ class AuthLogin extends Component {
                         valid: false,
                         touched: false
                     }
-            }
+            },
+            isSignup: false
         }
     }
 
     signInHandler = (event) => {
         event.preventDefault();
-        this.setState({loading: true});
-        let formData = {};
-        for(let formElementIndentifier in this.state.authForm){
-            formData[formElementIndentifier] = this.state.authForm[formElementIndentifier].value;
-        }
-        const authData = {
-            email: formData.email,
-            password: formData.password
-        }
-        axios.post('http://localhost:8080/auth/login', authData)
-            .then(response => {
-                console.log(response);
-            })
+        this.props.onAuth(this.state.authForm.email.value, this.state.authForm.password.value, this.state.isSignup);
     }
 
     checkValidity(value, rules) {
@@ -107,8 +98,24 @@ class AuthLogin extends Component {
                 touched = {formElement.config.touched}
                 changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
             />))
+        
+        if(this.props.loading) {
+            form = <Spinner/>
+        }
+
+        let errorMessage = null;
+        if(this.props.error){
+            console.log(this.props.error)
+            errorMessage = (
+                <div>
+                    <p>{this.props.error.data.message}</p>
+                    <p>{this.props.error.status} {this.props.error.statusText}</p>
+                </div>
+            )
+        }
         return(
             <div className={classes.Auth}>
+                {errorMessage}
                 <form onSubmit={this.signInHandler}>
                     <h4>Login to your profile</h4>
                             {form}
@@ -119,4 +126,17 @@ class AuthLogin extends Component {
     }
 }
 
-export default AuthLogin;
+const mapStateToProps = state => {
+    return {
+        loading: state.auth.loading,
+        error: state.auth.error
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+        onAuth: (email, password, isSignup) => dispatch( actions.auth(email, password, isSignup))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthLogin);
