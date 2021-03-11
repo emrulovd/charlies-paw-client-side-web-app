@@ -1,3 +1,8 @@
+export {
+    dogs
+} from './dogs'
+
+
 export { 
     auth,
     logout,

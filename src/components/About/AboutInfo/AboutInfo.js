@@ -1,13 +1,12 @@
 import React from 'react';
 
 import classes from './AboutInfo.module.css';
-import icon from '../../../assets/logo_icon.png'
+import icon from '../../../assets/vertical_logo.png'
 
 const aboutInfo = () => {
     return(
         <div>
             <img className={classes.Icon} src={icon}  alt="icon"/>
-            <h1 className={classes.Title}>Charlie's Paw</h1>
             <hr/>
             <p className={classes.Paragraph}>            
                 Animal Rescue Sofia is a Bulgarian organization working to 
