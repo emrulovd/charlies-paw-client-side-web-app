@@ -5,6 +5,10 @@ import AboutBanner from './AboutBanner/AboutBanner';
 import BatchTape from './BatchTape/BatchTape';
 import AboutLocations from './AboutLocations/AboutLocations';
 import AboutInfo from './AboutInfo/AboutInfo';
+import AboutShortInfo from './AboutShortInfo/AboutShortInfo';
+import AboutShortInfoPic from './AboutShortInfoPic/AboutShortInfoPic';
+import AboutBatch from './AboutBatch/AboutBatch';
+
 
 const about = () =>{
     return(
@@ -22,6 +26,15 @@ const about = () =>{
                     <Col>
                         <AboutInfo/>
                     </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <AboutShortInfo/>
+                    </Col>
+                    <AboutShortInfoPic/>
+                </Row>
+                <Row>
+                    <AboutBatch/>
                 </Row>
             </Container>
         </div>

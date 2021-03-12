@@ -1,0 +1,22 @@
+.Container{
+    margin-top: 10%;
+    /* height: 30vh; */
+    width: 100%;
+}
+
+.Title{
+    padding: 0px 100px ;
+    color: #353535;
+}
+
+.Paragraph{
+    padding: 20px 100px 20px;
+    text-align: left;
+    color: #787878;
+    font-size: 18px;
+}
+
+.Container Button{
+    float: right;
+    margin-right: 15%;
+}
