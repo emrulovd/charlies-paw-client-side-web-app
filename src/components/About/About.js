@@ -10,7 +10,8 @@ import AboutShortInfoPic from './AboutShortInfoPic/AboutShortInfoPic';
 import AboutBatch from './AboutBatch/AboutBatch';
 
 
-const about = () =>{
+const about = (props) =>{
+
     return(
         <div>
             <AboutBanner/>

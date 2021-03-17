@@ -1,0 +1,7 @@
+.Container{
+    height: 60vh;
+    width: 100%;
+    background-image: url('../../../assets/contact_banner.png');
+    -webkit-background-size: cover;
+    background-size: cover;
+}

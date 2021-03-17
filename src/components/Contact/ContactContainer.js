@@ -1,0 +1,20 @@
+import React from 'react';
+
+import { Container, Row } from 'react-bootstrap';
+import ContactBanner from './ContactBanner/ContactBanner';
+import ContactInfo from './ContactInfo/ContactInfo';
+
+const contactContainer = () => {
+    return(
+        <Container fluid>
+            <Row>
+                <ContactBanner/>
+            </Row>
+            <Row>
+                <ContactInfo/>
+            </Row>
+        </Container>
+    )
+}
+
+export default contactContainer;

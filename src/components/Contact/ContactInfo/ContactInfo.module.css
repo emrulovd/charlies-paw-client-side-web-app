@@ -1,0 +1,14 @@
+.Container{
+    height: 40vh;
+    width: 100%;
+    background-color: #10C9C3;
+}
+
+.InnerContainer{
+    margin-top: 2%;
+    margin-left: 10%;
+}
+
+.InnerContainer h3{
+    padding-bottom: 2%;
+}
