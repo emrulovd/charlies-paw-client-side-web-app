@@ -3,6 +3,7 @@ import React from 'react';
 import { Container, Row } from 'react-bootstrap';
 import ContactBanner from './ContactBanner/ContactBanner';
 import ContactInfo from './ContactInfo/ContactInfo';
+import Contact from '../../containers/Contact/Contact';
 
 const contactContainer = () => {
     return(
@@ -12,6 +13,9 @@ const contactContainer = () => {
             </Row>
             <Row>
                 <ContactInfo/>
+            </Row>
+            <Row>
+                <Contact/>
             </Row>
         </Container>
     )

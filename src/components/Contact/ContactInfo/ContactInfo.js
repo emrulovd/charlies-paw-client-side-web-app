@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Row} from 'react-bootstrap';
+import {Row, Container} from 'react-bootstrap';
 import classes from './ContactInfo.module.css';
 import ContactLocationInfo from './ContactLocationInfo/ContactLocationInfo';
 
@@ -16,7 +16,7 @@ const contactInfo = () => {
         <div className={classes.Container}>
             <div className={classes.InnerContainer}>
                 <h3>Contact Info:</h3>
-                <Row>
+                <Row sm={4}>
                     {
                         information.map((info, index) => {
                             return(
