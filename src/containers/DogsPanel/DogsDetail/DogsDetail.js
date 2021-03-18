@@ -42,10 +42,11 @@ class DogDetail extends Component {
 
     addToFavourites = () => {
         const favouritesForm = {
+            dogID: this.state.dog.id,
             dogName: this.state.dog.dogName,
             age: this.state.dog.age,
             location: this.state.dog.location,
-            size: this.state.dog.size,
+            size: this.state.dog.breedSize,
             breed: this.state.dog.breed,
             image: this.state.dog.image,
             userID: this.props.userId 
@@ -82,7 +83,7 @@ class DogDetail extends Component {
                              dogName = {this.state.dog.dogName}
                              age = {this.state.dog.age}
                              location = {this.state.dog.location}
-                             size = {this.state.dog.size}
+                             size = {this.state.dog.breedSize}
                              breed = {this.state.dog.breed}
                              discription = {this.state.dog.discription}
                              updateDogHandler = {this.updateDogHandler}
