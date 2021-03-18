@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {Row, Container} from 'react-bootstrap';
+import {Row} from 'react-bootstrap';
 import classes from './ContactInfo.module.css';
 import ContactLocationInfo from './ContactLocationInfo/ContactLocationInfo';
 

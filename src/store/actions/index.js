@@ -2,6 +2,9 @@ export {
     dogs
 } from './dogs'
 
+export {
+    contact
+} from './contact'
 
 export { 
     auth,

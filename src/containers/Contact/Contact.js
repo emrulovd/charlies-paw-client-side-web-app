@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
+import { connect } from 'react-redux';
+
+import * as actions from '../../store/actions/index';
 
 import classes from './Contact.module.css';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
+import Spinner from '../../components/UI/Spinner/Spinner';
+
 
 class Contact extends Component {
     constructor(props){
@@ -67,6 +72,16 @@ class Contact extends Component {
     }
 
 
+    contactHandler = (event) => {
+        event.preventDefault();
+        this.props.onContact(
+            this.state.contactForm.name.value,
+            this.state.contactForm.email.value,
+            this.state.contactForm.title.value,
+            this.state.contactForm.message.value
+            );
+    }
+
     checkValidity(value, rules) {
         let isValid = true;
         
@@ -115,9 +130,13 @@ class Contact extends Component {
                 touched = {formElement.config.touched}
                 changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
             />))
+
+            if(this.props.loading){
+                form = <Spinner/>;
+            }
         return(
             <div className={classes.Container}>
-                <form onSubmit={this.signInHandler} className={classes.Form}>
+                <form onSubmit={this.contactHandler} className={classes.Form}>
                     <h4>Contact us</h4>
                             {form}
                     <Button>SEND</Button>
@@ -127,5 +146,18 @@ class Contact extends Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        loading: state.cnt.loading,
+        message: state.cnt.message,
+        isSuccessful: state.cnt.message !== null
+    }
+}
 
-export default Contact; 
+const mapDispatchToProps = dispatch =>{
+    return{
+        onContact: (name, email, title, message) => dispatch(actions.contact(name, email, title, message))
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Contact); 

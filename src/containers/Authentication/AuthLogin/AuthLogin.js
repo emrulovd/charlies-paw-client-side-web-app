@@ -101,7 +101,7 @@ class AuthLogin extends Component {
             />))
         
         if(this.props.loading) {
-            form = <Spinner/>
+            form = <Spinner/>;
         }
 
         let errorMessage = null;

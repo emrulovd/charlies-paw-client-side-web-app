@@ -11,10 +11,11 @@ import thunk from 'redux-thunk';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import authReducer from './store/reducers/auth';
 import dogsReducer from './store/reducers/dogs';
+import contactReducer from './store/reducers/contact'; 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const rootReducer = combineReducers({ auth: authReducer, dg: dogsReducer})
+const rootReducer = combineReducers({ auth: authReducer, dg: dogsReducer, cnt: contactReducer})
 
 const store = createStore(rootReducer, composeEnhancers(
       applyMiddleware(thunk)
