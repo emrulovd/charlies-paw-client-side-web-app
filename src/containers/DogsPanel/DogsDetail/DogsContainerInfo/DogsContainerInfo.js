@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux'; 
 
-import { Col, Row, Container, Button } from 'react-bootstrap';
+import { Col, Row, Container} from 'react-bootstrap';
 
 import DogsInfo from './DogsInfo/DogsInfo';
+import Button from '../../../../components/UI/Button/Button';
 import classes from './DogsContainerInfo.module.css';
 
 const dogsContainerInfo = (props) => {
@@ -23,8 +24,9 @@ const dogsContainerInfo = (props) => {
                         />
                        { props.isAuth?  
                             <div className={classes.ButtonContainer}>
-                                <Button variant="success" onClick = {props.updateDogHandler}>Update</Button>
-                                <Button variant="danger" onClick={props.deleteDogHandler}>Delete</Button>
+                                <Button click = {props.updateDogHandler}>Update</Button>
+                                <Button click={props.deleteDogHandler}>Delete</Button>
+                                <Button click={props.addToFavourites}>Add to favouirites</Button>
                             </div>
                             : null
                         }

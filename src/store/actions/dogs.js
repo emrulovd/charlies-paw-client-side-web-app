@@ -27,7 +27,6 @@ export const dogs = () => {
         dispatch(dogsStart());
         axios.get('http://localhost:8080/dogs')
             .then(response => {
-                console.log(response);
                 dispatch(dogsAddSuccess(response.data.dogs));
              })
              .catch(error => {

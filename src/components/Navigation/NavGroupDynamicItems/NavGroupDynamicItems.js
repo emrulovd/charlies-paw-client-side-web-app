@@ -7,9 +7,11 @@ const navGroupDynamicItems = (props) => {
     return(
         <div>
             { props.isAuth ? 
-                <ul>
+                <ul className={classes.NavigationItems}>
                      {/* <NavGroupDynamicItem link="/contact">Contact</NavGroupDynamicItem> */}
+                     <NavGroupDynamicItem link="/profile/favourites">Favouirites</NavGroupDynamicItem>
                      <NavGroupDynamicItem link="/logout">Logout</NavGroupDynamicItem>
+
                 </ul>
                 :
             <ul className={classes.NavigationItems}>

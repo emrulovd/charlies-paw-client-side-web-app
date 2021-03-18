@@ -9,6 +9,7 @@ import About from './components/About/About';
 import Auth from './components/Auth/Authentication';
 import AuthLogout from './containers/Authentication/AuthLogout/AuthLogout';
 import ContactContainer from './components/Contact/ContactContainer';
+import Profile from './components/Profile/Profile';
 import * as actions from './store/actions/index';
 
 
@@ -24,6 +25,7 @@ class App extends Component {
       <div>
           <Layout>
               <Switch >
+                  <Route path="/profile" component={Profile}/>
                   <Route path="/contact" component={ContactContainer}/>
                   <Route path="/dogs-list" component={DogsPanel} />
                   <Route path="/auth" component={Auth} />

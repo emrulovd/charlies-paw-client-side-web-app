@@ -5,7 +5,7 @@ import {Route, Switch} from 'react-router-dom';
 import AuthSignup from '../../containers/Authentication/AuthSignup/AuthSignup';
 import AuthLogin from '../../containers/Authentication/AuthLogin/AuthLogin';
 
-const signup = () => {
+const authentication = () => {
     return(
         <div>
            <Switch>
@@ -17,4 +17,4 @@ const signup = () => {
 }
 
 
-export default signup;
+export default authentication;
