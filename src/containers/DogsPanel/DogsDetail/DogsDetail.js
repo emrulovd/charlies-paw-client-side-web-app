@@ -49,6 +49,7 @@ class DogDetail extends Component {
             size: this.state.dog.breedSize,
             breed: this.state.dog.breed,
             image: this.state.dog.image,
+            discription: this.state.dog.discription,
             userID: this.props.userId 
         }
         this.props.onAddToFavourites( favouritesForm );
