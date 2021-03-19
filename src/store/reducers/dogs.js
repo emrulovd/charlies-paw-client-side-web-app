@@ -3,7 +3,7 @@ import { updateObject } from '../utility';
 
 const intialState = {
     dogs: [],
-    loading: true,
+    loading: false,
     error: null 
 }
 

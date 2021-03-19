@@ -8,24 +8,24 @@ export const userStart = () => {
     };
 };
 
-export const userGetFavouritesSuccess = (message) => {
+export const userGetFavouritesSuccess = (favList) => {
+    return{
+        type: actionTypes.USER_SUCCESS,
+        favList: favList
+    }
+}
+
+export const userSuccess = (message) => {
     return{
         type: actionTypes.USER_SUCCESS,
         message: message
     }
 }
 
-export const userAddToFavouritesSuccess = (message) => {
-    return{
-        type: actionTypes.USER_SUCCESS,
-        message: message
-    }
-}
-
-export const userFavouritesFail = (error) => {
+export const userFail = (error) => {
     return{
         type: actionTypes.USER_FAIL,
-        error: error
+        Error: error
     }
 }
 
@@ -34,13 +34,10 @@ export const addFavourites = (favouritesForm) => {
         dispatch(userStart());
         axios.post('http://localhost:8080/user/favourites', favouritesForm)
             .then(response => {
-                console.log(response);
-                console.log(response.data.message);
-                dispatch(userAddToFavouritesSuccess(response.data.message));
+                dispatch(userSuccess(response.data.message));
             })
             .catch(error =>{
-                console.log(error.response);
-                dispatch(userFavouritesFail(error.response));
+                dispatch(userFail(error.response));
             })
     }
 }
@@ -48,14 +45,13 @@ export const addFavourites = (favouritesForm) => {
 export const getFavourites = (userID) => {
     return dispatch => {
         dispatch(userStart());
-        console.log(userID)
         axios.get('http://localhost:8080/user/favourites/' + userID)
             .then(response => {
-                console.log(response);
-                dispatch(userGetFavouritesSuccess(response.message));
+                console.log(response.data.favList);
+                dispatch(userGetFavouritesSuccess(response.data.favList));
             })
             .catch(error => {
-                dispatch(userFavouritesFail(error.response));
+                dispatch(userFail(error.response));
             })
     }
 }

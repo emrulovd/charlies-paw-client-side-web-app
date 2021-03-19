@@ -8,7 +8,7 @@ const NavGroupDynamicItem = (props) => {
     useEffect(() => {
         changeItemsColor();
         return () => {
-          setNavItems({}); // This worked for me
+          setNavItems({}); 
         };
       }, []);
 
