@@ -14,34 +14,74 @@ class AuthSignup extends Component {
         super(props);
         this.state = {
             authForm:{
-                email:{
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'email',
-                        placeholder: 'Mail Address'
+                    name:{
+                        elementType: 'input',
+                        elementConfig: {
+                            type: 'text',
+                            placeholder: 'Your Name'
+                        },
+                        value: '',
+                        validation:{
+                            required: true
+                        },
+                        valid: false,
+                        touched: false
                     },
-                    value: '',
-                    validation:{
-                        required: true,
-                        isEmail: true
+                    address:{
+                        elementType: 'input',
+                        elementConfig: {
+                            type: 'text',
+                            placeholder: 'Your Address'
+                        },
+                        value: '',
+                        validation:{
+                            required: true
+                        },
+                        valid: false,
+                        touched: false
                     },
-                    valid: false,
-                    touched: false
-                },
-                password:{
-                    elementType: 'input',
-                    elementConfig: {
-                        type: 'password',
-                        placeholder: 'Password'
+                    phone_number:{
+                        elementType: 'input',
+                        elementConfig: {
+                            type: 'text',
+                            placeholder: 'Phone Number'
+                        },
+                        value: '',
+                        validation:{
+                            required: true,
+                            isNumeric: true
+                        },
+                        valid: false,
+                        touched: false
                     },
-                    value: '',
-                    validation:{
-                        required: true,
-                        minLength: 6
+                    email:{
+                        elementType: 'input',
+                        elementConfig: {
+                            type: 'email',
+                            placeholder: 'Mail Address'
+                        },
+                        value: '',
+                        validation:{
+                            required: true,
+                            isEmail: true
+                        },
+                        valid: false,
+                        touched: false
                     },
-                    valid: false,
-                    touched: false
-                }
+                    password:{
+                        elementType: 'input',
+                        elementConfig: {
+                            type: 'password',
+                            placeholder: 'Password'
+                        },
+                        value: '',
+                        validation:{
+                            required: true,
+                            minLength: 6
+                        },
+                        valid: false,
+                        touched: false
+                    }
             },
             formIsValid: false,
             loading: false,
@@ -52,7 +92,15 @@ class AuthSignup extends Component {
 
     signUpHandler = (event) => {
         event.preventDefault();
-        this.props.onAuth(this.state.authForm.email.value, this.state.authForm.password.value, this.state.isSignup);
+        const authData = {
+            name : this.state.authForm.name.value,
+            address: this.state.authForm.address.value,
+            phone_number: this.state.authForm.phone_number.value,
+            email: this.state.authForm.email.value,
+            password: this.state.authForm.password.value
+
+        }
+        this.props.onAuth( authData , this.state.isSignup);
     }
 
     checkValidity(value, rules) {

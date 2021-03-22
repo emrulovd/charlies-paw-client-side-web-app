@@ -40,13 +40,9 @@ export const checkAuthTimeout = (expirationTime) => {
     }
 }
 
-export const auth = (email, password, isSignup) => {
+export const auth = (authData, isSignup) => {
     return dispatch => {
         dispatch(authStart());
-        const authData = {
-            email: email,
-            password: password
-        }
         let URL = 'http://localhost:8080/auth/signup';
         if(!isSignup){
             URL = 'http://localhost:8080/auth/login';

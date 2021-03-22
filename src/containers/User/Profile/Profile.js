@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 
+import {Row, Col} from 'react-bootstrap';
 
 class Profile extends Component {
     render(){
         return(
             <div>
-                <h1>Profile</h1>
+                
             </div>
         )
     }
