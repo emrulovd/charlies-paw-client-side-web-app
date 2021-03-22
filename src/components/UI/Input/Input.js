@@ -21,6 +21,7 @@ const input = (props) => {
             break;
         case ('textarea'):
             inputElement = <textarea 
+            className={ classes.TextElement }
             {...props.elementConfig}
             value = {props.value}
             onChange = {props.changed}/>;

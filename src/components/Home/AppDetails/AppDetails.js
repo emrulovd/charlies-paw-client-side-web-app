@@ -1,7 +1,6 @@
 import React from 'react';
 
 import AppDetailsCotainer from './AppDetailsCotainer/AppDetailsCotainer';
-import classes from './AppDetails.module.css';
 
 import picture from '../../../assets/main_details_asset.png';
 import picture3 from '../../../assets/final_details_assets.png';

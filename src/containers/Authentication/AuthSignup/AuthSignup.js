@@ -122,7 +122,8 @@ class AuthSignup extends Component {
                 shouldValidate = {formElement.config.validation}
                 touched = {formElement.config.touched}
                 changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
-            />))
+            /> 
+            ))
         if( this.props.loading ){
             form = <Spinner/>;
         }

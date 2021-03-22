@@ -24,13 +24,13 @@ const navGroupDynamicItems = (props) => {
             { props.isAuth ? 
                 <ul className={classes.NavigationItems}>
                      {/* <NavGroupDynamicItem link="/contact">Contact</NavGroupDynamicItem> */}
-                     <NavGroupDynamicItem link="/profile/favourites">
+                     <NavGroupDynamicItem link="/profile/unknown">
                          <FontAwesomeIcon icon={faPaw}/>
                      </NavGroupDynamicItem> 
                      <NavGroupDynamicItem link="/profile/favourites">
                          <FontAwesomeIcon icon={faHeart}/>
                      </NavGroupDynamicItem> 
-                     <NavGroupDynamicItem link="/profile/favourites">
+                     <NavGroupDynamicItem link="/profile/messages">
                          <FontAwesomeIcon icon={faEnvelope}/>
                      </NavGroupDynamicItem> 
                      <NavGroupDynamicItem link="/profile">
