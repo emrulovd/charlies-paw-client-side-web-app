@@ -1,5 +1,8 @@
 .Container{
-    height: 50vh;
-    width: 100%;
-    background-image: url('../../../assets/');
+    height: 55vh;
+    /* width: 100%; */
+    background-image: url('../../../assets/profile_backban.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    --webkit-background-cover: cover;
 }

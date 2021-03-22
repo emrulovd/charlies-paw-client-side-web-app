@@ -1,30 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import Favouirites from '../../containers/User/Favourites/Favourites';
 import Profile from '../../containers/User/Profile/Profile';
+import ProfileBanner from '../Profile/ProfileBanner/ProfileBanner';
+import HomeContainer from '../Home/HomeContainer';
 
 const profile  = (props) => {
 
-    const routes = (
-        <Switch>
-                <Route path="/profile/favourites" component={Favouirites}/>
-                <Route path="/profile" component={Profile}/>
-        </Switch>
-    )
+    
+    let routes = null;
+    if(props.isAuthenticated){
+        routes = (
+            <Switch>
+                    <Route path="/profile/favourites" component={Favouirites}/>
+                    <Route path="/profile" component={Profile}/>
+            </Switch>
+        )
+    }else{
+        routes = <Route path="/" component={HomeContainer}/>
+    }
+
 
     return(
         <div>
-            { props.isAuth? routes : <Redirect to="/"/>}            
+            <ProfileBanner/>
+            {routes}            
         </div>
     )
 }
 
 const mapStateToProps = state => {
     return{
-        isAuth: state.auth.token !== null
-    }
-}
+        isAuthenticated: state.auth.token !== null
+    };
+};
 
 export default connect(mapStateToProps)(profile);
