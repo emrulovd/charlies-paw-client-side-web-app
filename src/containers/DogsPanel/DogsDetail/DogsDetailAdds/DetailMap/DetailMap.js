@@ -96,5 +96,5 @@ class DetailMap extends Component {
 
 export default GoogleApiWrapper(
     (props) => ({
-        apiKey: 'AIzaSyBmjA2bQNvU-v4tvW0N56Jw_C9gK8qRT-0',
+        apiKey: process.env.GOOGLE_MAPS_API_KEY,
 }))(DetailMap);

@@ -1,0 +1,22 @@
+.Container{
+    height: 30vh;
+    width: 100%;
+}
+
+.Container img{
+    margin-top: 50px;
+    height: 128px;
+    width: 128px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.ButtonGroup{
+    margin-top: 40px;
+    margin-left: 25%;
+}
+
+.ButtonGroup Button{
+    margin-left: 50px;
+}

@@ -1,0 +1,7 @@
+.Container{
+    height: 30vh;
+    width: 100%;
+    background-image: url('../../../assets/aboutTape.png');
+    background-size: cover;
+    -webkit-background-size: cover;
+}

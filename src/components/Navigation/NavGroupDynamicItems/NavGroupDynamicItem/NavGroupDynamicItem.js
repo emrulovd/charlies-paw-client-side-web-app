@@ -1,9 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import classes from './NavGroupDynamicItem.module.css';
 
 const NavGroupDynamicItem = (props) => {
     const [navItems, setNavItems] = useState(false);
+
+    useEffect(() => {
+        changeItemsColor();
+        return () => {
+          setNavItems({}); 
+        };
+      }, []);
 
     const changeItemsColor = () => {
         if(window.scrollY >=80){

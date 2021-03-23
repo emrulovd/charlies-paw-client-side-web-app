@@ -34,7 +34,6 @@ const appDetailsConatainer = (props) =>{
                         <h1>{props.title}</h1>
                         <p>{props.children}</p>
                     </Col>  
-                    {/* <img className={classes.Pic} src={props.pic} alt="shelter dog"/> */}
                     <Parallax bgImage={props.pic} className={classes.Pic} strength={300}/>
                 </Row>
            </Container>

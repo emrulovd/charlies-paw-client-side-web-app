@@ -4,6 +4,7 @@
     display: flex;
     height: 100%;
     align-items: center;
+    list-style: none;
 }
 
 .NavigationItem a{
@@ -11,7 +12,7 @@
     color: #fefefe;
     text-decoration: none;
     height: 100%;
-    padding: 16px 10px;
+    padding: 16px;
     text-transform: uppercase;
     border-bottom: 4px solid transparent;
     box-sizing: border-box;
@@ -48,7 +49,7 @@
     text-transform: uppercase;
     text-decoration: none;
     height: 100%;
-    padding: 16px 10px;
+    padding: 16px 10px ;
     border-bottom: 4px solid transparent;
     box-sizing: border-box;
     display: block;

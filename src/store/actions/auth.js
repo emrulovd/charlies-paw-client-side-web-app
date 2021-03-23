@@ -7,11 +7,12 @@ export const authStart = () =>{
     };
 };
 
-export const authSuccess = (token, userId, isCreated) => {
+export const authSuccess = (token, userId, role, isCreated) => {
     return{
         type: actionTypes.AUTH_SUCCESS,
         idToken: token,
         userId: userId,
+        role: role,
         isCreated: isCreated
     };
 };
@@ -40,25 +41,21 @@ export const checkAuthTimeout = (expirationTime) => {
     }
 }
 
-export const auth = (email, password, isSignup) => {
+export const auth = (authData, isSignup) => {
     return dispatch => {
         dispatch(authStart());
-        const authData = {
-            email: email,
-            password: password
-        }
         let URL = 'http://localhost:8080/auth/signup';
         if(!isSignup){
             URL = 'http://localhost:8080/auth/login';
         } 
         axios.post(URL, authData)
             .then(response => {
-                console.log(response);
                 const expirationTime = new Date( new Date().getTime() + response.data.expiresIn * 1000 );
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('expirationTime', expirationTime);
                 localStorage.setItem('userID', response.data.userId);
-                dispatch(authSuccess(response.data.token, response.data.userId, response.statusText));
+                // localStorage.setItem('role', response.data.role);
+                dispatch(authSuccess(response.data.token, response.data.userId, response.data.role, response.statusText));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
             .catch(error => {
@@ -79,8 +76,13 @@ export const authCheckState = () => {
                 dispatch(logout())
             }else{
                 const userID = localStorage.getItem('userID');
-                dispatch(authSuccess(token,userID));
-                dispatch(checkAuthTimeout((expirationTime.getTime() - new Date().getTime())/1000));
+                axios.get('http://localhost:8080/user/role/' + userID)
+                    .then(response => {
+                        dispatch(authSuccess(token,userID,response.data.role));
+                        dispatch(checkAuthTimeout((expirationTime.getTime() - new Date().getTime())/1000));
+                }).catch(error => {
+                    dispatch(authFail(error.response));
+                })
             }
         }
     };

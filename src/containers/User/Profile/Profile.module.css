@@ -1,0 +1,46 @@
+.Container{
+    height: 70vh;
+    width: 100%;
+}
+.Info{
+    margin-top: 25px;
+    display: block;
+    margin-left: 20%;
+}
+
+.Info h4{
+    padding-bottom: 25px;
+}
+
+.Info p{
+    color: #000;
+}
+
+
+.FormContainer{
+    margin-top: 25px;
+}
+
+.FormContainer h4{
+    margin-left: 10px;
+    padding-bottom: 15px;
+} 
+
+.Form{
+    margin-right: 100px;
+    width: 100%;
+    text-align: center;
+}
+
+.Form Button{
+    margin-top: 35px;
+    margin-left: 10px;
+    float: left;
+}
+
+
+@media (min-width: 600px){
+    .Form{
+        width: 300px;
+    }
+}

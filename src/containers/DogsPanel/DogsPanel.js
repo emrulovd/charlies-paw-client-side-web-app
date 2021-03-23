@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route} from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
+
+import * as actions from '../../store/actions/index';
 
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -14,7 +16,6 @@ class DogsPanel extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          dogs: [],
           searchedDogs: [],
           modified: false,
           rangeNotValid: true,
@@ -27,29 +28,18 @@ class DogsPanel extends Component {
     }
 
     componentDidMount(){
-        this.fetchData();
+        this.props.onFetchDogs();
     }
 
     componentDidUpdate(){
         if(this.state.modified){ // fetches the data after a dog is added or updated 
            this.setState({modified: !this.state.modified});
            setTimeout(() => { // Delay the fetch to prevent from racing
-                this.fetchData();
+                this.props.onFetchDogs();
            }, 100) 
         }
     }
     
-    async fetchData() { // fetch dogs data
-        axios.get('http://localhost:8080/dogs')
-            .then(res => {
-                const data = res.data
-                console.log(data.message);
-                this.setState({
-                    dogsLenght: data.dogs.length,
-                    dogs: data.dogs
-                });
-            });
-    }
 
     updateDogHandler = () => {
         this.setState({modified: true})
@@ -58,8 +48,8 @@ class DogsPanel extends Component {
 
     rangeInputHandler = (event) => {
         if(!isNaN(event)){
-            for(let i in this.state.dogs){
-                if(parseInt(this.state.dogs[i].age.split('years').join('')) === parseInt(event)){
+            for(let i in this.props.dogs){
+                if(parseInt(this.props.dogs[i].age.split('years').join('')) === parseInt(event)){
                     break;
                 }
             }
@@ -75,11 +65,11 @@ class DogsPanel extends Component {
         this.rangeInputHandler(event.target.value)
         if(event.target.checked !== false || this.state.rangeNotValid === false){
             if(this.state.searchedDogs.length === 0){
-                for(let index in this.state.dogs){
-                    if(this.state.dogs[index].location === event.target.value
-                       || this.state.dogs[index].breed === event.target.value
-                       || parseInt(this.state.dogs[index].age.split('years').join('')) === parseInt(event.target.value)){
-                        newDogs.push(this.state.dogs[index])
+                for(let index in this.props.dogs){
+                    if(this.props.dogs[index].location === event.target.value
+                       || this.props.dogs[index].breed === event.target.value
+                       || parseInt(this.props.dogs[index].age.split('years').join('')) === parseInt(event.target.value)){
+                        newDogs.push(this.props.dogs[index])
                     }
                 }
                 this.setState({
@@ -89,7 +79,7 @@ class DogsPanel extends Component {
                 for(let index in this.state.searchedDogs){
                     if(this.state.searchedDogs[index].location === event.target.value 
                         || this.state.searchedDogs[index].breed === event.target.value
-                        || parseInt(this.state.dogs[index].age.split('years').join('')) === parseInt(event.target.value)){
+                        || parseInt(this.props.dogs[index].age.split('years').join('')) === parseInt(event.target.value)){
                         newDogs.push(this.state.searchedDogs[index])
                     }
                 }
@@ -108,7 +98,7 @@ class DogsPanel extends Component {
     searchDogHandler = (event) => {
       
       this.setState({
-            searchedDogs: this.state.dogs.filter(dog => {
+            searchedDogs: this.props.dogs.filter(dog => {
                 return dog.breed.toLowerCase().includes(event.target.value.toLowerCase())
             }), 
             search:{
@@ -120,7 +110,7 @@ class DogsPanel extends Component {
     render() {           
         const dogsList = () =>{
             if(this.state.searchedDogs.length === 0){
-                return this.state.dogs;
+                return this.props.dogs;
             }else{
                 return this.state.searchedDogs;
             }
@@ -129,14 +119,18 @@ class DogsPanel extends Component {
         return(
             <div>
                 <Switch>
-                    <Route path='/dogs-list/edit-dog' 
-                    exact component={() => <DogsEdit
-                    dogs = {this.state.dogs}
-                    updateDogHandler ={this.updateDogHandler}
-                    params_id = {this.props.location.search.split('?q=').join('')}/>}></Route>
+                    { this.props.isAuth ?
+                        <Route path='/dogs-list/edit-dog' 
+                        exact component={() => <DogsEdit
+                        dogs = {this.props.dogs}
+                        updateDogHandler ={this.updateDogHandler}
+                        params_id = {this.props.location.search.split('?q=').join('')}/>}></Route>
+                        :
+                        null
+                    }
                     <Route path="/dogs-list/dog-details" exact >
                         <DogsDetail 
-                        dogs = {this.state.dogs}
+                        dogs = {this.props.dogs}
                         updateDogHandler = {this.updateDogHandler}
                         history = {this.props.history}
                         location = {this.props.location}/>
@@ -149,7 +143,7 @@ class DogsPanel extends Component {
                         </Container>
                         <DogsPanelControl
                          searchDogHandler = {this.searchDogHandler}
-                         dogsMain ={this.state.dogs}   
+                         dogsMain ={this.props.dogs}   
                          dogs = {dogsList()}
                          filterInputHandler={this.handleFilterInput}
                          newDogHandler = {this.newDogHandler}
@@ -163,4 +157,18 @@ class DogsPanel extends Component {
     }   
 }
 
-export default DogsPanel;
+
+const mapStateToProps = state => {
+    return{
+        isAuth: state.auth.token !== null,
+        dogs: state.dg.dogs
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return{
+        onFetchDogs: () => dispatch(actions.dogs())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DogsPanel);

@@ -48,7 +48,11 @@ class AuthLogin extends Component {
 
     signInHandler = (event) => {
         event.preventDefault();
-        this.props.onAuth(this.state.authForm.email.value, this.state.authForm.password.value, this.state.isSignup);
+        const authData = {
+            email: this.state.authForm.email.value,
+            password: this.state.authForm.password.value
+        }
+        this.props.onAuth(authData, this.state.isSignup);
     }
 
     checkValidity(value, rules) {
@@ -101,7 +105,7 @@ class AuthLogin extends Component {
             />))
         
         if(this.props.loading) {
-            form = <Spinner/>
+            form = <Spinner/>;
         }
 
         let errorMessage = null;

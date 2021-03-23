@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import './index.css';
 import App from './App';
@@ -10,12 +10,13 @@ import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import authReducer from './store/reducers/auth';
+import dogsReducer from './store/reducers/dogs';
+import contactReducer from './store/reducers/contact'; 
+import usrReducer from './store/reducers/user';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const rootReducer = combineReducers({
-      auth: authReducer
-})
+const rootReducer = combineReducers({ auth: authReducer, dg: dogsReducer, cnt: contactReducer, user: usrReducer})
 
 const store = createStore(rootReducer, composeEnhancers(
       applyMiddleware(thunk)

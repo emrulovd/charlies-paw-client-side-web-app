@@ -8,6 +8,7 @@ import classes from './DogsDetail.module.css';
 import DogsBanner from '../../../components/Dogs/DogsBanner/DogsBanner';
 import DogsContainerInfo from './DogsContainerInfo/DogsContainerInfo';
 import DogsDetailAdds from './DogsDetailAdds/DogsDetailAdds';
+import * as actions from '../../../store/actions/index';
 
 
 class DogDetail extends Component {
@@ -37,6 +38,21 @@ class DogDetail extends Component {
         setTimeout(() => {
             this.fetchDog();
         }, 200)
+    }
+
+    addToFavourites = () => {
+        const favouritesForm = {
+            dogID: this.state.dog.id,
+            dogName: this.state.dog.dogName,
+            age: this.state.dog.age,
+            location: this.state.dog.location,
+            size: this.state.dog.breedSize,
+            breed: this.state.dog.breed,
+            image: this.state.dog.image,
+            discription: this.state.dog.discription,
+            userID: this.props.userId 
+        }
+        this.props.onAddToFavourites( favouritesForm );
     }
 
     deleteDogHandler = () => {
@@ -72,7 +88,8 @@ class DogDetail extends Component {
                              breed = {this.state.dog.breed}
                              discription = {this.state.dog.discription}
                              updateDogHandler = {this.updateDogHandler}
-                             deleteDogHandler ={this.deleteDogHandler}
+                             deleteDogHandler = {this.deleteDogHandler}
+                             addToFavourites = {this.addToFavourites}
                             />
                         </Row>
                         <Row>
@@ -88,10 +105,17 @@ class DogDetail extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapDispatchToProps = dispatch => {
     return{
-        token: state.auth.token
+        onAddToFavourites: (userID) => dispatch(actions.addFavourites(userID))
     }
 }
 
-export default connect(mapStateToProps)(DogDetail);
+const mapStateToProps = state => {
+    return{
+        token: state.auth.token,
+        userId: state.auth.userId
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DogDetail);

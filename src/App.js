@@ -8,7 +8,11 @@ import DogsPanel from './containers/DogsPanel/DogsPanel';
 import About from './components/About/About';
 import Auth from './components/Auth/Authentication';
 import AuthLogout from './containers/Authentication/AuthLogout/AuthLogout';
+import ContactContainer from './components/Contact/ContactContainer';
+import Profile from './components/Profile/Profile';
 import * as actions from './store/actions/index';
+import AdminPanel from './containers/Admin/AdminPanel';
+import Aux from './hoc/Auxiliary';
 
 
 class App extends Component {
@@ -16,27 +20,43 @@ class App extends Component {
     this.props.onTryAutoSignup();
   }
 
+
+
   render(){
     return(
-      <div>
-          <Layout>
-              <Switch >
-                  <Route path="/dogs-list" component={DogsPanel} />
-                  <Route path="/auth" component={Auth} />
-                  <Route path="/logout" component={AuthLogout} />
-                  <Route path="/about" component={About} />
-                  <Route path="/" exact component={HomeContainer} />
-               </Switch>
-          </Layout>
-      </div>
+      <Aux>
+        <div>
+          <Switch>
+            { this.props.isAdmin === 'admin' ? <Route path="/admin" component={AdminPanel} /> : null}
+              <Layout>
+                  <Switch >
+                      { this.props.isAdmin === 'admin' ? <Route path="/admin" component={AdminPanel} /> : null}
+                      <Route path="/profile" component={Profile}/>
+                      <Route path="/contact" component={ContactContainer}/>
+                      <Route path="/dogs-list" component={DogsPanel} />
+                      <Route path="/auth" component={Auth} />
+                      <Route path="/logout" component={AuthLogout} />
+                      <Route path="/about" component={About}/>
+                      <Route path="/" component={HomeContainer} />
+                  </Switch>
+              </Layout>
+            </Switch>
+        </div>
+      </Aux>
     )
+  }
+}
+
+const mapStateToProps = state => {
+  return{
+    isAdmin: state.auth.role,
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return{
-    onTryAutoSignup: () => dispatch(actions.authCheckState())
+    onTryAutoSignup: () => dispatch(actions.authCheckState()),
   }
 }
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
