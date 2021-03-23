@@ -15,7 +15,7 @@ const profileController = () => {
                     <Col className={classes.ButtonGroup}>
                         <Button>PROFILE</Button>
                         <Button>FAVOURITES</Button>
-                        <Button>MESSGAGES</Button>
+                        <Button>MESSAGES</Button>
                     </Col>
                 </Row>
             </div>

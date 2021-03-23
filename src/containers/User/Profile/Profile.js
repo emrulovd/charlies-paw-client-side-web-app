@@ -110,7 +110,7 @@ class Profile extends Component {
         }
 
         return(
-            <Container>
+            <Container fluid>
             <div className = {classes.Container}>
                 <Row>
                     <Col className={classes.Info}>
