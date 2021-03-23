@@ -26,18 +26,21 @@ class App extends Component {
     return(
       <Aux>
         <div>
-            <Layout>
-                <Switch >
-                    { this.props.isAdmin === 'admin' ? <Route path="/admin" component={AdminPanel} /> : null}
-                    <Route path="/profile" component={Profile}/>
-                    <Route path="/contact" component={ContactContainer}/>
-                    <Route path="/dogs-list" component={DogsPanel} />
-                    <Route path="/auth" component={Auth} />
-                    <Route path="/logout" component={AuthLogout} />
-                    <Route path="/about" component={About}/>
-                    <Route path="/" component={HomeContainer} />
-                </Switch>
-            </Layout>
+          <Switch>
+            { this.props.isAdmin === 'admin' ? <Route path="/admin" component={AdminPanel} /> : null}
+              <Layout>
+                  <Switch >
+                      { this.props.isAdmin === 'admin' ? <Route path="/admin" component={AdminPanel} /> : null}
+                      <Route path="/profile" component={Profile}/>
+                      <Route path="/contact" component={ContactContainer}/>
+                      <Route path="/dogs-list" component={DogsPanel} />
+                      <Route path="/auth" component={Auth} />
+                      <Route path="/logout" component={AuthLogout} />
+                      <Route path="/about" component={About}/>
+                      <Route path="/" component={HomeContainer} />
+                  </Switch>
+              </Layout>
+            </Switch>
         </div>
       </Aux>
     )
