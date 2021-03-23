@@ -18,7 +18,7 @@ class Profile extends Component {
                     elementType: 'input',
                     elementConfig: {
                         type: 'password',
-                        placeholder: 'Password'
+                        placeholder: 'Old Password'
                     },
                     value: '',
                     validation:{
@@ -31,7 +31,7 @@ class Profile extends Component {
                     elementType: 'input',
                     elementConfig: {
                         type: 'password',
-                        placeholder: 'Password'
+                        placeholder: 'New Password'
                     },
                     value: '',
                     validation:{
