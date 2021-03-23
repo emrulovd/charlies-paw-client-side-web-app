@@ -1,0 +1,13 @@
+.Info{
+    margin-top: 25px;
+    display: block;
+    margin-left: 25%;
+}
+
+.Info h4{
+    padding-bottom: 25px;
+}
+
+.Info p{
+    color: #000;
+}

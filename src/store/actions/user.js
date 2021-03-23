@@ -8,6 +8,13 @@ export const userStart = () => {
     };
 };
 
+export const userGetData = (userData) => {
+    return{
+        type: actionTypes.USER_DATA_SUCCESS,
+        userData: userData
+    }
+}
+
 export const userGetFavouritesSuccess = (favList) => {
     return{
         type: actionTypes.USER_SUCCESS,
@@ -26,6 +33,18 @@ export const userFail = (error) => {
     return{
         type: actionTypes.USER_FAIL,
         Error: error
+    }
+}
+
+export const getUserData = (userID) => {
+    return dispatch => {
+        dispatch(userStart());
+        axios.get('http://localhost:8080/user/' + userID)
+            .then(response => {
+                dispatch(userGetData(response.data.user_data));
+            }).catch(error => {
+                dispatch(userFail(error.response));
+            })
     }
 }
 

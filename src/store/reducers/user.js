@@ -4,6 +4,7 @@ import { updateObject } from '../utility';
 
 const intialState = {
     dogs: [],
+    user: [],
     loading: false,
     error: null
 }
@@ -11,6 +12,13 @@ const intialState = {
 
 const userStart = (state, action) => {
     return updateObject(state, {loading: true, error: null});
+}
+
+const userSuccessData = (state, action) => {
+    return updateObject(state, {
+        user: action.userData,
+        loading: false 
+    })
 }
 
 const userSuccessFavouritsList = (state, action) =>{
@@ -31,6 +39,8 @@ const reducer = (state = intialState, action) => {
             return userStart(state, action);
         case actionTypes.USER_SUCCESS:
             return userSuccessFavouritsList(state, action);
+        case actionTypes.USER_DATA_SUCCESS:
+            return userSuccessData(state, action);
         case actionTypes.USER_FAIL:
             return userFail(state, action);
         default: 

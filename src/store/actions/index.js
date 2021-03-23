@@ -7,6 +7,7 @@ export {
 } from './contact'
 
 export {
+    getUserData,
     addFavourites,
     getFavourites
 } from './user'

@@ -12,6 +12,7 @@ export const CONTACT_SUCCESS = 'CONTACT_SUCCESS';
 export const CONTACT_FAIL =  'CONTACT_FAIL';
 
 export const USER_START = 'USER_START'; 
-export const USER_SUCCESS = 'USER_SUCCESS'; 
+export const USER_SUCCESS = 'USER_SUCCESS';
+export const USER_DATA_SUCCESS = 'USER_DATA_SUCCESS'; 
 export const USER_FAIL = 'USER_FAIL'; 
 
