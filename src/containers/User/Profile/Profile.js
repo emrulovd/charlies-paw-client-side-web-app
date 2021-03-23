@@ -65,6 +65,25 @@ class Profile extends Component {
         this.props.getUserData(userID);
     }
 
+    changePasswordHandler = (event) => {    
+        event.preventDefault();
+    }
+
+
+    inputChangedHandler = (event, inputIdentifier) => {
+        const updatedPasswordForm = {
+            ...this.state.passwordForm
+        }
+        const updatedPasswordElement = {
+            ...updatedPasswordForm[inputIdentifier]
+        }
+        updatedPasswordElement.value = event.target.value;
+        updatedPasswordElement.valid = this.checkValidity(updatedPasswordElement.value, updatedPasswordElement.validation);
+        updatedPasswordElement.touched = true;
+        updatedPasswordForm[inputIdentifier] = updatedPasswordElement;
+        this.setState({passwordForm: updatedPasswordForm});
+    }
+
     render(){
 
         const formElementsArray = [];
@@ -106,7 +125,7 @@ class Profile extends Component {
                     </Col>
                     <Col className={classes.FormContainer}>
                         <h4>Change Password:</h4>
-                        <form className={classes.Form}>
+                        <form className={classes.Form} onSubmit={this.changePasswordHandler}>
                             {form}
                             <Button className={classes.FormButton}>Save</Button>
                         </form>
