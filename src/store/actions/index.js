@@ -17,3 +17,7 @@ export {
     logout,
     authCheckState
 } from './auth'
+
+export {
+    adminGetUsers
+} from './admin'

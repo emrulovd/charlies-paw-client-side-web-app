@@ -30,7 +30,6 @@ class App extends Component {
             { this.props.isAdmin === 'admin' ? <Route path="/admin" component={AdminPanel} /> : null}
               <Layout>
                   <Switch >
-                      { this.props.isAdmin === 'admin' ? <Route path="/admin" component={AdminPanel} /> : null}
                       <Route path="/profile" component={Profile}/>
                       <Route path="/contact" component={ContactContainer}/>
                       <Route path="/dogs-list" component={DogsPanel} />
