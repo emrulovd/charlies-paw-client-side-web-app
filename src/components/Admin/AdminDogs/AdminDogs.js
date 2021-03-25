@@ -1,12 +1,13 @@
 import React from 'react';
 
+import AdminDogsItems from './AdminDogsItems/AdminDogsItems'; 
 
-const adminUsers = () => {
+const adminDogs = (props) => {
     return(
         <div>
-            Dogs
-        </div>
+            <AdminDogsItems dogs={props.dogs}/>
+        </div>  
     )
 }
 
-export default adminUsers;
+export default adminDogs;

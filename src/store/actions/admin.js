@@ -42,3 +42,9 @@ export const adminGetUsers = () => {
             })
     }
 }
+
+export const adminUpdateUserRole = () => {
+    return dispatch =>{
+        
+    }
+}
