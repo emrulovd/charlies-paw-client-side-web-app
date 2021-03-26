@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
+
+import * as actions from '../../../store/actions/index';
 import classes from './Dogs-Edit.module.css';
 import { Form, Button, Container } from 'react-bootstrap';
 
@@ -70,37 +71,18 @@ class DogsEdit extends Component{
                 },
             },
             loading: false,
+            headers: null
         }
     }
 
     componentDidMount(){
+        const headers = {
+            "Authorization": this.props.token
+        }
         this.inputDogPopulateHandler();
+        this.setState({ headers: headers})
     }
 
-
-    async CreateDog (formData){  // The post request function will be moved to DogsPanel container
-        const headers = {
-            "Authorization": this.props.token
-        }
-        axios.post('http://localhost:8080/dogs/create', formData, {
-            headers: headers
-        })
-            .then( result => {
-                console.log(result.data.message);
-            });
-    }
-
-    async UpdateDog(id , formData){ //Update specific dog 
-        const headers = {
-            "Authorization": this.props.token
-        }
-        axios.put('http://localhost:8080/dogs/update/' + id, formData, {
-            headers: headers
-        })
-            .then( result =>{
-                console.log(result.data.message);
-            })
-    }
 
     inputDogPopulateHandler = () => {
         if(this.props.params_id){
@@ -127,7 +109,7 @@ class DogsEdit extends Component{
             formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
         }
         formData['id'] = this.props.params_id;
-        this.UpdateDog(this.props.params_id, formData);
+        this.props.onUpdateDog(this.state.headers, this.props.params_id, formData)
         this.props.updateDogHandler();
     }
 
@@ -140,7 +122,7 @@ class DogsEdit extends Component{
         }
         formData['id'] = this.props.dogs.length; // Adding temporary id to the post
         this.props.updateDogHandler();
-        this.CreateDog(formData);
+        this.props.onCreateDog(this.state.headers, formData);
     }
     
     inputChangeHandler = (event, inputIndentifier) => {
@@ -196,4 +178,11 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(DogsEdit);
+const mapDispatchToProps = dispatch => {
+    return{
+        onUpdateDog : (header, dog_id, dogUpdateForm) => dispatch(actions.updateDog(header, dog_id, dogUpdateForm)),
+        onCreateDog : (header, dogForm) => dispatch(actions.createDog(header, dogForm))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DogsEdit);

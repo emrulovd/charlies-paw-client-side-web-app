@@ -42,6 +42,19 @@ export const dogs = () => {
     }
 }
 
+export const createDog = (header, dogData) => {
+    return dispatch => {
+        dispatch(dogsStart());
+        axios.post('http://localhost:8080/dogs/create', dogData, {
+            headers: header
+        }).then( response => {
+            dispatch(dogsSuccess(response.data.message));
+        }).catch(error => {
+            dispatch(dogsFail(error.response));
+        });
+    }
+}
+
 export const deleteDog = (header, dog_id) => {
     return dispatch => {
         dispatch(dogsStart());
@@ -54,3 +67,16 @@ export const deleteDog = (header, dog_id) => {
         })
     }
 }
+
+export const updateDog = (header, dog_id, dogUpdateForm) => {
+    return dispatch => {
+        dispatch(dogsStart());
+        axios.put('http://localhost:8080/dogs/update/' + dog_id, dogUpdateForm, {
+            headers: header
+        }).then( response =>{
+                dispatch(dogsSuccess(response.data.message));
+        }).catch(error => {
+            dispatch(dogsFail(error.response));
+        })
+    }
+} 
