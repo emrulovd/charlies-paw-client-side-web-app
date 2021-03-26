@@ -19,5 +19,6 @@ export {
 } from './auth'
 
 export {
-    adminGetUsers
+    adminGetUsers,
+    adminUpdateUserRole
 } from './admin'

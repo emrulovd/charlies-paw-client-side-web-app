@@ -30,6 +30,7 @@ const adminUserItem = (props) => {
                                     <label>Phone number:</label>
                                     <p>{props.phone_number}</p>
                                 </Col>
+                                { props.active_role === "admin"? 
                                 <form onSubmit={(event) => props.roleRequestSubmitHandler(event, props.user_id)}>
                                     <Col>
                                         <label>Role:</label>
@@ -41,6 +42,12 @@ const adminUserItem = (props) => {
                                     </Col>
                                     <Button>Update</Button>
                                 </form>
+                                : 
+                                <Col>
+                                    <label>Role:</label>
+                                    <p>{props.role}</p>
+                                </Col>
+                                }
                             </Row>
                     </section>
                 </ListGroup.Item>

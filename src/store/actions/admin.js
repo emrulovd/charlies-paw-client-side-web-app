@@ -16,6 +16,12 @@ export const adminGetUsersSuccess = (users) => {
     }
 }
 
+export const adminUpdateUserRoleSuccess = () => {
+    return{
+        type: actionTypes.ADMIN_UPDATE_SUCCESS,
+    }
+} 
+
 export const adminSuccess = (message) => {
     return{
         type: actionTypes.ADMIN_SUCCESS,
@@ -43,8 +49,18 @@ export const adminGetUsers = () => {
     }
 }
 
-export const adminUpdateUserRole = () => {
+export const adminUpdateUserRole = (role, user_id) => {
     return dispatch =>{
-        
+        dispatch(adminStart());
+        const roleData = {
+            role: role
+        }
+        axios.put('http://localhost:8080/user/role/' + user_id, roleData)
+            .then(response =>{
+                dispatch(adminSuccess(response.data.message));
+                dispatch(adminGetUsers());
+            }).catch(err => {
+                dispatch(adminFail(err.response));
+            })
     }
 }

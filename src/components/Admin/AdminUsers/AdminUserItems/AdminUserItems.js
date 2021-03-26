@@ -18,6 +18,7 @@ const adminUserItems = (props) => {
                                 phone_number = {user.phone_number}
                                 address={user.address}
                                 role={user.role}
+                                active_role = {props.role}
                                 roleConfig = {props.roleConfig}
                                 roleInputHandler = {props.roleInputHandler}
                                 roleRequestSubmitHandler = {props.roleRequestSubmitHandler}

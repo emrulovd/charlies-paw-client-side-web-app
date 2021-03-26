@@ -27,7 +27,7 @@ class App extends Component {
       <Aux>
         <div>
           <Switch>
-            { this.props.isAdmin === 'admin' ? <Route path="/admin" component={AdminPanel} /> : null}
+            { this.props.isAdmin === 'admin' || this.props.isAdmin === 'employee' ? <Route path="/admin" component={AdminPanel} /> : null}
               <Layout>
                   <Switch >
                       <Route path="/profile" component={Profile}/>

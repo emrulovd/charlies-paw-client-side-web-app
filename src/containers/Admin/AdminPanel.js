@@ -35,7 +35,7 @@ class AdminPanel extends Component {
     roleRequestSubmitHandler = (event, user_id) => {
         event.preventDefault();
         console.log(this.state.userRoleConfig.value + user_id);
-        
+        this.props.onUpdateUserRole(this.state.userRoleConfig.value, user_id);
     }
 
     roleInputHandler = (event) => {
@@ -63,6 +63,7 @@ class AdminPanel extends Component {
                             <Route path="/admin/users">
                                 <AdminUsers 
                                 users={this.props.users} 
+                                role = {this.props.role}
                                 roleConfig = {this.state.userRoleConfig} 
                                 roleInputHandler = {this.roleInputHandler}
                                 roleRequestSubmitHandler = {this.roleRequestSubmitHandler}/>
@@ -79,14 +80,16 @@ class AdminPanel extends Component {
 const mapStateToProps = state => {
     return{
         users: state.admin.users,
-        dogs: state.dg.dogs
+        dogs: state.dg.dogs,
+        role: state.auth.role,
     }
 }
 
 const mapDispatchToProps = dispatch =>{
     return{
         onGetUsers : () => dispatch(actions.adminGetUsers()),
-        onGetDogs : () => dispatch(actions.dogs())
+        onGetDogs : () => dispatch(actions.dogs()),
+        onUpdateUserRole: (role, user_id) => dispatch(actions.adminUpdateUserRole(role, user_id))
     }
 }
 

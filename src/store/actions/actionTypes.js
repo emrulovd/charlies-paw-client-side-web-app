@@ -18,6 +18,7 @@ export const USER_FAIL = 'USER_FAIL';
 
 export const ADMIN_START = 'ADMIN_START';
 export const ADMIN_USERS_SUCCESS = 'ADMIN_USERS_SUCCESS';
+export const ADMIN_UPDATE_SUCCESS = 'ADMIN_UPDATE_SUCCESS';
 export const ADMIN_SUCCESS = 'ADMIN_SUCCESS';
 export const ADMIN_FAIL = 'ADMIN_FAIL';
 
