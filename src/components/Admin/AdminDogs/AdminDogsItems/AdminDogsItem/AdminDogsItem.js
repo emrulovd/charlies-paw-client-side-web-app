@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Row, Col } from 'react-bootstrap';
 import Button from '../../../../UI/Button/Button';
 import classes from './AdminDogsItem.module.css';
 
@@ -9,12 +9,14 @@ const adminDogsItem = (props) => {
         <div>
              <ListGroup.Item>
                 <section className={classes.Container}>
+                    <Row>
                     <img src={props.image} alt=""/>
-                    <h5>{props.name}</h5>
-                    <p>{props.breed}</p>
-                    <p>{props.location}</p>
-                    <Button click = { () => props.deleteDogHandler(props._id)}>Delete</Button>
-                    <Button click = { () => props.updateExistingDogHandler(props.index)}>Update</Button>
+                        <Col><h5>{props.name}</h5></Col>
+                        <Col><p>{props.breed}</p></Col>
+                        <Col><p>{props.location}</p></Col>
+                        <Col><Button click = { () => props.deleteDogHandler(props._id)}>Delete</Button></Col>
+                        <Col><Button click = { () => props.updateExistingDogHandler(props.index)}>Update</Button></Col>
+                    </Row>
                 </section>
             </ListGroup.Item>
         </div>

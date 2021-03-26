@@ -10,7 +10,7 @@ import classes from './Layout.module.css';
 const layout = (props) => {
     return(
         <Aux>
-            <Toolbar isAuth = {props.isAuthenticated}/>
+            <Toolbar isAuth = {props.isAuthenticated} isAdmin = {props.isAdmin}/>
             <SideDrawer/>
             <main className={classes.Layout}>
                 {props.children}
@@ -22,7 +22,8 @@ const layout = (props) => {
 
 const mapStateToProps = state => {
     return{
-        isAuthenticated: state.auth.token !== null
+        isAuthenticated: state.auth.token !== null,
+        isAdmin: state.auth.role !== 'user' || null,
     };
 };
 

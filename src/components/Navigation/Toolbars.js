@@ -26,7 +26,7 @@ const Toolbar = (props) => {
             </nav>
             <Logo className={classes.Logo}/>
             <nav>
-                <NavGroupDynamicItems isAuth={props.isAuth}/>
+                <NavGroupDynamicItems isAuth={props.isAuth} isAdmin = {props.isAdmin}/>
             </nav>
         </header>
     )

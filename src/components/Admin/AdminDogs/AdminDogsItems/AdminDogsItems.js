@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { ListGroup } from 'react-bootstrap';
+import { ListGroup, Row, Col, Table } from 'react-bootstrap';
 import AdminDogsItem from './AdminDogsItem/AdminDogsItem';
 import Button from '../../../UI/Button/Button';
+import classes from './AdminDogsItems.module.css';
 
 const adminDogsItems = (props) => {
     const addDogHandler = () => { // Need to pass the history 
@@ -10,10 +11,18 @@ const adminDogsItems = (props) => {
         // console.log(props.history)
     }
     return(
-        <div>
-            <Button click={addDogHandler} >Add new dog</Button>
+        <div className={classes.Container}>
+                <div className={classes.Headers}>
+                    <Row>
+                        <Col sm={3}>Name:</Col>
+                        <Col sm={2}>Breed:</Col>
+                        <Col >Location:</Col>
+                        <Col/>
+                        <Col/>
+                    </Row>
+                </div>
             <ListGroup variant="flush">
-                {
+                {   
                     props.dogs.map((dog, index) => {
                         return(
                             <AdminDogsItem
@@ -31,6 +40,7 @@ const adminDogsItems = (props) => {
                     })
                 }
             </ListGroup>
+            <Button click={addDogHandler} >Add new dog</Button>
         </div>
     )
 }
