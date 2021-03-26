@@ -6,7 +6,6 @@ import Input from '../../../../UI/Input/Input';
 import classes from './AdminUserItem.module.css';
 
 const adminUserItem = (props) => {
-    let role = " ";
     return(
         <div className={classes.Container}>
             { props.role === 'admin'? null

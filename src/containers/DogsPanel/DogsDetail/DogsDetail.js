@@ -55,23 +55,6 @@ class DogDetail extends Component {
         this.props.onAddToFavourites( favouritesForm );
     }
 
-    deleteDogHandler = () => {
-      const headers = {
-        "Authorization": this.props.token
-      }
-      axios.delete('http://localhost:8080/dogs/' + this.state.params_id, {
-          headers: headers
-      })
-            .then(res => {
-                console.log(res.data.message);
-            })
-      this.props.updateDogHandler();
-    }
-
-    updateDogHandler = () => {
-        console.log(this.props);
-        this.props.history.replace(`/dogs-list/edit-dog?q=${this.state.params_id}`);
-    }
 
     render(){
         return(
@@ -88,7 +71,6 @@ class DogDetail extends Component {
                              breed = {this.state.dog.breed}
                              discription = {this.state.dog.discription}
                              updateDogHandler = {this.updateDogHandler}
-                             deleteDogHandler = {this.deleteDogHandler}
                              addToFavourites = {this.addToFavourites}
                             />
                         </Row>

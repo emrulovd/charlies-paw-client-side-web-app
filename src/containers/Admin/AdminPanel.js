@@ -6,8 +6,8 @@ import { Container, Row, Col } from 'react-bootstrap';
 import AdminSidebar from '../../components/Navigation/AdminSidebar/AdminSidebar';
 import AdminUsers from '../../components/Admin/AdminUsers/AdminUsers';
 import AdminDogs from '../../components/Admin/AdminDogs/AdminDogs';
+import DogsEdit from '../DogsPanel/Dogs-edit/Dogs-Edit';
 import * as actions from '../../store/actions/index';
-import Input from '../../components/UI/Input/Input';
 
 class AdminPanel extends Component {
 
@@ -23,13 +23,41 @@ class AdminPanel extends Component {
                     ]
                 },
                 value:''
-            }
+            },
+            modified: false
         }
     }
 
     componentDidMount() {
         this.props.onGetUsers();
         this.props.onGetDogs();
+    }
+
+    componentDidUpdate(){
+        if(this.state.modified){ // fetches the data after a dog is added or updated 
+           this.setState({modified: !this.state.modified});
+           setTimeout(() => { // Delay the fetch to prevent from racing
+                this.props.onGetDogs();
+           }, 100) 
+        }
+    }
+
+    updateDogHandler = () => {
+        this.setState({modified: true})
+        this.props.history.push('/admin/dogs');
+    }
+
+    deleteDogHandler = (dog_id) => {
+        const headers = {
+          "Authorization": this.props.token
+        }
+        this.props.onDeleteDog(headers, dog_id);
+        this.updateDogHandler();
+      }
+
+    updateExistingDogHandler = (dog_id) => {
+        console.log(dog_id);
+        this.props.history.replace(`/admin/dogs/edit-dog?q=${dog_id}`);
     }
 
     roleRequestSubmitHandler = (event, user_id) => {
@@ -56,9 +84,20 @@ class AdminPanel extends Component {
                   </Col>
                   <Col>
                         <Switch>
+                            <Route path="/admin/dogs/edit-dog" exact component={ () => (
+                                <DogsEdit
+                                dogs={this.props.dogs}
+                                updateDogHandler ={this.updateDogHandler}
+                                params_id = {this.props.location.search.split('?q=').join('')}
+                                />)}/>
                             <Route path="/admin/dashboard" component={AdminUsers}/>
                             <Route path="/admin/dogs" >
-                                <AdminDogs dogs={this.props.dogs}/>
+                                <AdminDogs 
+                                dogs={this.props.dogs}
+                                history = {this.props.history}
+                                deleteDogHandler = {this.deleteDogHandler}
+                                updateExistingDogHandler = {this.updateExistingDogHandler}
+                                />
                             </Route>
                             <Route path="/admin/users">
                                 <AdminUsers 
@@ -82,6 +121,7 @@ const mapStateToProps = state => {
         users: state.admin.users,
         dogs: state.dg.dogs,
         role: state.auth.role,
+        token: state.auth.token
     }
 }
 
@@ -89,7 +129,8 @@ const mapDispatchToProps = dispatch =>{
     return{
         onGetUsers : () => dispatch(actions.adminGetUsers()),
         onGetDogs : () => dispatch(actions.dogs()),
-        onUpdateUserRole: (role, user_id) => dispatch(actions.adminUpdateUserRole(role, user_id))
+        onUpdateUserRole: (role, user_id) => dispatch(actions.adminUpdateUserRole(role, user_id)),
+        onDeleteDog: (header, dog_id) => dispatch(actions.deleteDog(header, dog_id))
     }
 }
 

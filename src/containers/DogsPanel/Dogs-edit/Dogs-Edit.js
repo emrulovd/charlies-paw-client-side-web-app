@@ -142,6 +142,7 @@ class DogsEdit extends Component{
         this.props.updateDogHandler();
         this.CreateDog(formData);
     }
+    
     inputChangeHandler = (event, inputIndentifier) => {
         const updatedDogForm = {
             ...this.state.dogForm

@@ -1,5 +1,6 @@
 export {
-    dogs
+    dogs,
+    deleteDog
 } from './dogs'
 
 export {

@@ -12,6 +12,13 @@ export const dogsAddSuccess = (dogs) => {
     return{
         type: actionTypes.DOGS_ADD,
         dogs: dogs
+    };
+}
+
+export const dogsSuccess = (message) => {
+    return{
+        type: actionTypes.DOGS_SUCCESS,
+        message: message
     }
 }
 
@@ -32,5 +39,18 @@ export const dogs = () => {
              .catch(error => {
                 dispatch(dogsFail(error.response));
             })
+    }
+}
+
+export const deleteDog = (header, dog_id) => {
+    return dispatch => {
+        dispatch(dogsStart());
+        axios.delete('http://localhost:8080/dogs/' + dog_id, {
+            headers: header
+        }).then(response => {
+                dispatch(dogsSuccess(response.data.message));
+        }).catch(error => {
+            dispatch(dogsFail(error.response));
+        })
     }
 }

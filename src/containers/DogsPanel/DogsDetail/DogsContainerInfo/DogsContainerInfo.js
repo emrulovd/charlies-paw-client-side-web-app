@@ -24,8 +24,6 @@ const dogsContainerInfo = (props) => {
                         />
                        { props.isAuth?  
                             <div className={classes.ButtonContainer}>
-                                <Button click = {props.updateDogHandler}>Update</Button>
-                                <Button click={props.deleteDogHandler}>Delete</Button>
                                 <Button click={props.addToFavourites}>Add to favouirites</Button>
                             </div>
                             : null
