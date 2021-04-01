@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ListGroup, Row, Col, Table } from 'react-bootstrap';
+import { ListGroup, Row, Col } from 'react-bootstrap';
 import AdminDogsItem from './AdminDogsItem/AdminDogsItem';
 import Button from '../../../UI/Button/Button';
 import classes from './AdminDogsItems.module.css';

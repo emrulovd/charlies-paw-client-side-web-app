@@ -14,8 +14,8 @@ const adminDogsItem = (props) => {
                         <Col><h5>{props.name}</h5></Col>
                         <Col><p>{props.breed}</p></Col>
                         <Col><p>{props.location}</p></Col>
-                        <Col><Button click = { () => props.deleteDogHandler(props._id)}>Delete</Button></Col>
                         <Col><Button click = { () => props.updateExistingDogHandler(props.index)}>Update</Button></Col>
+                        <Col><Button click = { () => props.deleteDogHandler(props._id)}>Delete</Button></Col>
                     </Row>
                 </section>
             </ListGroup.Item>

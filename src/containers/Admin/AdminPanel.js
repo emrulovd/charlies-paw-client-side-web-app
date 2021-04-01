@@ -8,6 +8,7 @@ import AdminUsers from '../../components/Admin/AdminUsers/AdminUsers';
 import AdminDogs from '../../components/Admin/AdminDogs/AdminDogs';
 import DogsEdit from '../DogsPanel/Dogs-edit/Dogs-Edit';
 import * as actions from '../../store/actions/index';
+import Chat from '../Chat/Chat';
 
 class AdminPanel extends Component {
 
@@ -107,7 +108,7 @@ class AdminPanel extends Component {
                                 roleInputHandler = {this.roleInputHandler}
                                 roleRequestSubmitHandler = {this.roleRequestSubmitHandler}/>
                             </Route>
-                            <Route path="/admin/messages" component={AdminUsers}/>
+                            <Route path="/admin/chat" component={Chat}/>
                         </Switch>
                   </Col>
               </Row>    

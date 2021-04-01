@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'; 
+// import { Link } from 'react-router-dom';
 
 import { Col, Row, Container} from 'react-bootstrap';
 
@@ -8,6 +9,11 @@ import Button from '../../../../components/UI/Button/Button';
 import classes from './DogsContainerInfo.module.css';
 
 const dogsContainerInfo = (props) => {
+
+    const getChat = () => {
+        props.history.replace(`/profile/chat?id=${props.userID}&dog=${props.dogName}`);
+    }
+
     return(
         <div className={classes.Container}>
             <Container fluid>
@@ -25,6 +31,7 @@ const dogsContainerInfo = (props) => {
                        { props.isAuth?  
                             <div className={classes.ButtonContainer}>
                                 <Button click={props.addToFavourites}>Add to favouirites</Button>
+                                <Button click={getChat}>Contact</Button>
                             </div>
                             : null
                         }
@@ -37,7 +44,8 @@ const dogsContainerInfo = (props) => {
 
 const mapStateToProps = state => {
     return{
-        isAuth: state.auth.token
+        isAuth: state.auth.token,
+        userID: state.auth.userId
     }
 }
 

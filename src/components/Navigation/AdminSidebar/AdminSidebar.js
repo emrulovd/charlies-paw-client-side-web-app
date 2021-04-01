@@ -13,7 +13,7 @@ const adminSidebar = () => {
                     <NavLink to="/admin/dashboard">Dahsboard</NavLink>
                     <NavLink to="/admin/users">Users</NavLink>
                     <NavLink to="/admin/dogs">Dogs</NavLink>
-                    <NavLink to="/admin/messages">Messages</NavLink>
+                    <NavLink to="/admin/chat">Chat</NavLink>
                 </ul>
                 <div className={classes.Exit}>
                     <NavLink to="/">back to home</NavLink>
