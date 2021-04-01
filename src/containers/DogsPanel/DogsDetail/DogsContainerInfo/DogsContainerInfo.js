@@ -11,7 +11,7 @@ import classes from './DogsContainerInfo.module.css';
 const dogsContainerInfo = (props) => {
 
     const getChat = () => {
-        props.history.replace(`/profile/chat?id=${props.userID}&dog=${props.dogName}`);
+        props.history.replace(`/profile/messages/chat?id=${props.userID}&dog=${props.dogName}`);
     }
 
     return(

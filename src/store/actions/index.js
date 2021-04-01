@@ -12,7 +12,8 @@ export {
 export {
     getUserData,
     addFavourites,
-    getFavourites
+    getFavourites,
+    getChats
 } from './user'
 
 export { 

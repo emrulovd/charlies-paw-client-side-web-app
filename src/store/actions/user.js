@@ -22,6 +22,13 @@ export const userGetFavouritesSuccess = (favList) => {
     }
 }
 
+export const userGetChatsSuccess = (user_chats) => {
+    return{
+        type: actionTypes.USER_SUCCESS_CHATS,
+        chats: user_chats
+    }
+}
+
 export const userSuccess = (message) => {
     return{
         type: actionTypes.USER_SUCCESS,
@@ -71,6 +78,16 @@ export const getFavourites = (userID) => {
             })
             .catch(error => {
                 dispatch(userFail(error.response));
+            })
+    }
+}
+
+export const getChats = (userID) => {
+    return dispatch => {
+        dispatch(userStart());
+        axios.get('http://localhost:8080/user/chats/' + userID)
+            .then(response => {
+                dispatch(userGetChatsSuccess(response.data.chats));
             })
     }
 }
