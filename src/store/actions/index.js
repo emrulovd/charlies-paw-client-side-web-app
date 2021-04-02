@@ -24,5 +24,6 @@ export {
 
 export {
     adminGetUsers,
-    adminUpdateUserRole
+    adminUpdateUserRole,
+    adminGetChats
 } from './admin'

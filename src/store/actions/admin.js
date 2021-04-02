@@ -16,6 +16,13 @@ export const adminGetUsersSuccess = (users) => {
     }
 }
 
+export const adminGetChatsSucess = (chats) => {
+    return{
+        type: actionTypes.ADMIN_CHATS_SUCCESS,
+        chats: chats
+    }
+}
+
 export const adminUpdateUserRoleSuccess = () => {
     return{
         type: actionTypes.ADMIN_UPDATE_SUCCESS,
@@ -43,8 +50,8 @@ export const adminGetUsers = () => {
             .then(response =>{
                 dispatch(adminSuccess(response.data.message));
                 dispatch(adminGetUsersSuccess(response.data.users));
-            }).catch(err => {
-                dispatch(adminFail(err.response));
+            }).catch(error => {
+                dispatch(adminFail(error.response));
             })
     }
 }
@@ -59,8 +66,20 @@ export const adminUpdateUserRole = (role, user_id) => {
             .then(response =>{
                 dispatch(adminSuccess(response.data.message));
                 dispatch(adminGetUsers());
-            }).catch(err => {
-                dispatch(adminFail(err.response));
+            }).catch(error => {
+                dispatch(adminFail(error.response));
+            })
+    }
+}
+
+export const adminGetChats = () => {
+    return dispatch =>{
+        dispatch(adminStart());
+        axios.get('http://localhost:8080/user/chats')
+            .then(response => {
+                dispatch(adminGetChatsSucess(response.data.chats));
+            }).catch(error => {
+                dispatch(adminFail(error.response));
             })
     }
 }

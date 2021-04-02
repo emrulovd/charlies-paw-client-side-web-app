@@ -49,8 +49,9 @@ class Chat extends Component{
     }
 
     onJoinRoomHandler = (id, dog) => {
+        const employee_id = this.props.user_role === "employee" || this.props.user_role === "admin" ? id : null;
         socket = io(this.state.ENDPOINT);
-        socket.emit('join', {user_id: id, name: this.props.name ,room: dog}, () => {
+        socket.emit('join', {user_id: id, user_name: this.props.name, user_role: this.props.user_role ,room: dog, employee_id: employee_id}, () => {
         })
     }
 
@@ -76,8 +77,10 @@ class Chat extends Component{
             socket.emit('sendMessage', { 
                 user_id: this.state.chat.user_id, 
                 room: this.state.chat.room, 
-                name: this.props.name, message: 
-                this.state.message}, () => this.clearMessage());
+                name: this.props.name,
+                employee_id: this.props.user_role === "user"? null : this.state.chat.user_id,
+                role: this.props.user_role,
+                message: this.state.message}, () => this.clearMessage());
         }
     }
 
@@ -92,15 +95,25 @@ class Chat extends Component{
 
     populateChatMessages = (title) => {
         let newMessages = [];
-        for(let i in this.props.chats){
-            if(this.props.chats[i].title === title){
-                newMessages = [
-                    ...this.props.chats[i].messages
-                ]
-                break;
+        if(this.props.user_role === "user"){
+            for(let i in this.props.chats){
+                if(this.props.chats[i].title === title){
+                    newMessages = [
+                        ...this.props.chats[i].messages
+                    ]
+                    break;
+                }
+            }
+        }else{
+            for(let i in this.props.admin_chats){
+                if(this.props.admin_chats[i].title === title){
+                    newMessages = [
+                        ...this.props.admin_chats[i].messages
+                    ]
+                    break;
+                }
             }
         }
-        console.log("MESSAGES", newMessages);
         this.setState({messages: newMessages});
     }
 
@@ -108,7 +121,7 @@ class Chat extends Component{
         return(
                 <div className = {classes.outerContainer}>
                     <div className = {classes.container}>
-                        <InfoBar room = {this.state.chat.room} onDisconnectHandler = {this.onDisconnectHandler}/>
+                        <InfoBar room = {this.state.chat.room} onDisconnectHandler = {this.onDisconnectHandler} role={this.props.user_role}/>
                         <Messages messages = {this.state.messages} name={this.props.name}/>
                         <Input message = {this.state.message} setMessage = {this.setMessage} sendMessage = {this.onSendMessageHandler}/>
                     </div>
@@ -121,6 +134,8 @@ const mapStateToProps = state => {
     return{
         name: state.user.user.name,
         chats: state.user.chats,
+        user_role: state.auth.role,
+        admin_chats: state.admin.chats
     }
 }
 

@@ -12,6 +12,7 @@ class ChatContainer extends Component{
     componentDidMount() {
         const userID = localStorage.getItem('userID');
         this.props.onGetChatList(userID);
+        this.props.onGetAllChats();
     }
 
     render(){
@@ -23,7 +24,7 @@ class ChatContainer extends Component{
                     </Col>
                     <Col>
                         <Switch>
-                            <Route path="/profile/messages/chat" component={Chat}/>
+                            <Route path="/profile/messages/chat" component={() => <Chat location = {this.props.location}/>}/> 
                         </Switch>
                     </Col>
                 </Row>
@@ -40,7 +41,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        onGetChatList : (userID) => dispatch(actions.getChats(userID)) 
+        onGetChatList : (userID) => dispatch(actions.getChats(userID)),
+        onGetAllChats : () => dispatch(actions.adminGetChats())
     }
 }
 

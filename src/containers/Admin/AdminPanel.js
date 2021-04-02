@@ -6,9 +6,10 @@ import { Container, Row, Col } from 'react-bootstrap';
 import AdminSidebar from '../../components/Navigation/AdminSidebar/AdminSidebar';
 import AdminUsers from '../../components/Admin/AdminUsers/AdminUsers';
 import AdminDogs from '../../components/Admin/AdminDogs/AdminDogs';
+import AdminChats from '../../components/Admin/AdminChats/AdminChats';
 import DogsEdit from '../DogsPanel/Dogs-edit/Dogs-Edit';
 import * as actions from '../../store/actions/index';
-// import Chat from '../ChatContainer/Chat/Chat';
+import Chat from '../ChatContainer/Chat/Chat';
 
 class AdminPanel extends Component {
 
@@ -32,6 +33,7 @@ class AdminPanel extends Component {
     componentDidMount() {
         this.props.onGetUsers();
         this.props.onGetDogs();
+        this.props.onGetChats();
     }
 
     componentDidUpdate(){
@@ -77,6 +79,7 @@ class AdminPanel extends Component {
     }
 
     render(){
+        const userID = localStorage.getItem('userID');
         return(
           <Container fluid>
               <Row>
@@ -91,6 +94,9 @@ class AdminPanel extends Component {
                                 updateDogHandler ={this.updateDogHandler}
                                 params_id = {this.props.location.search.split('?q=').join('')}
                                 />)}/>
+                            <Route path="/admin/chats/message">
+                                <Chat location = {this.props.location}/>
+                            </Route>
                             <Route path="/admin/dashboard" component={AdminUsers}/>
                             <Route path="/admin/dogs" >
                                 <AdminDogs 
@@ -108,7 +114,13 @@ class AdminPanel extends Component {
                                 roleInputHandler = {this.roleInputHandler}
                                 roleRequestSubmitHandler = {this.roleRequestSubmitHandler}/>
                             </Route>
-                            {/* <Route path="/admin/chat" component={Chat}/> */}
+                            <Route path="/admin/chats" >
+                                <AdminChats 
+                                chats = {this.props.chats}
+                                history={this.props.history}
+                                userID = {userID}
+                                />
+                            </Route> 
                         </Switch>
                   </Col>
               </Row>    
@@ -122,7 +134,8 @@ const mapStateToProps = state => {
         users: state.admin.users,
         dogs: state.dg.dogs,
         role: state.auth.role,
-        token: state.auth.token
+        token: state.auth.token,
+        chats: state.admin.chats
     }
 }
 
@@ -130,6 +143,7 @@ const mapDispatchToProps = dispatch =>{
     return{
         onGetUsers : () => dispatch(actions.adminGetUsers()),
         onGetDogs : () => dispatch(actions.dogs()),
+        onGetChats : () => dispatch(actions.adminGetChats()), // Need to get all chats
         onUpdateUserRole: (role, user_id) => dispatch(actions.adminUpdateUserRole(role, user_id)),
         onDeleteDog: (header, dog_id) => dispatch(actions.deleteDog(header, dog_id))
     }

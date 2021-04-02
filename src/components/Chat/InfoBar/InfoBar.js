@@ -6,7 +6,7 @@ import closeIcon from '../../../icons/closeIcon.png';
 import onlineIcon from '../../../icons/onlineIcon.png'
 
 
-const infoBar = ({room, onDisconnectHandler}) => {
+const infoBar = ({room, onDisconnectHandler, role}) => {
 
     return(
         <div className={classes.infoBar}>
@@ -15,7 +15,13 @@ const infoBar = ({room, onDisconnectHandler}) => {
                 <h3>{room}</h3>
             </div>
             <div className={classes.rightInnerContainer}>
-                <Link to="/profile/messages" ><img src={closeIcon} alt="" onClick={onDisconnectHandler}/></Link>
+                {
+                    role === "user"? 
+                    <Link to="/profile/messages" ><img src={closeIcon} alt="" onClick={onDisconnectHandler}/></Link>
+                    : 
+                    <Link to="/admin/chats" ><img src={closeIcon} alt="" onClick={onDisconnectHandler}/></Link>
+                }
+                
             </div>
         </div>
     )

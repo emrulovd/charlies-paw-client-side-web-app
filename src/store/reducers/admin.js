@@ -3,6 +3,7 @@ import { updateObject } from '../utility';
 
 const intialState = {
     users: [],
+    chats: [],
     loading: false,
     error: null 
 }
@@ -18,6 +19,13 @@ const adminGetUsers = (state, action) => {
     })
 } 
 
+const adminGetChats = (state, action) => {
+    return updateObject(state, {
+        chats: action.chats,
+        loading: false
+    })
+}
+
 const adminFail = (state, action) => {
     return updateObject(state, {
         error: action.error,
@@ -32,6 +40,8 @@ const reducer  = (state = intialState, action) => {
             return adminStart(state, action);
         case actionTypes.ADMIN_USERS_SUCCESS: 
             return adminGetUsers(state, action);
+        case actionTypes.ADMIN_CHATS_SUCCESS:
+            return adminGetChats(state, action)
         case actionTypes.ADMIN_FAIL:
             return adminFail(state, action);
         default:
