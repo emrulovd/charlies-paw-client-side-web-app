@@ -6,6 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import AdminSidebar from '../../components/Navigation/AdminSidebar/AdminSidebar';
 import AdminUsers from '../../components/Admin/AdminUsers/AdminUsers';
 import AdminDogs from '../../components/Admin/AdminDogs/AdminDogs';
+import AdminDashboard from '../../components/Admin/AdminDashboard/AdminDashboard';
 import AdminChats from '../../components/Admin/AdminChats/AdminChats';
 import DogsEdit from '../DogsPanel/Dogs-edit/Dogs-Edit';
 import * as actions from '../../store/actions/index';
@@ -97,7 +98,9 @@ class AdminPanel extends Component {
                             <Route path="/admin/chats/message">
                                 <Chat location = {this.props.location}/>
                             </Route>
-                            <Route path="/admin/dashboard" component={AdminUsers}/>
+                            <Route path="/admin/dashboard">
+                                <AdminDashboard/>
+                            </Route>
                             <Route path="/admin/dogs" >
                                 <AdminDogs 
                                 dogs={this.props.dogs}

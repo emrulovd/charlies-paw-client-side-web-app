@@ -4,6 +4,7 @@ import { updateObject } from '../utility';
 const intialState = {
     dogs: [],
     loading: false,
+    dogs_number: null,
     error: null 
 }
 
