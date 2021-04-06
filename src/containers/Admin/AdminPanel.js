@@ -35,6 +35,7 @@ class AdminPanel extends Component {
         this.props.onGetUsers();
         this.props.onGetDogs();
         this.props.onGetChats();
+        this.props.onGetDogsCount();
     }
 
     componentDidUpdate(){
@@ -99,7 +100,9 @@ class AdminPanel extends Component {
                                 <Chat location = {this.props.location}/>
                             </Route>
                             <Route path="/admin/dashboard">
-                                <AdminDashboard/>
+                                <AdminDashboard
+                                dogs_number = {this.props.dogs_number}
+                                />
                             </Route>
                             <Route path="/admin/dogs" >
                                 <AdminDogs 
@@ -138,7 +141,8 @@ const mapStateToProps = state => {
         dogs: state.dg.dogs,
         role: state.auth.role,
         token: state.auth.token,
-        chats: state.admin.chats
+        chats: state.admin.chats,
+        dogs_number: state.dg.dogs_number
     }
 }
 
@@ -148,7 +152,8 @@ const mapDispatchToProps = dispatch =>{
         onGetDogs : () => dispatch(actions.dogs()),
         onGetChats : () => dispatch(actions.adminGetChats()), // Need to get all chats
         onUpdateUserRole: (role, user_id) => dispatch(actions.adminUpdateUserRole(role, user_id)),
-        onDeleteDog: (header, dog_id) => dispatch(actions.deleteDog(header, dog_id))
+        onDeleteDog: (header, dog_id) => dispatch(actions.deleteDog(header, dog_id)),
+        onGetDogsCount: () => dispatch(actions.getDogsNumber())
     }
 }
 
