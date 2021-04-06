@@ -1,14 +1,26 @@
 import React from 'react';
 
-import AdminDashboardCards from './AdminDashboardCards/AdminDashboardCards';
+import { Container, Row, Col } from 'react-bootstrap'; 
+import AdminChart from './AdminChart/AdminChart';
+import AdminDashboardBanner from './AdminDashboardCards/AdminDashboardBanner';
 
 const adminDashboard = (props) => {
 
     return(
         <div>
-            DASHBOARD
-            <p>Dogs Registered: {props.dogs_number}</p>
-            <AdminDashboardCards/>
+            <Container fluid>
+                <Row>
+                    <Col>
+                        <AdminDashboardBanner dogs_number = {props.dogs_number}/>
+                    </Col>
+                    <Col>
+                        <AdminDashboardBanner dogs_number = {props.dogs_number}/>
+                    </Col>
+                </Row>
+                <Row>
+                    <AdminChart/>
+                </Row>
+            </Container>
         </div>
     )
 }

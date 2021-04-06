@@ -3,14 +3,16 @@ import React from 'react';
 
 import classes from './Card.module.css';
 
-const card = () => {
+const card = (props) => {
     return(
             <div className={classes.Container}>
                 <div className={classes.Card}>
-                    <div className={classes.CardImage}></div>
+                    <div className={classes.CardFront}>
+                        <h4>{props.dogs_number}</h4>
+                    </div>
                     <div className={classes.CardText}>
-                        <h4>Custom Card</h4>
-                        <p>Lorem ipsum</p>
+                        <h4>{props.title}</h4>
+                        <p>{props.text}</p>
                     </div>
                     <div className={classes.Stats}>
                         <div className={classes.StatValue}></div>
