@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AdminDashboardCards from './AdminDashboardCards/AdminDashboardCards';
 
 const adminDashboard = (props) => {
 
@@ -7,6 +8,7 @@ const adminDashboard = (props) => {
         <div>
             DASHBOARD
             <p>Dogs Registered: {props.dogs_number}</p>
+            <AdminDashboardCards/>
         </div>
     )
 }

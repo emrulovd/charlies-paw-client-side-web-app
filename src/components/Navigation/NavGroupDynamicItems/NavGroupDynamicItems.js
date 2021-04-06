@@ -11,9 +11,8 @@ const navGroupDynamicItems = (props) => {
     const dropdown = (
             <Dropdown >
                 <Dropdown.Toggle  split variant="transparent" id="dropdown-custom" />
-
                 <Dropdown.Menu className={classes.DropdownMenu} bsPrefix>
-                    { props.isAdmin ? <NavGroupDynamicItem link="/admin">Admin</NavGroupDynamicItem> : null}
+                    { props.isAdmin ? <NavGroupDynamicItem link="/admin/dashboard">Admin</NavGroupDynamicItem> : null}
                     <NavGroupDynamicItem link="/logout">Logout</NavGroupDynamicItem>
                 </Dropdown.Menu>
             </Dropdown>
