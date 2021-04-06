@@ -17,6 +17,12 @@ export const authSuccess = (token, userId, role, isCreated) => {
     };
 };
 
+export const authAccountUpdateSuccess = () => {
+    return{
+        type: actionTypes.AUTH_UPDATE_SUCCESS
+    }
+} 
+
 export const authFail = (error) => {
     return{
         type: actionTypes.AUTH_FAIL,
@@ -87,3 +93,20 @@ export const authCheckState = () => {
         }
     };
 };
+
+
+export const changePasword = (new_password, current_password, user_id) => {
+    return dispatch => {
+        dispatch(authStart());
+        const passwordForm = {
+            new_password: new_password,
+            current_password: current_password
+        }
+        axios.put('http://localhost:8080/auth/change/password/' + user_id, passwordForm)
+            .then( _ => {
+                    dispatch(authAccountUpdateSuccess());
+            }).catch(error => {
+                dispatch(authFail(error.response));
+            })
+    }
+}

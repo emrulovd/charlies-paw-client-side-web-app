@@ -14,13 +14,15 @@ export {
     getUserData,
     addFavourites,
     getFavourites,
-    getChats
+    getChats,
+    getUserCount
 } from './user'
 
 export { 
     auth,
     logout,
-    authCheckState
+    authCheckState,
+    changePasword
 } from './auth'
 
 export {

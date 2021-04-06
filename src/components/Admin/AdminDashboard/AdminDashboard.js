@@ -11,10 +11,10 @@ const adminDashboard = (props) => {
             <Container fluid>
                 <Row>
                     <Col>
-                        <AdminDashboardBanner dogs_number = {props.dogs_number}/>
+                        <AdminDashboardBanner number = {props.user_number}/>
                     </Col>
                     <Col>
-                        <AdminDashboardBanner dogs_number = {props.dogs_number}/>
+                        <AdminDashboardBanner number = {props.dogs_number}/>
                     </Col>
                 </Row>
                 <Row>

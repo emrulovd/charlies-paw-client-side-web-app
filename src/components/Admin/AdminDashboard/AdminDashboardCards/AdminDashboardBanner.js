@@ -8,7 +8,7 @@ const adminDashboardCards = (props) => {
     return(
         <div>
             <Container>
-                <Card dogs_number = {props.dogs_number}/>
+                <Card number = {props.number}/>
             </Container>
         </div>
     )

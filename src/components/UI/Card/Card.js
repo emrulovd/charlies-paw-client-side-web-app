@@ -8,7 +8,7 @@ const card = (props) => {
             <div className={classes.Container}>
                 <div className={classes.Card}>
                     <div className={classes.CardFront}>
-                        <h4>{props.dogs_number}</h4>
+                        <h4>{props.number}</h4>
                     </div>
                     <div className={classes.CardText}>
                         <h4>{props.title}</h4>

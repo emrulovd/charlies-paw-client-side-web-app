@@ -12,6 +12,7 @@ import DogsEdit from '../DogsPanel/Dogs-edit/Dogs-Edit';
 import * as actions from '../../store/actions/index';
 import Chat from '../ChatContainer/Chat/Chat';
 
+
 class AdminPanel extends Component {
 
     constructor(props){
@@ -36,6 +37,7 @@ class AdminPanel extends Component {
         this.props.onGetDogs();
         this.props.onGetChats();
         this.props.onGetDogsCount();
+        this.props.onGetUserCount();
     }
 
     componentDidUpdate(){
@@ -88,7 +90,7 @@ class AdminPanel extends Component {
                   <Col xs lg="2">
                         <AdminSidebar/>
                   </Col>
-                  <Col>
+                  <Col >
                         <Switch>
                             <Route path="/admin/dogs/edit-dog" exact component={ () => (
                                 <DogsEdit
@@ -102,6 +104,7 @@ class AdminPanel extends Component {
                             <Route path="/admin/dashboard">
                                 <AdminDashboard
                                 dogs_number = {this.props.dogs_number}
+                                user_number = {this.props.user_number}
                                 />
                             </Route>
                             <Route path="/admin/dogs" >
@@ -142,7 +145,8 @@ const mapStateToProps = state => {
         role: state.auth.role,
         token: state.auth.token,
         chats: state.admin.chats,
-        dogs_number: state.dg.dogs_number
+        dogs_number: state.dg.dogs_number,
+        user_number: state.user.user_number
     }
 }
 
@@ -153,7 +157,8 @@ const mapDispatchToProps = dispatch =>{
         onGetChats : () => dispatch(actions.adminGetChats()), // Need to get all chats
         onUpdateUserRole: (role, user_id) => dispatch(actions.adminUpdateUserRole(role, user_id)),
         onDeleteDog: (header, dog_id) => dispatch(actions.deleteDog(header, dog_id)),
-        onGetDogsCount: () => dispatch(actions.getDogsNumber())
+        onGetDogsCount: () => dispatch(actions.getDogsNumber()),
+        onGetUserCount: () => dispatch(actions.getUserCount())
     }
 }
 

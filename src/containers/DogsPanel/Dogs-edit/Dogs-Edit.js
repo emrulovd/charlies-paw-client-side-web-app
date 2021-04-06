@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-
+import Input from '../../../components/UI/Input/Input';
+import Button from '../../../components/UI/Button/Button';
 import * as actions from '../../../store/actions/index';
 import classes from './Dogs-Edit.module.css';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Container, ListGroup } from 'react-bootstrap';
 
 
 
@@ -19,7 +20,8 @@ class DogsEdit extends Component{
                         type: 'text',
                     },
                     placeholder: 'Dog name',
-                    value: ''
+                    value: '',
+                    label: 'Name'
                 },
                 age:{
                     elementType: 'input',
@@ -27,7 +29,8 @@ class DogsEdit extends Component{
                         type: 'text'
                     },
                     placeholder: 'Dog age',
-                    value: ''
+                    value: '',
+                    label: 'Age'
                 },
                 breed:{
                     elementType: 'input',
@@ -35,7 +38,8 @@ class DogsEdit extends Component{
                         type: 'text',
                     },
                     placeholder: 'Dog breed',
-                    value: ''
+                    value: '',
+                    label: 'Breed'
                 },
                 breedSize:{
                     elementType: 'input',
@@ -43,7 +47,8 @@ class DogsEdit extends Component{
                         type: 'text',
                     },
                     placeholder: 'Breed size',
-                    value: ''
+                    value: '',
+                    label: 'Size'
                 },
                 location:{
                     elementType: 'input',
@@ -51,7 +56,8 @@ class DogsEdit extends Component{
                         type: 'text',
                     },
                     placeholder: 'Dogs location',
-                    value: ''
+                    value: '',
+                    label: 'Location'
                 },
                 image:{
                     elementType: 'input',
@@ -59,15 +65,17 @@ class DogsEdit extends Component{
                         type: 'text',
                     },
                     placeholder: 'Dog image',
-                    value: ''
+                    value: '',
+                    label: 'Image'
                 },
                 discription:{
-                    elementType: 'input',
+                    elementType: 'textarea',
                     elementConfig: {
-                        type: 'textarea',
+                        type: 'text',
                     },
                     placeholder: 'Short discription about the dog',
-                    value: ''
+                    value: '',
+                    label: 'Disicription'
                 },
             },
             loading: false,
@@ -125,7 +133,7 @@ class DogsEdit extends Component{
         this.props.onCreateDog(this.state.headers, formData);
     }
     
-    inputChangeHandler = (event, inputIndentifier) => {
+    inputChangedHandler = (event, inputIndentifier) => {
         const updatedDogForm = {
             ...this.state.dogForm
         }
@@ -133,6 +141,7 @@ class DogsEdit extends Component{
             ...updatedDogForm[inputIndentifier]
         };
         updatedFormElement.value = event.target.value;
+        console.log(event.target.value)
         updatedDogForm[inputIndentifier] = updatedFormElement;
         this.setState({dogForm: updatedDogForm});
     }
@@ -148,24 +157,62 @@ class DogsEdit extends Component{
                 config: this.state.dogForm[key]
             })
         }
+
+        let form = formElementsArray.map((formElement, index) => {
+            if(index === 2 || index === 4){
+                return(
+                    <ListGroup horizontal>
+                        <Input
+                            key={formElement.id}
+                            elementType = {formElement.config.elementType}
+                            elementConfig = {formElement.config.elementConfig}
+                            value = {formElement.config.value}
+                            invalid = {!formElement.config.valid}
+                            shouldValidate = {formElement.config.validation}
+                            touched = {formElement.config.touched}
+                            label = {formElement.config.label}
+                            changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
+                        /> 
+                        <Input
+                            key={formElementsArray[index + 1].id}
+                            elementType = {formElementsArray[index + 1].config.elementType}
+                            elementConfig = {formElementsArray[index + 1].config.elementConfig}
+                            value = {formElementsArray[index + 1].config.value}
+                            invalid = {!formElementsArray[index + 1].config.valid}
+                            shouldValidate = {formElementsArray[index + 1].config.validation}
+                            touched = {formElementsArray[index + 1].config.touched}
+                            label = {formElementsArray[index + 1].config.label}
+                            changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
+                        /> 
+                    </ListGroup>    
+                )
+            }if(index === 3 || index === 5 ){
+                return null
+            }else {
+                return (
+                    <Input
+                    key={formElement.id}
+                    elementType = {formElement.config.elementType}
+                    elementConfig = {formElement.config.elementConfig}
+                    value = {formElement.config.value}
+                    invalid = {!formElement.config.valid}
+                    shouldValidate = {formElement.config.validation}
+                    touched = {formElement.config.touched}
+                    label = {formElement.config.label}
+                    changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
+                     /> 
+                )
+            }
+        })
         return(
-            <div>
-                <Container className={classes.temp}>
-                    <Form onSubmit={this.props.params_id ? this.updateDogHandler : this.newDogHandler}>
-                        {formElementsArray.map((formElement) => (
-                            <Form.Group key = {formElement.id}>
-                                <Form.Label>{formElement.config.placeholder}</Form.Label>
-                                <Form.Control 
-                                    elementype={formElement.config.elementType}
-                                    elementconfig={formElement.config.elementConfig}
-                                    value = {formElement.config.value}
-                                    onChange={(event) => this.inputChangeHandler(event, formElement.id)} />
-                            </Form.Group>
-                        ))}
-                        <Button variant="primary" type="submit">
+            <div className={classes.Container}>
+                <Container >
+                    <form onSubmit={this.props.params_id ? this.updateDogHandler : this.newDogHandler}>
+                        {form}
+                        <Button type="submit">
                             Submit
                         </Button>
-                    </Form>
+                    </form>
                 </Container>
             </div>
         )

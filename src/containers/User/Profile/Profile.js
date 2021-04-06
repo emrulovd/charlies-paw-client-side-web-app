@@ -67,6 +67,9 @@ class Profile extends Component {
 
     changePasswordHandler = (event) => {    
         event.preventDefault();
+        console.log(this.state.passwordForm.current_password.value);
+        const userID = localStorage.getItem('userID');
+        this.props.getUpdatePassword(this.state.passwordForm.new_password.value, this.state.passwordForm.current_password.value, userID);
     }
 
 
@@ -146,7 +149,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        getUserData: (userID) => dispatch(actions.getUserData(userID))
+        getUserData: (userID) => dispatch(actions.getUserData(userID)),
+        getUpdatePassword: (new_password, current_password, user_id) => dispatch(actions.changePasword(new_password, current_password, user_id))
     }
 }
 
