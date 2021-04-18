@@ -23,7 +23,8 @@ export {
     logout,
     authCheckState,
     changePasword,
-    googleAuth
+    googleAuth,
+    facebookAuth
 } from './auth'
 
 export {

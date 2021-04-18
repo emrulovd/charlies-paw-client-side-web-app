@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import GoogleLogin from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 
 import classes from './AuthLogin.module.css';
 import Input from '../../../components/UI/Input/Input';
@@ -87,12 +88,17 @@ class AuthLogin extends Component {
 
 
     onGoogleResponseHandler = (response) => {
-        try{
-            // token, user_id, role = user, isCreated = true
-            console.log(response.tokenObj.id_token);
-            console.log(response.tokenObj);
-            console.log(response.googleId);
+        try{    
             this.props.onGoogleAuth(response.tokenObj.id_token, response.googleId, 'user', true, response.tokenObj.expires_in);
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    onFacebookResponseHandler = (response) => {
+        console.log(response);
+        try{
+            this.props.onFacebookAuth(response.accessToken, response.id, 'user', true, 3600);
         }catch(error){
             console.log(error);
         }
@@ -155,6 +161,11 @@ class AuthLogin extends Component {
                     onFailure = {this.onGoogleResponseHandler}
                     cookiePolicy = {'single_host_origin'}
                     />
+                    <FacebookLogin
+                    appId="821806635388049"
+                    autoLoad = {true}
+                    fields = "name, email, picture"
+                    callback = {this.onFacebookResponseHandler}/>
                 </form>
             </div>
         )
@@ -172,7 +183,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return{
         onAuth: (email, password, isSignup) => dispatch( actions.auth(email, password, isSignup)),
-        onGoogleAuth: (token, userId, role, isCreated, expires_in) => dispatch( actions.googleAuth(token, userId, role, isCreated, expires_in))
+        onGoogleAuth: (token, userId, role, isCreated, expires_in) => dispatch( actions.googleAuth(token, userId, role, isCreated, expires_in)),
+        onFacebookAuth: (token, userId, role, isCreated, expires_in) => dispatch( actions.facebookAuth(token, userId, role, isCreated, expires_in))
     }
 }
 

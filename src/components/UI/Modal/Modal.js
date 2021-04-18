@@ -1,20 +1,29 @@
-import React from 'react'; 
+import React, {useState} from 'react'; 
 
-import classes from './Modal.module.css';
+import {Modal} from 'react-bootstrap';
+import Button from '../Button/Button';
 
-const modal = (props) => {
+const ModalUI = (props) => {
+
     return(
-        <div
-        style={{
-            transform: props.show ? "translateY(20)" : "translateY(-120vh)",
-            // opacity: props.show ? "1" : "0"
-        }}>
-            <div className={classes.Modal}>
-                {console.log("SHOW: " + props.show)}
+        <Modal
+            show={props.show}
+            backdrop="static"
+            onHide={props.onContinueHandler}
+            keyboard={false}>
+            <Modal.Header closeButton>
+                <Modal.Title>Modal title</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
                 {props.children}
-            </div>
-        </div>
+            </Modal.Body>
+            <Modal.Footer>
+                    <Button click={props.onContinueHandler}>Close</Button>
+                    <Button click={props.onContinueHandler}>Continue</Button>
+            </Modal.Footer>
+      </Modal>
+
     ) 
 } 
 
-export default modal; 
+export default ModalUI; 

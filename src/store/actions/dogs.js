@@ -55,6 +55,7 @@ export const createDog = (header, dogData) => {
         axios.post('http://localhost:8080/dogs/create', dogData, {
             headers: header
         }).then( response => {
+            console.log(response);
             dispatch(dogsSuccess(response.data.message));
         }).catch(error => {
             dispatch(dogsFail(error.response));

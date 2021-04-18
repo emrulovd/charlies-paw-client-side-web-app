@@ -78,7 +78,17 @@ export const googleAuth = (token, userId, role, isCreated, expirationTime) => {
         localStorage.setItem('role', role);
         dispatch(authSuccess(token, userId, role, isCreated));
     }
-} 
+}
+
+export const facebookAuth = (token, userId, role, isCreated ,expirationTime) => {
+    return dispatch => {
+        localStorage.setItem('token', token);
+        localStorage.setItem('expirationTime', expirationTime);
+        localStorage.setItem('userID', userId);
+        localStorage.setItem('role', role);
+        dispatch(authSuccess(token, userId, role, isCreated));
+    }
+}
 
 
 export const authCheckState = () => {

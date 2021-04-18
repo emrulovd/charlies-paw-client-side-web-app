@@ -20,9 +20,8 @@ const dogsContainerInfo = (props) => {
         <div className={classes.Container}>
             <Container fluid>
                 { props.favourites ? 
-                    <Modal show = {props.favourites}>
+                    <Modal show = {props.favourites} onContinueHandler = {props.onContinueHandler}>
                         <DogsSummary dogName={props.dogName}/>
-                        <Button click={props.onContinueHandler}>Continue</Button>
                     </Modal>
                     : null
                 }

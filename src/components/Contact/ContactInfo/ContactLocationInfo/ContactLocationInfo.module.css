@@ -1,6 +1,14 @@
 .Paragraph p{
     color: #fff;
+    font-family: 'Noto Sans TC', sans-serif;
 }
 .Paragraph{
     color: #fff;
+    font-family: 'Noto Sans TC', sans-serif;
+    margin-right: 10%;
+}
+
+.Paragraph h6{
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 18px;
 }
