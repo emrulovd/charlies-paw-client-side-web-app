@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
 
 import classes from './AuthLogin.module.css';
 import Input from '../../../components/UI/Input/Input';
@@ -83,6 +84,19 @@ class AuthLogin extends Component {
         updatedAuthForm[inputIdentifier] = updatedAuthElement;
         this.setState({authForm: updatedAuthForm});
     }
+
+
+    onGoogleResponseHandler = (response) => {
+        try{
+            // token, user_id, role = user, isCreated = true
+            console.log(response.tokenObj.id_token);
+            console.log(response.tokenObj);
+            console.log(response.googleId);
+            this.props.onGoogleAuth(response.tokenObj.id_token, response.googleId, 'user', true, response.tokenObj.expires_in);
+        }catch(error){
+            console.log(error);
+        }
+    }
     
     render() {
         const formElementsArray = [];
@@ -134,6 +148,13 @@ class AuthLogin extends Component {
                     <h4>Login to your profile</h4>
                             {form}
                     <Button>Login</Button>
+                    <GoogleLogin
+                    clientId = "425023239014-r4iihe16i1nrgfuc31bub8vpgaglmhta.apps.googleusercontent.com"
+                    buttonText = "Login"
+                    onSuccess = {this.onGoogleResponseHandler}
+                    onFailure = {this.onGoogleResponseHandler}
+                    cookiePolicy = {'single_host_origin'}
+                    />
                 </form>
             </div>
         )
@@ -150,7 +171,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return{
-        onAuth: (email, password, isSignup) => dispatch( actions.auth(email, password, isSignup))
+        onAuth: (email, password, isSignup) => dispatch( actions.auth(email, password, isSignup)),
+        onGoogleAuth: (token, userId, role, isCreated, expires_in) => dispatch( actions.googleAuth(token, userId, role, isCreated, expires_in))
     }
 }
 

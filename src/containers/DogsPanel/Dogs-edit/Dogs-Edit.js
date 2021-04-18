@@ -73,6 +73,15 @@ class DogsEdit extends Component{
                     value: '',
                     label: 'Image'
                 },
+                imageFile:{
+                    elementType: 'file',
+                    elementConfig: {
+                        type: 'text',
+                    },
+                    placeholder: 'Dog image',
+                    value: '',
+                    label: 'Upload Image'
+                },
                 discription:{
                     elementType: 'textarea',
                     elementConfig: {
@@ -139,7 +148,6 @@ class DogsEdit extends Component{
     }
     
     inputChangedHandler = (event, inputIndentifier) => {
-        console.log(inputIndentifier);
         const updatedDogForm = {
             ...this.state.dogForm
         }
@@ -147,9 +155,9 @@ class DogsEdit extends Component{
             ...updatedDogForm[inputIndentifier]
         };
         updatedFormElement.value = event.target.value;
-        console.log(event.target.value)
         updatedDogForm[inputIndentifier] = updatedFormElement;
         this.setState({dogForm: updatedDogForm});
+        console.log(this.state.dogForm);
     }
 
     updateFormElement = (data, inputIndentifier) =>{
@@ -238,10 +246,13 @@ class DogsEdit extends Component{
                             <Button click = {(event) => this.getDogImage(event, formElement.id)} >Fetch Image</Button>
                         </div>
                     </Col>
+                    <Col>
+                    <img src={this.state.dogForm.image.value} alt=""/>
+                    </Col>
                  </Row>
-                 <Row>
+                 {/* <Row>
                      <img src={this.state.dogForm.image.value} alt=""/>
-                 </Row>
+                 </Row> */}
                  </div>
                )
             } 

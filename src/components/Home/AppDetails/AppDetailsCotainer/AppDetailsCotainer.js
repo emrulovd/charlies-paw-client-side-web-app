@@ -16,9 +16,12 @@ const appDetailsConatainer = (props) =>{
                             {/* <img className={classes.Pic} src={props.pic} alt="shelter dog"/> */}
                             <Parallax bgImage={props.pic} className={classes.Pic} strength={200}/>
                             <Col>
-                                <img src={props.icon} className={classes.Icon} alt="icon"/>
-                                <h1>{props.title}</h1>
-                                <p>{props.children}</p>
+                                <div className={classes.Text}>
+                                    <img src={props.icon} className={classes.Icon} alt="icon"/>
+                                    <h3>{props.title}</h3>
+                                    <br/>
+                                    <p>{props.children}</p>
+                                </div>
                             </Col>
                     </Row>
                 </Container>
@@ -30,9 +33,12 @@ const appDetailsConatainer = (props) =>{
             <Container fluid>
                 <Row>
                     <Col>
-                        <img src={props.icon} className={classes.Icon} alt="icon"/>
-                        <h1>{props.title}</h1>
-                        <p>{props.children}</p>
+                        <div className={classes.Text}>
+                            <img src={props.icon} className={classes.Icon} alt="icon"/>
+                            <h3>{props.title}</h3>
+                            <br/>
+                            <p>{props.children}</p>
+                        </div>
                     </Col>  
                     <Parallax bgImage={props.pic} className={classes.Pic} strength={300}/>
                 </Row>

@@ -1,7 +1,15 @@
 .Container{
-    margin-top: 10%;
+    margin-top: 5%;
+    margin-bottom: 10%;
 }
 
 .Button{
-    margin-top: 7%;
+    margin-top: 12%;
+    margin-left: 25%;
 }
+
+.Container img{
+    max-height: 240px;
+    max-width: 240px;
+}
+

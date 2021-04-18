@@ -42,7 +42,6 @@ const navGroupDynamicItems = (props) => {
                 </ul>
                 :
             <ul className={classes.NavigationItems}>
-                <NavGroupDynamicItem link="/contact">Contact</NavGroupDynamicItem>
                 <NavGroupDynamicItem link="/auth/login" active={true}>Login</NavGroupDynamicItem>
                 <NavGroupDynamicItem link="/auth/signup">Signup</NavGroupDynamicItem>
             </ul>

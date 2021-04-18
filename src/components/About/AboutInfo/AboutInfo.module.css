@@ -9,7 +9,6 @@
 
 
 .Title{
-    
     text-align: center;
     color: #353535;
 }
@@ -19,4 +18,5 @@
     text-align: left;
     color: #787878;
     font-size: 18px;
+    font-family: 'Noto Sans TC', sans-serif;
 }

@@ -18,6 +18,7 @@ class DogDetail extends Component {
         this.state = {
             dog: [],
             params_id: this.props.location.search.split('?q=').join(''),
+            favourites: false
         }
     }
     componentDidMount(){
@@ -53,8 +54,12 @@ class DogDetail extends Component {
             userID: this.props.userId 
         }
         this.props.onAddToFavourites( favouritesForm );
+        this.setState({favourites: true});
     }
 
+    onContinueHandler = () => {
+        this.setState({favourites: false});
+    }
 
     render(){
         return(
@@ -70,9 +75,12 @@ class DogDetail extends Component {
                              size = {this.state.dog.breedSize}
                              breed = {this.state.dog.breed}
                              discription = {this.state.dog.discription}
+                             favourites = {this.state.favourites}
+                             userRole = {this.props.userRole}
                              history = {this.props.history}
                              updateDogHandler = {this.updateDogHandler}
                              addToFavourites = {this.addToFavourites}
+                             onContinueHandler = {this.onContinueHandler}
                             />
                         </Row>
                         <Row>
@@ -97,7 +105,8 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
     return{
         token: state.auth.token,
-        userId: state.auth.userId
+        userId: state.auth.userId,
+        userRole: state.auth.role
     }
 }
 

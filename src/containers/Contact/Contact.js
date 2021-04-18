@@ -2,11 +2,13 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions/index';
+import { Row, Col } from 'react-bootstrap';
 
 import classes from './Contact.module.css';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
+
 
 
 class Contact extends Component {
@@ -119,8 +121,43 @@ class Contact extends Component {
                 config: this.state.contactForm[key]
             })
         }
-        let form = formElementsArray.map(formElement => (
-            <Input
+        let form = formElementsArray.map((formElement, index) => {
+            if(index === 0){
+                return(
+                    <Row>
+                        <Col>
+                            <Input
+                            key={formElement.id}
+                            elementType = {formElement.config.elementType}
+                            elementConfig = {formElement.config.elementConfig}
+                            value = {formElement.config.value}
+                            invalid = {!formElement.config.valid}
+                            shouldValidate = {formElement.config.validation}
+                            touched = {formElement.config.touched}
+                            changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
+                            />
+                        </Col>
+                        <Col>
+                                <Input
+                                key={formElementsArray[1].id}
+                                elementType = {formElementsArray[1].config.elementType}
+                                elementConfig = {formElementsArray[1].config.elementConfig}
+                                value = {formElementsArray[1].config.value}
+                                invalid = {!formElementsArray[1].config.valid}
+                                shouldValidate = {formElementsArray[1].config.validation}
+                                touched = {formElementsArray[1].config.touched}
+                                changed = {(event) => this.inputChangedHandler(event, formElementsArray[1].id)}  
+                                />
+                        </Col>
+                    </Row>
+                )
+            }
+            else if(index === 1){
+                return null;
+            }
+            else{
+               return(
+                <Input
                 key={formElement.id}
                 elementType = {formElement.config.elementType}
                 elementConfig = {formElement.config.elementConfig}
@@ -129,7 +166,10 @@ class Contact extends Component {
                 shouldValidate = {formElement.config.validation}
                 touched = {formElement.config.touched}
                 changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
-            />))
+                />
+               )
+            }
+        })
 
             if(this.props.loading){
                 form = <Spinner/>;

@@ -18,7 +18,7 @@ const DogsList = (props) =>{
                 <div>
                 <Container fluid >
                     <Row >
-                       { props.dogs.map((dog, index) =>{
+                       { props.dogs.reverse().map((dog, index) =>{
                                 return(
                                     <Col xs lg={6} key={index} >
                                         <DogsListItem

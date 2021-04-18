@@ -34,6 +34,7 @@ export const logout = () =>{
     localStorage.removeItem('token');
     localStorage.removeItem('expirationTime');
     localStorage.removeItem('userID');
+    localStorage.removeItem('role');
     return{
         type: actionTypes.AUTH_LOGOUT
     }
@@ -60,7 +61,6 @@ export const auth = (authData, isSignup) => {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('expirationTime', expirationTime);
                 localStorage.setItem('userID', response.data.userId);
-                // localStorage.setItem('role', response.data.role);
                 dispatch(authSuccess(response.data.token, response.data.userId, response.data.role, response.statusText));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
@@ -69,6 +69,16 @@ export const auth = (authData, isSignup) => {
             })
     }
 }
+
+export const googleAuth = (token, userId, role, isCreated, expirationTime) => {
+    return dispatch => {
+        localStorage.setItem('token', token);
+        localStorage.setItem('expirationTime', expirationTime);
+        localStorage.setItem('userID', userId);
+        localStorage.setItem('role', role);
+        dispatch(authSuccess(token, userId, role, isCreated));
+    }
+} 
 
 
 export const authCheckState = () => {
@@ -82,13 +92,18 @@ export const authCheckState = () => {
                 dispatch(logout())
             }else{
                 const userID = localStorage.getItem('userID');
-                axios.get('http://localhost:8080/user/role/' + userID)
+                const role = localStorage.getItem('role');
+                if(role === 'user'){
+                    dispatch(authSuccess(token, userID, role))
+                }else{
+                    axios.get('http://localhost:8080/user/role/' + userID)
                     .then(response => {
                         dispatch(authSuccess(token,userID,response.data.role));
                         dispatch(checkAuthTimeout((expirationTime.getTime() - new Date().getTime())/1000));
-                }).catch(error => {
-                    dispatch(authFail(error.response));
-                })
+                    }).catch(error => {
+                        dispatch(authFail(error.response));
+                    })
+                }     
             }
         }
     };
