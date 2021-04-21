@@ -128,11 +128,20 @@ class DogsEdit extends Component{
     updateDogHandler = (event) => {
         event.preventDefault();
         this.setState({loading: true});
-        const formData = {};
+        // const formData = {};
+        // for( let formElementIndentifier in this.state.dogForm){
+        //     formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
+        // }
+        // formData['id'] = this.props.params_id;
+        let formData = new FormData(); // Need to use form data 
         for( let formElementIndentifier in this.state.dogForm){
-            formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
+            if( formElementIndentifier === 'dogImage'){
+                formData.append(formElementIndentifier, this.state.dogForm[formElementIndentifier].file[0]);
+            }else{
+                formData.append(formElementIndentifier, this.state.dogForm[formElementIndentifier].value);
+            }
         }
-        formData['id'] = this.props.params_id;
+        formData.append('id', this.props.dogs.length);
         this.props.onUpdateDog(this.state.headers, this.props.params_id, formData)
         this.props.updateDogHandler();
     }
@@ -150,10 +159,6 @@ class DogsEdit extends Component{
         }
         formData.append('id', this.props.dogs.length);
         this.props.updateDogHandler();
-        for (var value of formData.values()) {
-            console.log(value);
-         }
-        console.log(formData);
         this.props.onCreateDog(this.state.headers, formData);
         // const formData = {};
         // for( let formElementIndentifier in this.state.dogForm){
