@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {Container, Row, Col } from 'react-bootstrap'; 
-import Card from '../../../UI/Card/Card';
+import {Container} from 'react-bootstrap'; 
 import classes from './AdminDashboardBanner.module.css';
 
 const adminDashboardCards = (props) => {
@@ -10,7 +9,7 @@ const adminDashboardCards = (props) => {
             <Container>            
                 <div className={classes.Card}>
                     <p className={classes.Amount}>{props.number}</p>
-                    <p className={classes.City}>London</p>
+                    <p className={classes.City}>{props.city}</p>
                 </div>
             </Container>
         </div>

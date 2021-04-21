@@ -21,7 +21,7 @@ const contactInfo = () => {
                         information.map((info, index) => {
                             return(
                                     <ContactLocationInfo
-                                    key={index}
+                                    key={info.city}
                                     location={info.city}
                                     address={info.address}
                                     phone={info.phone}

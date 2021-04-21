@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 import * as actions from '../../../store/actions/index';
 import classes from './Dogs-Edit.module.css';
-import { Container, ListGroup, Col, Row } from 'react-bootstrap';
+import { Container, ListGroup } from 'react-bootstrap';
 
 
 

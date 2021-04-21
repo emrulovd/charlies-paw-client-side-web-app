@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Row, Col } from 'react-bootstrap'; 
+import { Row } from 'react-bootstrap'; 
 import classes from './AdminDashboardBannerGroup2.module.css';
 
 const adminDashboardBannerGroup2 = (props) => {

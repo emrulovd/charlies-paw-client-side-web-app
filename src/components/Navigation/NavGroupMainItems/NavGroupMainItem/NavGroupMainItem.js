@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
 
 import classes from './NavGroupMainItem.module.css';
@@ -6,6 +6,13 @@ import classes from './NavGroupMainItem.module.css';
 
 const NavGroupMainItem = (props) => {
     const [navItems, setNavItems] = useState(false);
+
+    useEffect(() => {
+        changeItemsColor();
+        return () => {
+          setNavItems({}); 
+        };
+      }, []);
 
     const changeItemsColor = () => {
         if(window.scrollY >=80){

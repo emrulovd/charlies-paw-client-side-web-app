@@ -34,11 +34,7 @@ const navGroupDynamicItems = (props) => {
                      <NavGroupDynamicItem link="/profile">
                             <img src={profile} alt=""/>
                      </NavGroupDynamicItem>
-                     <NavGroupDynamicItem >
-                         {dropdown}
-                     </NavGroupDynamicItem> 
-                   
-
+                         {dropdown}                   
                 </ul>
                 :
             <ul className={classes.NavigationItems}>
