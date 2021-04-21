@@ -19,18 +19,14 @@ class App extends Component {
   componentDidMount(){
     this.props.onTryAutoSignup();
   }
-
-
-
   render(){
     return(
       <Aux>
         <div>
           <Switch>
-            { this.props.isAdmin === 'admin' ? <Route path="/admin" component={AdminPanel} /> : null}
+            { this.props.isAdmin === 'admin' || this.props.isAdmin === 'employee' ? <Route path="/admin" component={AdminPanel} /> : null}
               <Layout>
                   <Switch >
-                      { this.props.isAdmin === 'admin' ? <Route path="/admin" component={AdminPanel} /> : null}
                       <Route path="/profile" component={Profile}/>
                       <Route path="/contact" component={ContactContainer}/>
                       <Route path="/dogs-list" component={DogsPanel} />

@@ -5,20 +5,36 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #10C9C3;
     overflow-x: hidden;
-    padding-top: 20px;
 }
 
 
 .SideBar a{
-  padding: 6px 8px 6px 16px;
+  padding: 6px 8px 6px 0px;
   text-decoration: none;
   font-size: 25px;
-  color: #818181;
+  color: #ffffff;
   display: block;
+}
+
+.SideBar a:hover{
+  text-decoration: none;
 }
 
 .SideBar a:hover {
     color: #f1f1f1;
-  }
+}
+
+.Logo{
+  background-color: #f1f1f1;
+  list-style: none;
+  padding-top: 40px;
+  padding-bottom: 15px;
+  padding-left: 10px;
+}
+
+.Exit{
+  padding-left: 40px;
+  margin-top: 150%;
+}

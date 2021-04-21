@@ -4,6 +4,7 @@ import { updateObject } from '../utility';
 const intialState = {
     dogs: [],
     loading: false,
+    dogs_number: null,
     error: null 
 }
 
@@ -18,6 +19,13 @@ const addDogs = (state, action) => {
     })
 } 
 
+const countDogs = (state, action) => {
+    return updateObject(state, {
+        dogs_number: action.count,
+        loading: false
+    })
+}
+
 const dogsFail = (state, action) => {
     return updateObject(state, {
         error: action.Error,
@@ -31,6 +39,8 @@ const reducer  = (state = intialState, action) => {
             return dogsStart(state, action);
         case actionTypes.DOGS_ADD: 
             return addDogs(state, action);
+        case actionTypes.DOGS_COUNT_SUCCESS:
+            return countDogs(state, action);
         case actionTypes.DOGS_FAIL:
             return dogsFail(state, action);
         default:

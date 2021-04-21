@@ -1,0 +1,89 @@
+.Container{
+    height: 50vh;
+    display: flex;
+    align-items: center;
+}
+
+
+.Card{
+    display: grid;
+    grid-template-columns: 300px;
+    grid-template-rows: 100px 100px 80px;
+    grid-template-areas: "image" "text" "stats";
+
+    font-family: roboto;
+    border-radius: 18px;
+    background-color: white;
+    box-shadow: 5px 5px 15px #000;
+    text-align: center;
+
+    transition: 0.5s all ease;
+    cursor: pointer;
+}
+
+.CardFront{
+    grid-area: image;
+    margin-top: 70px;
+    border: 1px solid #000;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    width: 30%;
+    height: 100%;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.CardFront h4{
+    display: inline-block;
+    text-align: center;
+    padding: 10px 10px 5px;
+    font-size: 64px;
+}
+
+.CardText{
+    grid-area: text;
+    margin: 25px;
+}
+
+.CardText p{
+    color: #000;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.CardStats{
+    grid-area: stats;
+    display: grid;
+    grid-template-columns: 1fr, 1fr, 1fr;
+    grid-template-rows: 1fr;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background: #10C9C3;
+}
+
+.Stats{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+}
+
+.StatType{
+    font-size: 11px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.StatValue{
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.Card:hover{
+    transform: scale(1.1);
+    box-shadow: 5px 5px 15px #000;
+}

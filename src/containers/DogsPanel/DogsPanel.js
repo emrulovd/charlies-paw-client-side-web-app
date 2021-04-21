@@ -10,7 +10,6 @@ import Row from 'react-bootstrap/Row';
 import DogsBanner from '../../components/Dogs/DogsBanner/DogsBanner';
 import DogsPanelControl from '../../components/Dogs/DogsPanelControl/DogsPanelControl';
 import DogsDetail from './DogsDetail/DogsDetail';
-import DogsEdit from './Dogs-edit/Dogs-Edit';
 
 class DogsPanel extends Component {
     constructor(props) {
@@ -31,20 +30,6 @@ class DogsPanel extends Component {
         this.props.onFetchDogs();
     }
 
-    componentDidUpdate(){
-        if(this.state.modified){ // fetches the data after a dog is added or updated 
-           this.setState({modified: !this.state.modified});
-           setTimeout(() => { // Delay the fetch to prevent from racing
-                this.props.onFetchDogs();
-           }, 100) 
-        }
-    }
-    
-
-    updateDogHandler = () => {
-        this.setState({modified: true})
-        this.props.history.push('/dogs-list');
-    }
 
     rangeInputHandler = (event) => {
         if(!isNaN(event)){
@@ -119,19 +104,9 @@ class DogsPanel extends Component {
         return(
             <div>
                 <Switch>
-                    { this.props.isAuth ?
-                        <Route path='/dogs-list/edit-dog' 
-                        exact component={() => <DogsEdit
-                        dogs = {this.props.dogs}
-                        updateDogHandler ={this.updateDogHandler}
-                        params_id = {this.props.location.search.split('?q=').join('')}/>}></Route>
-                        :
-                        null
-                    }
                     <Route path="/dogs-list/dog-details" exact >
                         <DogsDetail 
                         dogs = {this.props.dogs}
-                        updateDogHandler = {this.updateDogHandler}
                         history = {this.props.history}
                         location = {this.props.location}/>
                     </Route>

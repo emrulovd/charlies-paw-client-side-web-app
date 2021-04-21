@@ -5,6 +5,8 @@ import { updateObject } from '../utility';
 const intialState = {
     dogs: [],
     user: [],
+    chats: [],
+    user_number: null,
     loading: false,
     error: null
 }
@@ -28,6 +30,20 @@ const userSuccessFavouritsList = (state, action) =>{
     });
 }
 
+const userGetCount = (state, action) => {
+    return updateObject(state, {
+        user_number: action.user_count,
+        loading: false
+    })
+}
+
+const userSuccessChatList = (state, action) => {
+    return updateObject(state, {
+        chats: action.chats,
+        loading: false
+    })
+}
+
 const userFail = (state, action) => {
     return updateObject(state, {error: action.Error, loading: false});
 }
@@ -41,6 +57,10 @@ const reducer = (state = intialState, action) => {
             return userSuccessFavouritsList(state, action);
         case actionTypes.USER_DATA_SUCCESS:
             return userSuccessData(state, action);
+        case actionTypes.USER_COUNT_SUCCESS:
+            return userGetCount(state, action);
+        case actionTypes.USER_SUCCESS_CHATS:
+            return userSuccessChatList(state, action);
         case actionTypes.USER_FAIL:
             return userFail(state, action);
         default: 

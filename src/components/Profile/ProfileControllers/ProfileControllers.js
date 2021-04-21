@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import {Container,Row, Col} from 'react-bootstrap';
 import Button from '../../UI/Button/Button';
@@ -7,15 +8,16 @@ import classes from './ProfileControllers.module.css';
 
 
 const profileController = () => {
+
     return(
         <Container>
             <div className={classes.Container}>
                 <img src={profile} alt=""/>
                 <Row>
                     <Col className={classes.ButtonGroup}>
-                        <Button>PROFILE</Button>
-                        <Button>FAVOURITES</Button>
-                        <Button>MESSAGES</Button>
+                        <Link to='/profile'><Button>PROFILE</Button></Link>
+                        <Link to='/profile/favourites'><Button>FAVOURITES</Button></Link>
+                        <Link to='/profile/messages'><Button>MESSAGES</Button></Link>
                     </Col>
                 </Row>
             </div>

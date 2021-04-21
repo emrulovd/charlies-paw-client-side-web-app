@@ -1,0 +1,27 @@
+.Container{
+    height: 20%;
+    margin-top: 5%;
+}
+
+.Card{
+    border: 1px solid transparent;
+    text-align: center;
+    background-color: #10C9C3;
+    width: 250px;
+    height: 115px;
+    margin: 0px 10px 0px;    
+}
+
+.Amount {
+    margin-top: 7%;
+    height: 30px;
+    color: #fff;
+    font-size: 32px;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+.City {
+    color: #fff;
+    text-transform: uppercase;
+}
+

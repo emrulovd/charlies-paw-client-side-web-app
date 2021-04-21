@@ -1,0 +1,13 @@
+.Container{
+    margin-top: 110px;
+}
+
+
+.Headers{
+    border-top: 1px solid #ccc;
+
+}
+
+.Headers .Col{
+    padding-left: 20px;
+}

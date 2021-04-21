@@ -5,14 +5,9 @@ import { withRouter} from 'react-router-dom';
 
 import DogsListItem from './Dogs-List-Item/Dogs-List-Item';
 import { Container, Row, Col } from 'react-bootstrap';
-import Button from '../../../UI/Button/Button';
 import classes from './Dogs-List.module.css';
 
 const DogsList = (props) =>{
-
-    const addDogHandler = () => {
-        props.history.replace('/dogs-list/edit-dog');
-    }
 
     const detailDogPageHandler = (id) => {
         props.history.push(`/dogs-list/dog-details?q=${id}`)
@@ -20,7 +15,6 @@ const DogsList = (props) =>{
 
     return(
         <div className={classes.Container}>
-                { props.isAuth ? <Button click={addDogHandler} >Add new dog</Button> : null}
                 <div>
                 <Container fluid >
                     <Row >

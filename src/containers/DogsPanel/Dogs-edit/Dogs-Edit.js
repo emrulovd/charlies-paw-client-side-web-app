@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
+import Input from '../../../components/UI/Input/Input';
+import Button from '../../../components/UI/Button/Button';
+import * as actions from '../../../store/actions/index';
 import classes from './Dogs-Edit.module.css';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Container, ListGroup, Col, Row } from 'react-bootstrap';
 
 
 
@@ -18,7 +21,8 @@ class DogsEdit extends Component{
                         type: 'text',
                     },
                     placeholder: 'Dog name',
-                    value: ''
+                    value: '',
+                    label: 'Name'
                 },
                 age:{
                     elementType: 'input',
@@ -26,7 +30,8 @@ class DogsEdit extends Component{
                         type: 'text'
                     },
                     placeholder: 'Dog age',
-                    value: ''
+                    value: '',
+                    label: 'Age'
                 },
                 breed:{
                     elementType: 'input',
@@ -34,15 +39,21 @@ class DogsEdit extends Component{
                         type: 'text',
                     },
                     placeholder: 'Dog breed',
-                    value: ''
+                    value: '',
+                    label: 'Breed'
                 },
                 breedSize:{
-                    elementType: 'input',
+                    elementType: 'select',
                     elementConfig: {
-                        type: 'text',
+                        options: [
+                            {value: 'Small', displayValue: 'Small'},
+                            {value: 'Medium', displayValue: 'Medium'},
+                            {value: 'Big', displayValue: 'Big'}
+                        ]
                     },
                     placeholder: 'Breed size',
-                    value: ''
+                    value: '',
+                    label: 'Size'
                 },
                 location:{
                     elementType: 'input',
@@ -50,57 +61,53 @@ class DogsEdit extends Component{
                         type: 'text',
                     },
                     placeholder: 'Dogs location',
-                    value: ''
+                    value: '',
+                    label: 'Location'
                 },
-                image:{
-                    elementType: 'input',
+                dogImage:{
+                    elementType: 'file',
                     elementConfig: {
                         type: 'text',
                     },
                     placeholder: 'Dog image',
-                    value: ''
+                    file: [],
+                    label: 'Upload Image'
                 },
                 discription:{
-                    elementType: 'input',
+                    elementType: 'textarea',
                     elementConfig: {
-                        type: 'textarea',
+                        type: 'text',
                     },
                     placeholder: 'Short discription about the dog',
-                    value: ''
+                    value: '',
+                    label: 'Disicription'
                 },
             },
             loading: false,
+            headers: null
         }
     }
+
+
+    // Image input // 
+    // image:{
+    //     elementType: 'input',
+    //     elementConfig: {
+    //         type: 'text',
+    //     },
+    //     placeholder: 'Dog image',
+    //     value: '',
+    //     label: 'Image'
+    // },
 
     componentDidMount(){
+        const headers = {
+            "Authorization": this.props.token
+        }
         this.inputDogPopulateHandler();
+        this.setState({ headers: headers})
     }
 
-
-    async CreateDog (formData){  // The post request function will be moved to DogsPanel container
-        const headers = {
-            "Authorization": this.props.token
-        }
-        axios.post('http://localhost:8080/dogs/create', formData, {
-            headers: headers
-        })
-            .then( result => {
-                console.log(result.data.message);
-            });
-    }
-
-    async UpdateDog(id , formData){ //Update specific dog 
-        const headers = {
-            "Authorization": this.props.token
-        }
-        axios.put('http://localhost:8080/dogs/update/' + id, formData, {
-            headers: headers
-        })
-            .then( result =>{
-                console.log(result.data.message);
-            })
-    }
 
     inputDogPopulateHandler = () => {
         if(this.props.params_id){
@@ -127,22 +134,40 @@ class DogsEdit extends Component{
             formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
         }
         formData['id'] = this.props.params_id;
-        this.UpdateDog(this.props.params_id, formData);
+        this.props.onUpdateDog(this.state.headers, this.props.params_id, formData)
         this.props.updateDogHandler();
     }
 
     newDogHandler = ( event ) => {
         event.preventDefault();
         this.setState({loading: true});
-        const formData = {};
+        let formData = new FormData(); // Need to use form data 
         for( let formElementIndentifier in this.state.dogForm){
-            formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
+            if( formElementIndentifier === 'dogImage'){
+                formData.append(formElementIndentifier, this.state.dogForm[formElementIndentifier].file[0]);
+            }else{
+                formData.append(formElementIndentifier, this.state.dogForm[formElementIndentifier].value);
+            }
         }
-        formData['id'] = this.props.dogs.length; // Adding temporary id to the post
+        formData.append('id', this.props.dogs.length);
         this.props.updateDogHandler();
-        this.CreateDog(formData);
+        for (var value of formData.values()) {
+            console.log(value);
+         }
+        console.log(formData);
+        this.props.onCreateDog(this.state.headers, formData);
+        // const formData = {};
+        // for( let formElementIndentifier in this.state.dogForm){
+        //     if (formElementIndentifier === 'dogImage'){
+        //         formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].file[0];       
+        //     }else{ 
+        //         formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
+        //     }
+        // }
+        // formData['id'] = this.props.dogs.length; // Adding temporary id to the post
     }
-    inputChangeHandler = (event, inputIndentifier) => {
+    
+    inputChangedHandler = (event, inputIndentifier) => {
         const updatedDogForm = {
             ...this.state.dogForm
         }
@@ -153,6 +178,46 @@ class DogsEdit extends Component{
         updatedDogForm[inputIndentifier] = updatedFormElement;
         this.setState({dogForm: updatedDogForm});
     }
+
+    updateFormElement = (data, inputIndentifier) =>{
+        const updatedDogForm = {
+            ...this.state.dogForm
+        }
+        const updatedFormElement = { 
+            ...updatedDogForm[inputIndentifier]
+        };
+        updatedFormElement.value = data;
+        updatedDogForm[inputIndentifier] = updatedFormElement;
+        this.setState({dogForm: updatedDogForm});
+    }
+
+    inputFileHandler = (event, inputIndentifier) => {
+        event.preventDefault();
+        const fileUploaded  = event.target.files[0];
+        const updatedDogForm = {
+            ...this.state.dogForm
+        }
+        const updatedFormElement = { 
+            ...updatedDogForm[inputIndentifier]
+        }; 
+        updatedFormElement.file.push(fileUploaded);
+        updatedDogForm[inputIndentifier] = updatedFormElement;
+        this.setState({dogForm: updatedDogForm});
+        console.log(this.state.dogForm.dogImage); 
+    } 
+
+    // getDogImage  = (event,inputIndentifier) => {
+    //     event.preventDefault();
+    //     console.log(inputIndentifier);
+    //     // this.props.onGetImage(this.state.dogForm.breed.value);
+    //     axios.get('https://dog.ceo/api/breed/'+ this.state.dogForm.breed.value.toLowerCase() +'/images/random')
+    //         .then(response => {
+    //            this.updateFormElement(response.data.message, inputIndentifier);
+    //         }).catch(error => {
+    //             console.log(error);
+    //         })
+    //     console.log(this.state.dogForm.image.value);
+    // }
 
     render(){   
         const formElementsArray = [];
@@ -165,24 +230,105 @@ class DogsEdit extends Component{
                 config: this.state.dogForm[key]
             })
         }
+
+        let form = formElementsArray.map((formElement, index) => {
+            if(index === 2){
+                return(
+                    <ListGroup horizontal key={formElement.id}>
+                        <Input
+                            elementType = {formElement.config.elementType}
+                            elementConfig = {formElement.config.elementConfig}
+                            value = {formElement.config.value}
+                            invalid = {!formElement.config.valid}
+                            shouldValidate = {formElement.config.validation}
+                            touched = {formElement.config.touched}
+                            label = {formElement.config.label}
+                            changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
+                        /> 
+                        <Input
+                            key={formElementsArray[index + 1].id}
+                            elementType = {formElementsArray[index + 1].config.elementType}
+                            elementConfig = {formElementsArray[index + 1].config.elementConfig}
+                            value = {formElementsArray[index + 1].config.value}
+                            invalid = {!formElementsArray[index + 1].config.valid}
+                            shouldValidate = {formElementsArray[index + 1].config.validation}
+                            touched = {formElementsArray[index + 1].config.touched}
+                            label = {formElementsArray[index + 1].config.label}
+                            changed = {(event) => this.inputChangedHandler(event, formElementsArray[index + 1].id)}  
+                        /> 
+                    </ListGroup>    
+                )
+            // } if(index === 5 ){
+            //    return(
+            //     <div>
+            //     <Row key={formElement.id}>
+            //         <Col>
+            //             <Input
+            //                 key={formElement.id}
+            //                 elementType = {formElement.config.elementType}
+            //                 elementConfig = {formElement.config.elementConfig}
+            //                 value = {formElement.config.value}
+            //                 invalid = {!formElement.config.valid}
+            //                 shouldValidate = {formElement.config.validation}
+            //                 touched = {formElement.config.touched}
+            //                 label = {formElement.config.label}
+            //                 changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
+            //             /> 
+            //         </Col>
+            //         <Col>
+            //             <div className = {classes.Button}>
+            //                 <Button click = {(event) => this.getDogImage(event, formElement.id)} >Fetch Image</Button>
+            //             </div>
+            //         </Col>
+            //         <Col>
+            //         <img src={this.state.dogForm.image.value} alt=""/>
+            //         </Col>
+            //      </Row>
+            //      </div>
+            //    )
+            }if(index === 5){
+                return(
+                    <Input
+                    key={formElement.id}
+                    elementType = {formElement.config.elementType}
+                    elementConfig = {formElement.config.elementConfig}
+                    value = {formElement.config.value}
+                    invalid = {!formElement.config.valid}
+                    shouldValidate = {formElement.config.validation}
+                    touched = {formElement.config.touched}
+                    label = {formElement.config.label}
+                    fileName = 'dogImage'
+                    changed = {(event) => this.inputFileHandler(event, formElement.id)}  
+                     /> 
+                )
+            } 
+            if(index === 3 ){
+                return null
+            }else {
+                return (
+                    <Input
+                    key={formElement.id}
+                    elementType = {formElement.config.elementType}
+                    elementConfig = {formElement.config.elementConfig}
+                    value = {formElement.config.value}
+                    invalid = {!formElement.config.valid}
+                    shouldValidate = {formElement.config.validation}
+                    touched = {formElement.config.touched}
+                    label = {formElement.config.label}
+                    changed = {(event) => this.inputChangedHandler(event, formElement.id)}  
+                     /> 
+                )
+            }
+        })
         return(
-            <div>
-                <Container className={classes.temp}>
-                    <Form onSubmit={this.props.params_id ? this.updateDogHandler : this.newDogHandler}>
-                        {formElementsArray.map((formElement) => (
-                            <Form.Group key = {formElement.id}>
-                                <Form.Label>{formElement.config.placeholder}</Form.Label>
-                                <Form.Control 
-                                    elementype={formElement.config.elementType}
-                                    elementconfig={formElement.config.elementConfig}
-                                    value = {formElement.config.value}
-                                    onChange={(event) => this.inputChangeHandler(event, formElement.id)} />
-                            </Form.Group>
-                        ))}
-                        <Button variant="primary" type="submit">
+            <div className={classes.Container}>
+                <Container >
+                    <form onSubmit={this.props.params_id ? this.updateDogHandler : this.newDogHandler}>
+                        {form}
+                        <Button type="submit">
                             Submit
                         </Button>
-                    </Form>
+                    </form>
                 </Container>
             </div>
         )
@@ -195,4 +341,11 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps)(DogsEdit);
+const mapDispatchToProps = dispatch => {
+    return{
+        onUpdateDog : (header, dog_id, dogUpdateForm) => dispatch(actions.updateDog(header, dog_id, dogUpdateForm)),
+        onCreateDog : (header, dogForm) => dispatch(actions.createDog(header, dogForm)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DogsEdit);

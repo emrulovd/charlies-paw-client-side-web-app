@@ -9,6 +9,7 @@ const navGroupMainItems = () => {
             <NavGroupMainItem link="/" exact>Home</NavGroupMainItem>
             <NavGroupMainItem link="/dogs-list">Dogs List</NavGroupMainItem>
             <NavGroupMainItem link="/about">About</NavGroupMainItem>
+            <NavGroupMainItem link="/contact">Contact</NavGroupMainItem>
         </ul>
     )
 }

@@ -7,7 +7,7 @@ const aboutInfo = () => {
     return(
         <div>
             <img className={classes.Icon} src={icon}  alt="icon"/>
-            <hr/>
+            <br/>
             <p className={classes.Paragraph}>            
                 Animal Rescue Sofia is a Bulgarian organization working to 
                 solve the stray dog and cats problem in Sofia. With the help of thousands

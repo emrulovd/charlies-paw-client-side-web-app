@@ -32,7 +32,7 @@ const dogsListItem = (props) => {
                         <p>{props.content}</p>
                               
                     }
-                    <Button click={() => (props.detailDogPageHandler(props.id))}>see more details</Button>
+                    <Button click={() => (props.detailDogPageHandler(props.id))}>see more</Button>
             </Row>
         </div>
     )

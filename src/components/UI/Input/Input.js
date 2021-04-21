@@ -26,6 +26,26 @@ const input = (props) => {
             value = {props.value}
             onChange = {props.changed}/>;
             break;
+        case ('select'):
+            inputElement = (<select 
+                className={ classes.SelectElement }
+                value = {props.value}
+                onChange = {props.changed}>
+                    {props.elementConfig.options.map(opt => {
+                        return(
+                            <option key={opt.value} value={opt.value}>
+                                {opt.displayValue}
+                            </option>
+                        )
+                    })}
+                </select>
+            );
+            break;
+        case ('file'):
+            inputElement =(
+                <input type="file" value = {props.value} onChange = {props.changed}/>
+            )
+            break;
         default:
             inputElement = <input 
                 className={inputClasses.join(' ')}

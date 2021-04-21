@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
 import App from './App';
@@ -13,10 +13,17 @@ import authReducer from './store/reducers/auth';
 import dogsReducer from './store/reducers/dogs';
 import contactReducer from './store/reducers/contact'; 
 import usrReducer from './store/reducers/user';
+import adminReducer from './store/reducers/admin';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const rootReducer = combineReducers({ auth: authReducer, dg: dogsReducer, cnt: contactReducer, user: usrReducer})
+const rootReducer = combineReducers({ 
+      auth: authReducer,
+      dg: dogsReducer,
+      cnt: contactReducer,
+      user: usrReducer,
+      admin: adminReducer
+})
 
 const store = createStore(rootReducer, composeEnhancers(
       applyMiddleware(thunk)

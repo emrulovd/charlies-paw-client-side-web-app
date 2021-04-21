@@ -17,6 +17,12 @@ export const authSuccess = (token, userId, role, isCreated) => {
     };
 };
 
+export const authAccountUpdateSuccess = () => {
+    return{
+        type: actionTypes.AUTH_UPDATE_SUCCESS
+    }
+} 
+
 export const authFail = (error) => {
     return{
         type: actionTypes.AUTH_FAIL,
@@ -28,6 +34,7 @@ export const logout = () =>{
     localStorage.removeItem('token');
     localStorage.removeItem('expirationTime');
     localStorage.removeItem('userID');
+    localStorage.removeItem('role');
     return{
         type: actionTypes.AUTH_LOGOUT
     }
@@ -54,13 +61,32 @@ export const auth = (authData, isSignup) => {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('expirationTime', expirationTime);
                 localStorage.setItem('userID', response.data.userId);
-                // localStorage.setItem('role', response.data.role);
                 dispatch(authSuccess(response.data.token, response.data.userId, response.data.role, response.statusText));
                 dispatch(checkAuthTimeout(response.data.expiresIn));
             })
             .catch(error => {
                 dispatch(authFail(error.response));
             })
+    }
+}
+
+export const googleAuth = (token, userId, role, isCreated, expirationTime) => {
+    return dispatch => {
+        localStorage.setItem('token', token);
+        localStorage.setItem('expirationTime', expirationTime);
+        localStorage.setItem('userID', userId);
+        localStorage.setItem('role', role);
+        dispatch(authSuccess(token, userId, role, isCreated));
+    }
+}
+
+export const facebookAuth = (token, userId, role, isCreated ,expirationTime) => {
+    return dispatch => {
+        localStorage.setItem('token', token);
+        localStorage.setItem('expirationTime', expirationTime);
+        localStorage.setItem('userID', userId);
+        localStorage.setItem('role', role);
+        dispatch(authSuccess(token, userId, role, isCreated));
     }
 }
 
@@ -76,14 +102,36 @@ export const authCheckState = () => {
                 dispatch(logout())
             }else{
                 const userID = localStorage.getItem('userID');
-                axios.get('http://localhost:8080/user/role/' + userID)
+                const role = localStorage.getItem('role');
+                if(role === 'user'){
+                    dispatch(authSuccess(token, userID, role))
+                }else{
+                    axios.get('http://localhost:8080/user/role/' + userID)
                     .then(response => {
                         dispatch(authSuccess(token,userID,response.data.role));
                         dispatch(checkAuthTimeout((expirationTime.getTime() - new Date().getTime())/1000));
-                }).catch(error => {
-                    dispatch(authFail(error.response));
-                })
+                    }).catch(error => {
+                        dispatch(authFail(error.response));
+                    })
+                }     
             }
         }
     };
 };
+
+
+export const changePasword = (new_password, current_password, user_id) => {
+    return dispatch => {
+        dispatch(authStart());
+        const passwordForm = {
+            new_password: new_password,
+            current_password: current_password
+        }
+        axios.put('http://localhost:8080/auth/change/password/' + user_id, passwordForm)
+            .then( _ => {
+                    dispatch(authAccountUpdateSuccess());
+            }).catch(error => {
+                dispatch(authFail(error.response));
+            })
+    }
+}

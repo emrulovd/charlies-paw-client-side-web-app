@@ -1,5 +1,9 @@
 export {
-    dogs
+    dogs,
+    deleteDog,
+    updateDog,
+    createDog,
+    getDogsNumber
 } from './dogs'
 
 export {
@@ -9,11 +13,22 @@ export {
 export {
     getUserData,
     addFavourites,
-    getFavourites
+    getFavourites,
+    getChats,
+    getUserCount
 } from './user'
 
 export { 
     auth,
     logout,
-    authCheckState
+    authCheckState,
+    changePasword,
+    googleAuth,
+    facebookAuth
 } from './auth'
+
+export {
+    adminGetUsers,
+    adminUpdateUserRole,
+    adminGetChats
+} from './admin'

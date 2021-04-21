@@ -11,10 +11,8 @@ const navGroupDynamicItems = (props) => {
     const dropdown = (
             <Dropdown >
                 <Dropdown.Toggle  split variant="transparent" id="dropdown-custom" />
-
                 <Dropdown.Menu className={classes.DropdownMenu} bsPrefix>
-                    <NavGroupDynamicItem link="/logout">Option</NavGroupDynamicItem>
-                    <NavGroupDynamicItem link="/logout">Option</NavGroupDynamicItem>
+                    { props.isAdmin ? <NavGroupDynamicItem link="/admin/dashboard">Admin</NavGroupDynamicItem> : null}
                     <NavGroupDynamicItem link="/logout">Logout</NavGroupDynamicItem>
                 </Dropdown.Menu>
             </Dropdown>
@@ -44,7 +42,6 @@ const navGroupDynamicItems = (props) => {
                 </ul>
                 :
             <ul className={classes.NavigationItems}>
-                <NavGroupDynamicItem link="/contact">Contact</NavGroupDynamicItem>
                 <NavGroupDynamicItem link="/auth/login" active={true}>Login</NavGroupDynamicItem>
                 <NavGroupDynamicItem link="/auth/signup">Signup</NavGroupDynamicItem>
             </ul>

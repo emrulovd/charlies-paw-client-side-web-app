@@ -22,6 +22,20 @@ export const userGetFavouritesSuccess = (favList) => {
     }
 }
 
+export const userGetChatsSuccess = (user_chats) => {
+    return{
+        type: actionTypes.USER_SUCCESS_CHATS,
+        chats: user_chats
+    }
+}
+
+export const userGetCountSuccess = (user_number) => {
+    return{
+        type: actionTypes.USER_COUNT_SUCCESS,
+        user_count: user_number
+    }
+}
+
 export const userSuccess = (message) => {
     return{
         type: actionTypes.USER_SUCCESS,
@@ -70,6 +84,31 @@ export const getFavourites = (userID) => {
                 dispatch(userGetFavouritesSuccess(response.data.favList));
             })
             .catch(error => {
+                dispatch(userFail(error.response));
+            })
+    }
+}
+
+export const getChats = (userID) => {
+    return dispatch => {
+        dispatch(userStart());
+        axios.get('http://localhost:8080/user/chats/' + userID)
+            .then(response => {
+                dispatch(userGetChatsSuccess(response.data.chats));
+            }).catch(error => {
+                dispatch(userFail(error.response));
+            })
+    }
+}
+
+
+export const getUserCount = () => {
+    return dispatch => {
+        dispatch(userStart());
+        axios.get('http://localhost:8080/user/count')
+            .then(response => {
+                dispatch(userGetCountSuccess(response.data.user_number));
+            }).catch(error => {
                 dispatch(userFail(error.response));
             })
     }
