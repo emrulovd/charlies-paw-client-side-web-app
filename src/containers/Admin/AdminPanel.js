@@ -103,6 +103,8 @@ class AdminPanel extends Component {
                             </Route>
                             <Route path="/admin/dashboard">
                                 <AdminDashboard
+                                dogs = {this.props.dogs}
+                                users = {this.props.users} 
                                 dogs_number = {this.props.dogs_number}
                                 user_number = {this.props.user_number}
                                 />

@@ -163,7 +163,7 @@ class AuthLogin extends Component {
                     />
                     <FacebookLogin
                     appId="821806635388049"
-                    autoLoad = {true}
+                    autoLoad = {false}
                     fields = "name, email, picture"
                     callback = {this.onFacebookResponseHandler}/>
                 </form>

@@ -6,9 +6,12 @@ import classes from './AdminDashboardBanner.module.css';
 
 const adminDashboardCards = (props) => {
     return(
-        <div>
-            <Container>
-                <Card number = {props.number}/>
+        <div  className={classes.Container}>
+            <Container>            
+                <div className={classes.Card}>
+                    <p className={classes.Amount}>{props.number}</p>
+                    <p className={classes.City}>London</p>
+                </div>
             </Container>
         </div>
     )

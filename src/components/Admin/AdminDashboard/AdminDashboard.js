@@ -1,8 +1,12 @@
 import React from 'react';
 
-import { Container, Row, Col } from 'react-bootstrap'; 
+import { Container, Row} from 'react-bootstrap'; 
 import AdminChart from './AdminChart/AdminChart';
-import AdminDashboardBanner from './AdminDashboardCards/AdminDashboardBanner';
+import AdminDashboardBanner from './AdminDashboardBanner/AdminDashboardBanner';
+import AdminDashboardBannerGroup2 from './AdminDashboardBannerGroup2/AdminDashboardBannerGroup2';
+
+import avatar from '../../../assets/user_white.png';
+import paw from '../../../assets/paw_white.png';
 
 const adminDashboard = (props) => {
 
@@ -10,15 +14,14 @@ const adminDashboard = (props) => {
         <div>
             <Container fluid>
                 <Row>
-                    <Col>
-                        <AdminDashboardBanner number = {props.user_number}/>
-                    </Col>
-                    <Col>
-                        <AdminDashboardBanner number = {props.dogs_number}/>
-                    </Col>
+                    <AdminDashboardBanner number = {props.user_number}/>
+                    <AdminDashboardBanner number = {props.dogs_number}/>
+                    <AdminDashboardBanner number = {props.user_number}/>
+                    <AdminDashboardBanner number = {props.user_number}/>
                 </Row>
                 <Row>
-                    <AdminChart/>
+                    <AdminDashboardBannerGroup2 number = {props.dogs_number} icon = {paw} title = {"Dogs"}/>
+                    <AdminDashboardBannerGroup2 number = {props.user_number} icon = {avatar} title = {"Users"}/>
                 </Row>
             </Container>
         </div>
