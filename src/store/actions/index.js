@@ -3,7 +3,8 @@ export {
     deleteDog,
     updateDog,
     createDog,
-    getDogsNumber
+    getDogsNumber,
+    getDogsNotifications
 } from './dogs'
 
 export {

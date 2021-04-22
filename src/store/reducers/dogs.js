@@ -3,6 +3,8 @@ import { updateObject } from '../utility';
 
 const intialState = {
     dogs: [],
+    dogs_notifications: [],
+    notification_status: false,
     loading: false,
     dogs_number: null,
     error: null 
@@ -15,6 +17,7 @@ const dogsStart = (state, action) => {
 const addDogs = (state, action) => {
     return updateObject(state, {
         dogs: action.dogs,
+        notification_status: true,
         loading: false
     })
 } 
@@ -22,6 +25,14 @@ const addDogs = (state, action) => {
 const countDogs = (state, action) => {
     return updateObject(state, {
         dogs_number: action.count,
+        loading: false
+    })
+}
+
+const notificationsDogs = (state, action) => {
+    return updateObject(state, {
+        dogs_notifications: action.dogs_notifications,
+        notification_status: false, 
         loading: false
     })
 }
@@ -41,6 +52,8 @@ const reducer  = (state = intialState, action) => {
             return addDogs(state, action);
         case actionTypes.DOGS_COUNT_SUCCESS:
             return countDogs(state, action);
+        case actionTypes.DOGS_NOTIFICATIONS_SUCCESS:
+            return notificationsDogs(state, action);
         case actionTypes.DOGS_FAIL:
             return dogsFail(state, action);
         default:

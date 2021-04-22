@@ -22,6 +22,13 @@ export const dogsCountSuccess = (number) => {
     }
 }
 
+export const dogsNotificationsSuccess = (dogs_notifications) => {
+    return{
+        type: actionTypes.DOGS_NOTIFICATIONS_SUCCESS,
+        dogs_notifications: dogs_notifications
+    } 
+}
+
 export const dogsSuccess = (message) => {
     return{
         type: actionTypes.DOGS_SUCCESS,
@@ -99,6 +106,18 @@ export const getDogsNumber = () => {
                 dispatch(dogsCountSuccess(response.data.dogs_number));
             }).catch(error => {
                 dispatch(dogsFail(error.response));
-            })
+        })
+    }
+}
+
+export const getDogsNotifications = () => {
+    return dispatch =>{
+        dispatch(dogsStart());
+        axios.get('http://localhost:8080/dogs/notifications')
+            .then(response => {
+                dispatch(dogsNotificationsSuccess(response.data.dogs));
+            }).catch(error => {
+                dispatch(dogsFail(error.response));
+        })
     }
 }

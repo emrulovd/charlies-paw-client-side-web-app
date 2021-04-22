@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
+import { connect } from 'react-redux';
 
 import NavGroupDynamicItem from './NavGroupDynamicItem/NavGroupDynamicItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart, faPaw, faEnvelope} from '@fortawesome/free-solid-svg-icons'
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, Badge } from 'react-bootstrap';
 import profile from '../../../assets/profile.png'
 import classes from './NavGroupDynamicItems.module.css';
 
@@ -35,7 +36,10 @@ const NavGroupDynamicItems = (props) => {
                 <ul className={classes.NavigationItems}>
                      {/* <NavGroupDynamicItem link="/contact">Contact</NavGroupDynamicItem> */}
                      <NavGroupDynamicItem>
-                         <span className={!iconActive ? classes.PawIcon : classes.PawIconActive}><FontAwesomeIcon icon={faPaw}  onClick = {props.getNotificationBlock}/></span>
+                         <span className={!iconActive ? classes.PawIcon : classes.PawIconActive}>
+                             <FontAwesomeIcon icon={faPaw}  onClick = {props.getNotificationBlock}/>
+                             {props.status ? <Badge variant="secondary">New</Badge> : null}
+                        </span>
                      </NavGroupDynamicItem> 
                      <NavGroupDynamicItem link="/profile/favourites">
                          <FontAwesomeIcon icon={faHeart}/>
@@ -59,4 +63,10 @@ const NavGroupDynamicItems = (props) => {
 }
 
 
-export default NavGroupDynamicItems;
+const mapStateToProps = state => {
+    return{
+        status: state.dg.notification_status
+    }
+}
+
+export default connect(mapStateToProps)(NavGroupDynamicItems);

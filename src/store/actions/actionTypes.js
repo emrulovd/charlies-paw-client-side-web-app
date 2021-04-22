@@ -1,6 +1,7 @@
 export const DOGS_START = 'DOGS_START';
 export const DOGS_ADD = 'DOGS_ADD';
 export const DOGS_COUNT_SUCCESS = 'DOGS_COUNT_SUCCESS';
+export const DOGS_NOTIFICATIONS_SUCCESS = 'DOGS_NOTIFICATIONS_SUCCESS';
 export const DOGS_SUCCESS = 'DOGS_SUCCESS';
 export const DOGS_FAIL = 'DOGS_FAIL';
 
