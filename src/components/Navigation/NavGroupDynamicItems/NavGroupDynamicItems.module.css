@@ -13,7 +13,35 @@
     width: 32px;
 }
 
+.PawIcon{
+    transition: all 1s;
+    color: #fff;
+    cursor: pointer;
+}
 
+.PawIcon:hover,
+.PawIcon:active,
+.PawIcon span.active{
+    transition: 0.3s;
+    border-radius: 32px;
+    color: #10C9C3;
+    text-decoration: none;
+}
+
+.PawIconActive{
+    transition: all 1s;
+    color: #353535;
+    cursor: pointer;
+}
+
+.PawIconActive:hover,
+.PawIconActive:active,
+.PawIconActive span.active{
+    transition: 0.3s;
+    border-radius: 32px;
+    color: #10C9C3;
+    text-decoration: none;
+}
 
 .DropdownMenu{
     background: transparent;

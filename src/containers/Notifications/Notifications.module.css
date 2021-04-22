@@ -1,0 +1,16 @@
+.NorificationsContainer{
+    position: fixed;
+    float: right;
+    width: 280px;
+    margin-top: 65px;
+    margin-right: 10px;
+    max-width: 70%;
+    height: 50%;
+    right: 0;
+    top: 0;
+    z-index: 200;
+    background-color: white;
+    padding: 32px 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease-out;
+}

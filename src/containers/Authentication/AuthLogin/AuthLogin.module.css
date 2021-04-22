@@ -8,6 +8,40 @@
     box-sizing: border-box;
 }
 
+.Auth button{
+    width: 200px;
+    margin-right: 50px;
+    margin-bottom: 5px;
+}
+
+.BtnFacebook { 
+    width: 250px;
+    height:45px;  
+    border-radius: 4px;
+    background: #3b5998;
+    color:white;
+    border:0px transparent;  
+    text-align: center;
+    margin:5px;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+.BtnGoogle{
+    margin:5px;
+    width: 250px;
+    height:45px;
+    border-radius: 4px;
+    background: #db3236;
+    color:white;
+    border:0px transparent;
+    text-align: center;
+}
+
+.BtnGroup{
+    margin-left: 35%;
+}
+
 @media (min-width: 600px){
     .Auth{
         width: 500px;

@@ -2,10 +2,11 @@ import React from 'react';
 
 import { ListGroup } from 'react-bootstrap';
 import AdminUserItem from './AdminUserItem/AdminUserItem';
+import classes from './AdminUserItems.module.css'
 
 const adminUserItems = (props) => {
     return(
-        <div>
+        <div className={classes.Container}>
             <ListGroup variant="flush">
                 {
                     props.users.map((user, index) => {

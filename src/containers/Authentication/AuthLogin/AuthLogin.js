@@ -5,6 +5,8 @@ import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 
 import classes from './AuthLogin.module.css';
+// import { faFacebook  } from '@fortawesome/free-solid-svg-icons'
+import { Row } from 'react-bootstrap';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
@@ -156,7 +158,8 @@ class AuthLogin extends Component {
                     <Button>Login</Button>
                     <GoogleLogin
                     clientId = "425023239014-r4iihe16i1nrgfuc31bub8vpgaglmhta.apps.googleusercontent.com"
-                    buttonText = "Login"
+                    buttonText = "&nbsp;&nbsp;Sign In with Google"
+                    className = {classes.BtnGoogle}
                     onSuccess = {this.onGoogleResponseHandler}
                     onFailure = {this.onGoogleResponseHandler}
                     cookiePolicy = {'single_host_origin'}
@@ -165,7 +168,10 @@ class AuthLogin extends Component {
                     appId="821806635388049"
                     autoLoad = {false}
                     fields = "name, email, picture"
-                    callback = {this.onFacebookResponseHandler}/>
+                    cssClass = {classes.BtnFacebook}
+                    textButton = "&nbsp;&nbsp;Sign In with Facebook" 
+                    callback = {this.onFacebookResponseHandler}
+                    icon={<i  style={{marginLeft:'5px'}}></i>}/>
                 </form>
             </div>
         )
