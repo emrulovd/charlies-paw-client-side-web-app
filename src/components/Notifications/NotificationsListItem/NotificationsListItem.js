@@ -7,7 +7,7 @@ const notificationsListItem = (props) => {
     return(
         <div className={classes.NotificationItem}>
             <Row>
-                <img src={props.image} alt=""/>
+                <img src={`uploads/${props.image}`} alt=""/>
                 <Col>
                     <h6>{props.dogName}</h6>
                 </Col>

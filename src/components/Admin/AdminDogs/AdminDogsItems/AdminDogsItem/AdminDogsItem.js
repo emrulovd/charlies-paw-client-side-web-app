@@ -10,7 +10,7 @@ const adminDogsItem = (props) => {
              <ListGroup.Item>
                 <section className={classes.Container}>
                     <Row> 
-                    <img src={props.image[0] !== "h"? `/uploads/${props.image}` : props.image} alt=""/>
+                    <img src={`/uploads/${props.image}`} alt=""/>
                         <Col><h5>{props.name}</h5></Col>
                         <Col><p>{props.breed}</p></Col>
                         <Col><p>{props.location}</p></Col>

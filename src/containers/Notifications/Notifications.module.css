@@ -15,3 +15,7 @@
     box-sizing: border-box;
     transition: transform 0.3s ease-out;
 }
+
+.NorificationsContainer h3{
+    color: #10C3C9;
+}

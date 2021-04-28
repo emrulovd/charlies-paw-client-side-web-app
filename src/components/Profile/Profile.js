@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
 import Favouirites from '../../containers/User/Favourites/Favourites';
+import Notifications from '../Notifications/NotificationsList';
 import Profile from '../../containers/User/Profile/Profile';
-// import Chat from '../../containers/ChatContainer/Chat/Chat';
-import ChatContainer from '../../containers/ChatContainer/ChatContainer';
 import ProfileBanner from '../Profile/ProfileBanner/ProfileBanner';
 import ProfileController from './ProfileControllers/ProfileControllers';
 import HomeContainer from '../Home/HomeContainer';
@@ -17,7 +16,6 @@ const profile  = (props) => {
     if(props.isAuthenticated){
         routes = (
             <Switch>
-                    <Route path="/profile/messages" component={ChatContainer}/>
                     <Route path="/profile/favourites" component={Favouirites}/>
                     <Route path="/profile" component={Profile}/>
             </Switch>

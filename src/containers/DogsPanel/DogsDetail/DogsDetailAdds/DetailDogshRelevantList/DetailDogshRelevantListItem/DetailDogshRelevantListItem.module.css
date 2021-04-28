@@ -3,19 +3,10 @@
     max-width: 100%;
 }
 
-/* 
-.Container .OverMouse {
-    max-height: 200px;
-    max-width: 200px;
-}
-
- */
-
 .Container div{
     height: 30vh;
     width: 300px;
     background-size: cover; 
-    /* transform: scale(1.01);  */
     transition: 0.5s;
     color: white;
 }

@@ -17,7 +17,6 @@ const dogsStart = (state, action) => {
 const addDogs = (state, action) => {
     return updateObject(state, {
         dogs: action.dogs,
-        notification_status: true,
         loading: false
     })
 } 
@@ -26,6 +25,12 @@ const countDogs = (state, action) => {
     return updateObject(state, {
         dogs_number: action.count,
         loading: false
+    })
+}
+
+const notificationStatus = (state, action) => {
+    return updateObject(state, {
+        notification_status: action.status
     })
 }
 
@@ -52,6 +57,8 @@ const reducer  = (state = intialState, action) => {
             return addDogs(state, action);
         case actionTypes.DOGS_COUNT_SUCCESS:
             return countDogs(state, action);
+        case actionTypes.DOGS_NOTIFICATIONS_STATUS:
+            return notificationStatus(state, action);
         case actionTypes.DOGS_NOTIFICATIONS_SUCCESS:
             return notificationsDogs(state, action);
         case actionTypes.DOGS_FAIL:

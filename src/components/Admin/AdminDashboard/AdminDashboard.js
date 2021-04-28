@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Container, Row} from 'react-bootstrap'; 
-// import AdminChart from './AdminChart/AdminChart';
+import AdminChart from './AdminChart/AdminChart';
 import AdminDashboardBanner from './AdminDashboardBanner/AdminDashboardBanner';
 import AdminDashboardBannerGroup2 from './AdminDashboardBannerGroup2/AdminDashboardBannerGroup2';
 
@@ -36,6 +36,7 @@ const adminDashboard = (props) => {
                     <AdminDashboardBannerGroup2 number = {props.dogs_number} icon = {paw} title = {"Dogs"}/>
                     <AdminDashboardBannerGroup2 number = {props.user_number} icon = {avatar} title = {"Users"}/>
                 </Row>
+                <AdminChart/>
             </Container>
         </div>
     )

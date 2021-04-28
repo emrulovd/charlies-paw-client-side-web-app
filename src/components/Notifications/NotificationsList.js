@@ -7,7 +7,7 @@ const notificationsList = (props) => {
 
     return(
         <div>
-            <ListGroup>
+            <ListGroup variant="flush">
                 { props.notifications.map((notification, index) => {
                     if(index >= 10){
                         return null; 

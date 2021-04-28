@@ -1,0 +1,30 @@
+.Container{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.Container .Title{
+    color: #10C3C9;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+.List{
+    width: 80%;
+    margin-left: 225px;
+    margin-right: 0px;
+    margin-top: 0px;
+}
+
+.NoList{
+    margin-right: 150px;
+    text-align: center;
+    color: #ccc;
+    font-size: 18px;
+}
+
+.Container .Nothing{
+    display:block;
+    margin-left: 250px;
+}

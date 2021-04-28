@@ -16,7 +16,7 @@ class Notifications extends Component {
     render(){
         return(
             <div className={classes.NorificationsContainer}>
-                <h1>Notifications</h1>
+                <h3>Notifications</h3>
                 <hr></hr>
                 <NotificationsList notifications = {this.props.notifications}/>
             </div>
