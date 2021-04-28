@@ -125,13 +125,6 @@ class AdminPanel extends Component {
                                 roleInputHandler = {this.roleInputHandler}
                                 roleRequestSubmitHandler = {this.roleRequestSubmitHandler}/>
                             </Route>
-                            <Route path="/admin/chats" >
-                                <AdminChats 
-                                chats = {this.props.chats}
-                                history={this.props.history}
-                                userID = {userID}
-                                />
-                            </Route> 
                         </Switch>
                   </Col>
               </Row>    

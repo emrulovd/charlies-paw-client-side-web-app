@@ -4,7 +4,8 @@ import {Switch, Route} from 'react-router';
 import * as actions from '../../store/actions/index';
 
 import {Container, Row, Col} from 'react-bootstrap';
-import Chat from './Chat/Chat';
+// import Chat from './Chat/Chat';
+import ChatRoom from './ChatRoom/ChatRoom';
 import ChatList from '../../components/Chat/ChatsList/ChatsList';
 
 class ChatContainer extends Component{
@@ -24,7 +25,7 @@ class ChatContainer extends Component{
                     </Col>
                     <Col>
                         <Switch>
-                            <Route path="/profile/messages/chat" component={() => <Chat location = {this.props.location}/>}/> 
+                            <Route path="/profile/messages/chat-room" component={() => <ChatRoom location = {this.props.location}/>}/> 
                         </Switch>
                     </Col>
                 </Row>

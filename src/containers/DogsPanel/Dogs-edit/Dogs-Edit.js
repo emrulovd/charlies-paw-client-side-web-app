@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 import * as actions from '../../../store/actions/index';
 import classes from './Dogs-Edit.module.css';
-import { Container, ListGroup, Col, Row } from 'react-bootstrap';
+import { Container, ListGroup } from 'react-bootstrap';
 
 
 
@@ -88,18 +87,6 @@ class DogsEdit extends Component{
         }
     }
 
-
-    // Image input // 
-    // image:{
-    //     elementType: 'input',
-    //     elementConfig: {
-    //         type: 'text',
-    //     },
-    //     placeholder: 'Dog image',
-    //     value: '',
-    //     label: 'Image'
-    // },
-
     componentDidMount(){
         const headers = {
             "Authorization": this.props.token
@@ -129,11 +116,15 @@ class DogsEdit extends Component{
     updateDogHandler = (event) => {
         event.preventDefault();
         this.setState({loading: true});
-        const formData = {};
+        let formData = new FormData(); // Need to use form data 
         for( let formElementIndentifier in this.state.dogForm){
-            formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
+            if( formElementIndentifier === 'dogImage'){
+                formData.append(formElementIndentifier, this.state.dogForm[formElementIndentifier].file[0]);
+            }else{
+                formData.append(formElementIndentifier, this.state.dogForm[formElementIndentifier].value);
+            }
         }
-        formData['id'] = this.props.params_id;
+        formData.append('id', this.props.params_id);
         this.props.onUpdateDog(this.state.headers, this.props.params_id, formData)
         this.props.updateDogHandler();
     }
@@ -151,23 +142,11 @@ class DogsEdit extends Component{
         }
         formData.append('id', this.props.dogs.length);
         this.props.updateDogHandler();
-        for (var value of formData.values()) {
-            console.log(value);
-         }
-        console.log(formData);
         this.props.onCreateDog(this.state.headers, formData);
-        // const formData = {};
-        // for( let formElementIndentifier in this.state.dogForm){
-        //     if (formElementIndentifier === 'dogImage'){
-        //         formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].file[0];       
-        //     }else{ 
-        //         formData[formElementIndentifier] = this.state.dogForm[formElementIndentifier].value;
-        //     }
-        // }
-        // formData['id'] = this.props.dogs.length; // Adding temporary id to the post
     }
     
     inputChangedHandler = (event, inputIndentifier) => {
+        console.log(event.target.value);
         const updatedDogForm = {
             ...this.state.dogForm
         }

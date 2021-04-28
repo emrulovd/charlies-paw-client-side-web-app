@@ -80,7 +80,6 @@ export const getFavourites = (userID) => {
         dispatch(userStart());
         axios.get('http://localhost:8080/user/favourites/' + userID)
             .then(response => {
-                console.log(response.data.favList);
                 dispatch(userGetFavouritesSuccess(response.data.favList));
             })
             .catch(error => {

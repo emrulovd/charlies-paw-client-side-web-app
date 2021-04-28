@@ -6,6 +6,7 @@ import {Container, Col, Row} from 'react-bootstrap';
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Modal from '../../../components/UI/Modal/Modal';
 import classes from './Profile.module.css'
 
 class Profile extends Component {
@@ -41,7 +42,8 @@ class Profile extends Component {
                     valid: false,
                     touched: false
                 }
-            }
+            },
+            isShown: false
         }
     }
 
@@ -69,7 +71,12 @@ class Profile extends Component {
         event.preventDefault();
         console.log(this.state.passwordForm.current_password.value);
         const userID = localStorage.getItem('userID');
-        this.props.getUpdatePassword(this.state.passwordForm.new_password.value, this.state.passwordForm.current_password.value, userID);
+        const token = localStorage.getItem('token');
+        const headers = {
+            "Authorization": token
+        }
+        this.setState({isShown: true});
+        this.props.getUpdatePassword(this.state.passwordForm.new_password.value, this.state.passwordForm.current_password.value, userID, headers);
     }
 
 
@@ -87,6 +94,11 @@ class Profile extends Component {
         this.setState({passwordForm: updatedPasswordForm});
     }
 
+
+    onContinueHandler = () => {
+        console.log("Hey")
+        this.setState({isShown: false});
+    }
     render(){
 
         const formElementsArray = [];
@@ -115,6 +127,12 @@ class Profile extends Component {
         return(
             <Container fluid>
             <div className = {classes.Container}>
+                    { this.state.isShown ? 
+                        <Modal show = {this.state.isShown} onContinueHandler = {this.onContinueHandler}>
+                            <p>Your password is changed successfully</p>
+                        </Modal>
+                        :null
+                    }
                 <Row>
                     <Col className={classes.Info}>
                         <h4>User Info: </h4>
@@ -150,7 +168,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return{
         getUserData: (userID) => dispatch(actions.getUserData(userID)),
-        getUpdatePassword: (new_password, current_password, user_id) => dispatch(actions.changePasword(new_password, current_password, user_id))
+        getUpdatePassword: (new_password, current_password, user_id, headers) => dispatch(actions.changePasword(new_password, current_password, user_id, headers))
     }
 }
 

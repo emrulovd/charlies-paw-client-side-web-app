@@ -16,7 +16,7 @@ const filterList = (props) => {
         }},
         {size:{
             title: 'Size',
-            values: ['Small', 'Average', 'Big']
+            values: ['Small', 'Medium', 'Big']
         }},
         {age:{
             title: 'Age'

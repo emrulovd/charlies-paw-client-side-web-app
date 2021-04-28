@@ -120,14 +120,17 @@ export const authCheckState = () => {
 };
 
 
-export const changePasword = (new_password, current_password, user_id) => {
+export const changePasword = (new_password, current_password, user_id, header) => {
     return dispatch => {
         dispatch(authStart());
+        console.log(header);
         const passwordForm = {
             new_password: new_password,
             current_password: current_password
         }
-        axios.put('http://localhost:8080/auth/change/password/' + user_id, passwordForm)
+        axios.put('http://localhost:8080/auth/change/password/' + user_id, passwordForm, {
+            headers: header
+            })
             .then( _ => {
                     dispatch(authAccountUpdateSuccess());
             }).catch(error => {

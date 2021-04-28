@@ -5,9 +5,11 @@ import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 
 import classes from './AuthLogin.module.css';
+import { Row, Col } from 'react-bootstrap';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import DogsBanner from '../../../components/Dogs/DogsBanner/DogsBanner';
 import * as actions from '../../../store/actions/index';
 
 
@@ -96,7 +98,6 @@ class AuthLogin extends Component {
     }
 
     onFacebookResponseHandler = (response) => {
-        console.log(response);
         try{
             this.props.onFacebookAuth(response.accessToken, response.id, 'user', true, 3600);
         }catch(error){
@@ -130,7 +131,6 @@ class AuthLogin extends Component {
 
         let errorMessage = null;
         if(this.props.error){
-            console.log(this.props.error)
             errorMessage = (
                 <div>
                     <p>{this.props.error.data.message}</p>
@@ -141,32 +141,45 @@ class AuthLogin extends Component {
 
         let authRedirect = null;
         if(this.props.isAuth){
-            console.log(this.props.isAuth);
             authRedirect = (
                 <Redirect to = "/"/>
             )
         }
         return(
-            <div className={classes.Auth}>
-                {authRedirect}
-                {errorMessage}
-                <form onSubmit={this.signInHandler}>
-                    <h4>Login to your profile</h4>
-                            {form}
-                    <Button>Login</Button>
-                    <GoogleLogin
-                    clientId = "425023239014-r4iihe16i1nrgfuc31bub8vpgaglmhta.apps.googleusercontent.com"
-                    buttonText = "Login"
-                    onSuccess = {this.onGoogleResponseHandler}
-                    onFailure = {this.onGoogleResponseHandler}
-                    cookiePolicy = {'single_host_origin'}
-                    />
-                    <FacebookLogin
-                    appId="821806635388049"
-                    autoLoad = {false}
-                    fields = "name, email, picture"
-                    callback = {this.onFacebookResponseHandler}/>
-                </form>
+            <div className={classes.Container}>
+                <DogsBanner/>
+                <div className={classes.Auth}>
+                    {authRedirect}
+                    {errorMessage}
+                    <form onSubmit={this.signInHandler}>
+                        <h4>Login to your profile</h4>
+                                {form}
+                        <Col>
+                            <Button>Login</Button>
+                        </Col>
+                        <Row><p className={classes.Or}>or</p></Row>
+                        <Col>
+                            <GoogleLogin
+                            clientId = "425023239014-r4iihe16i1nrgfuc31bub8vpgaglmhta.apps.googleusercontent.com"
+                            buttonText = "&nbsp;&nbsp;Sign In with Google"
+                            className = {classes.BtnGoogle}
+                            onSuccess = {this.onGoogleResponseHandler}
+                            onFailure = {this.onGoogleResponseHandler}
+                            cookiePolicy = {'single_host_origin'}
+                            />
+                        </Col>
+                        <Col>
+                            <FacebookLogin
+                            appId="821806635388049"
+                            autoLoad = {false}
+                            fields = "name, email, picture"
+                            cssClass = {classes.BtnFacebook}
+                            textButton = "&nbsp;&nbsp;Sign In with Facebook" 
+                            callback = {this.onFacebookResponseHandler}
+                            icon={<i  style={{marginLeft:'5px'}}></i>}/>
+                        </Col>
+                    </form>
+                </div>
             </div>
         )
     }

@@ -1,15 +1,70 @@
 .Auth{
-    margin: 200px auto;
-    width: 80%;
+    margin: 120px auto;
+    display:block;
+    margin-right: auto;
+    margin-left: auto;
+    height: 65vh;
+    width: 100%;
+    background: #fff;
     text-align: center;
-    box-shadow: 0 2px 3px #ccc;
+    box-shadow: 0 2px 4px #ccc;
     border: 1px solid #eee;
     padding: 10px;
     box-sizing: border-box;
 }
 
+.Or{
+    color: #353535;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1px;
+}
+
+.Auth h4{
+    margin: 20px;
+}
+
+.Auth input{
+    width: 50%;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.Auth button{
+
+    width: 50%;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.BtnFacebook { 
+    width: 250px;
+    height:45px;  
+    border-radius: 4px;
+    background: #3b5998;
+    color:white;
+    border:0px transparent;  
+    text-align: center;
+    margin:5px;
+    display: inline-block;
+    font-size: 14px;
+  }
+
+.BtnGoogle{
+    height:45px;
+    border-radius: 4px;
+    background: #db3236;
+    color:white;
+    border:0px transparent;
+    text-align: center;
+    display: block;
+}
+
 @media (min-width: 600px){
     .Auth{
-        width: 500px;
+        width: 600px;
     }
 }

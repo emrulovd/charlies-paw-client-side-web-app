@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import {Container} from 'react-bootstrap';
+import classes from './Favourites.module.css';
 import DogsList from '../../../components/Dogs/DogsPanelControl/Dogs-list/Dogs-List';
 import * as actions from '../../../store/actions/index';
+
+import nothing from '../../../assets/nothing.png'
 
 class Favourites extends Component {
 
@@ -17,10 +21,20 @@ class Favourites extends Component {
         )
 
         return(
-            <div>
-                <h1>Favourites</h1>
-                {listOfFavourites}
-            </div>
+            <Container className={classes.Container} fluid>
+                <h3 className={classes.Title}>List of Favourites</h3>
+                <hr/>
+                <div className={classes.List}>
+                {  this.props.favDogs.length === 0 ? 
+                    <div className={classes.NoList}>
+                        <p> List of favourites is empty</p>
+                        <img className={classes.Nothing} src={nothing} alt=""/>
+                    </div>
+                    :    
+                    listOfFavourites
+                }
+                </div>
+            </Container>
         )
     }
 }

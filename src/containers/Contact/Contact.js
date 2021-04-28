@@ -124,7 +124,7 @@ class Contact extends Component {
         let form = formElementsArray.map((formElement, index) => {
             if(index === 0){
                 return(
-                    <Row>
+                    <Row key = {index}>
                         <Col>
                             <Input
                             key={formElement.id}

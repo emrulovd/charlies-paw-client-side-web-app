@@ -12,6 +12,7 @@ const adminDogsItems = (props) => {
     }
     return(
         <div className={classes.Container}>
+            <Button click={addDogHandler} >Add new dog</Button>
                 <div className={classes.Headers}>
                     <Row>
                         <Col sm={3}>Name:</Col>
@@ -40,7 +41,6 @@ const adminDogsItems = (props) => {
                     })
                 }
             </ListGroup>
-            <Button click={addDogHandler} >Add new dog</Button>
         </div>
     )
 }

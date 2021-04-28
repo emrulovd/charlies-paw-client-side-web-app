@@ -13,7 +13,7 @@ import classes from './DogsContainerInfo.module.css';
 const dogsContainerInfo = (props) => {
 
     const getChat = () => {
-        props.history.replace(`/profile/messages/chat?id=${props.userID}&dog=${props.dogName}`);
+        props.history.replace(`/profile/messages/chat-room?id=${props.userID}&dog=${props.dogName}`);
     }
 
     return(
@@ -26,7 +26,7 @@ const dogsContainerInfo = (props) => {
                     : null
                 }
                 <Row >
-                    <img src={props.image} alt="dog"/>
+                    <img src={`/uploads/${props.image}`} alt="dog"/>
                     <Col>
                         <DogsInfo
                         dogName = {props.dogName}

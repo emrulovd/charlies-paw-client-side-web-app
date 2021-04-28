@@ -47,12 +47,13 @@ class DogsPanel extends Component {
 
     handleFilterInput = (event) => {
         let newDogs = []
+        console.log(event.target.value);
         this.rangeInputHandler(event.target.value)
         if(event.target.checked !== false || this.state.rangeNotValid === false){
             if(this.state.searchedDogs.length === 0){
                 for(let index in this.props.dogs){
                     if(this.props.dogs[index].location === event.target.value
-                       || this.props.dogs[index].breed === event.target.value
+                       || this.props.dogs[index].breedSize === event.target.value
                        || parseInt(this.props.dogs[index].age.split('years').join('')) === parseInt(event.target.value)){
                         newDogs.push(this.props.dogs[index])
                     }

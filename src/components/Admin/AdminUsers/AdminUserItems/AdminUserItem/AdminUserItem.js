@@ -39,7 +39,9 @@ const adminUserItem = (props) => {
                                             changed = {(event) => props.roleInputHandler(event)}
                                         />
                                     </Col>
-                                    <Button>Update</Button>
+                                    <Col>
+                                        <Button>Update</Button>
+                                    </Col>
                                 </form>
                                 : 
                                 <Col>

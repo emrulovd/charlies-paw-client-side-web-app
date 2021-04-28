@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import DogsBanner from '../../../components/Dogs/DogsBanner/DogsBanner';
 import * as actions from '../../../store/actions/index';
 
 import classes from './AuthSignup.module.css'
@@ -190,14 +191,17 @@ class AuthSignup extends Component {
             authRedirect = <Redirect to="/"/>
         }
         return(
-            <div className={classes.Auth}> 
-                {authRedirect}
-                {errorMessage}
-                <form onSubmit={this.signUpHandler}>
-                    <h4>Create a profile</h4>
-                        {form}
-                    <Button disabled={!this.state.formIsValid}>SIGNUP</Button>
-                </form>
+            <div>
+                <DogsBanner/>
+                <div className={classes.Auth}> 
+                    {authRedirect}
+                    {errorMessage}
+                    <form onSubmit={this.signUpHandler}>
+                        <h4>Create a profile</h4>
+                            {form}
+                        <Button disabled={!this.state.formIsValid}>SIGNUP</Button>
+                    </form>
+                </div>
             </div>
         );
     };

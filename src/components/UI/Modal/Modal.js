@@ -1,4 +1,4 @@
-import React, {useState} from 'react'; 
+import React from 'react'; 
 
 import {Modal} from 'react-bootstrap';
 import Button from '../Button/Button';
@@ -12,7 +12,7 @@ const ModalUI = (props) => {
             onHide={props.onContinueHandler}
             keyboard={false}>
             <Modal.Header closeButton>
-                <Modal.Title>Modal title</Modal.Title>
+                <Modal.Title>Changes Successfully Made</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 {props.children}

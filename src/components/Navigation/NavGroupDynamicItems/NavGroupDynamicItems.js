@@ -1,13 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { connect } from 'react-redux';
 
 import NavGroupDynamicItem from './NavGroupDynamicItem/NavGroupDynamicItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faHeart, faPaw, faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { Dropdown } from 'react-bootstrap';
+import { faHeart, faPaw, faEnvelope} from '@fortawesome/free-solid-svg-icons'
+import { Dropdown, Badge } from 'react-bootstrap';
 import profile from '../../../assets/profile.png'
 import classes from './NavGroupDynamicItems.module.css';
 
-const navGroupDynamicItems = (props) => {
+const NavGroupDynamicItems = (props) => {
+    const [iconActive, setIconActive] = useState(false);
+
+    const changeIconColor = () => {
+        if(window.scrollY >=80){
+            setIconActive(true);
+        }else{
+            setIconActive(false);
+        }
+    }
+
+    window.addEventListener('scroll', changeIconColor);
+
     const dropdown = (
             <Dropdown >
                 <Dropdown.Toggle  split variant="transparent" id="dropdown-custom" />
@@ -22,8 +35,11 @@ const navGroupDynamicItems = (props) => {
             { props.isAuth ? 
                 <ul className={classes.NavigationItems}>
                      {/* <NavGroupDynamicItem link="/contact">Contact</NavGroupDynamicItem> */}
-                     <NavGroupDynamicItem link="/profile/unknown">
-                         <FontAwesomeIcon icon={faPaw}/>
+                     <NavGroupDynamicItem>
+                         <span className={!iconActive ? classes.PawIcon : classes.PawIconActive}>
+                             <FontAwesomeIcon icon={faPaw}  onClick = {props.getNotificationBlock}/>
+                             {props.status ? <Badge variant="secondary">New</Badge> : null}
+                        </span>
                      </NavGroupDynamicItem> 
                      <NavGroupDynamicItem link="/profile/favourites">
                          <FontAwesomeIcon icon={faHeart}/>
@@ -34,11 +50,7 @@ const navGroupDynamicItems = (props) => {
                      <NavGroupDynamicItem link="/profile">
                             <img src={profile} alt=""/>
                      </NavGroupDynamicItem>
-                     <NavGroupDynamicItem >
                          {dropdown}
-                     </NavGroupDynamicItem> 
-                   
-
                 </ul>
                 :
             <ul className={classes.NavigationItems}>
@@ -51,4 +63,10 @@ const navGroupDynamicItems = (props) => {
 }
 
 
-export default navGroupDynamicItems;
+const mapStateToProps = state => {
+    return{
+        status: state.dg.notification_status
+    }
+}
+
+export default connect(mapStateToProps)(NavGroupDynamicItems);

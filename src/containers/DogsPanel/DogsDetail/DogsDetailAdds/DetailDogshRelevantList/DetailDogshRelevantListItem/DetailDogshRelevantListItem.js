@@ -14,7 +14,7 @@ const DetailDogshRelevantListItem = (props) => {
     const mouseOver = (
         <div className={classes.OverMouse} 
         onMouseLeave = { () => setIsShown(false)} 
-        style={{backgroundImage: `url(${props.image})`}}>
+        style={{backgroundImage: `url(/uploads/${props.image})`}}>
             <section>
                 <Button onClick = {newDogDetails}>See More</Button>
             </section>
@@ -25,7 +25,7 @@ const DetailDogshRelevantListItem = (props) => {
            { isShown ? 
              mouseOver
             :
-            <img src={props.image} alt=''
+            <img src={`/uploads/${props.image}`} alt=''
             onMouseOver = {() => setIsShown(true)}/>
         }
         </div>
