@@ -160,7 +160,7 @@ class AuthLogin extends Component {
                         <Row><p className={classes.Or}>or</p></Row>
                         <Col>
                             <GoogleLogin
-                            clientId = "425023239014-r4iihe16i1nrgfuc31bub8vpgaglmhta.apps.googleusercontent.com"
+                            clientId = {process.env.REACT_APP_GOOGLE_AUTH_KEY}
                             buttonText = "&nbsp;&nbsp;Sign In with Google"
                             className = {classes.BtnGoogle}
                             onSuccess = {this.onGoogleResponseHandler}
@@ -170,7 +170,7 @@ class AuthLogin extends Component {
                         </Col>
                         <Col>
                             <FacebookLogin
-                            appId="821806635388049"
+                            appId= {process.env.REACT_APP_FACEBOOK_KEY}
                             autoLoad = {false}
                             fields = "name, email, picture"
                             cssClass = {classes.BtnFacebook}

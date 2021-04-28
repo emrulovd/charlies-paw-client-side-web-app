@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 
 import Favouirites from '../../containers/User/Favourites/Favourites';
-import Notifications from '../Notifications/NotificationsList';
 import Profile from '../../containers/User/Profile/Profile';
 import ProfileBanner from '../Profile/ProfileBanner/ProfileBanner';
 import ProfileController from './ProfileControllers/ProfileControllers';

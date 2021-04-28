@@ -7,7 +7,6 @@ import AdminSidebar from '../../components/Navigation/AdminSidebar/AdminSidebar'
 import AdminUsers from '../../components/Admin/AdminUsers/AdminUsers';
 import AdminDogs from '../../components/Admin/AdminDogs/AdminDogs';
 import AdminDashboard from '../../components/Admin/AdminDashboard/AdminDashboard';
-import AdminChats from '../../components/Admin/AdminChats/AdminChats';
 import DogsEdit from '../DogsPanel/Dogs-edit/Dogs-Edit';
 import * as actions from '../../store/actions/index';
 import Chat from '../ChatContainer/Chat/Chat';
@@ -83,7 +82,6 @@ class AdminPanel extends Component {
     }
 
     render(){
-        const userID = localStorage.getItem('userID');
         return(
           <Container fluid>
               <Row>
