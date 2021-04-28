@@ -27,7 +27,7 @@ class Favourites extends Component {
                 <div className={classes.List}>
                 {  this.props.favDogs.length === 0 ? 
                     <div className={classes.NoList}>
-                        <p> List of favourites empty</p>
+                        <p> List of favourites is empty</p>
                         <img className={classes.Nothing} src={nothing} alt=""/>
                     </div>
                     :    
